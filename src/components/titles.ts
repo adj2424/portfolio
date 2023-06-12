@@ -36,7 +36,7 @@ export default class Titles {
 		}
 	}
 
-	static tick = delta => {
+	static tick = (delta: number) => {
 		this.topTextGroup.children.map(e => {
 			if (e.position.x < -90) {
 				e.position.x = 45;

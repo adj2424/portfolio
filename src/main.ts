@@ -1,20 +1,24 @@
 import './style.css';
 import * as THREE from 'three';
-import { FontLoader } from 'three/examples/jsm/loaders/FontLoader.js';
-import { TextGeometry } from 'three/examples/jsm/geometries/TextGeometry.js';
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
-
 import Titles from './components/titles.js';
+//import { FontLoader } from 'three/examples/jsm/loaders/FontLoader.js';
+//import { TextGeometry } from 'three/examples/jsm/geometries/TextGeometry.js';
+//import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+
+//import Titles from './components/titles.js';
 
 // all child objects where it will be animated through tick method
-const updatables = [];
+const updatables: any[] = [];
 
 /**
  * World
  */
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-const renderer = new THREE.WebGLRenderer({ canvas: document.querySelector('#bg'), antialias: true });
+const renderer = new THREE.WebGLRenderer({
+	canvas: document.querySelector('#bg')!,
+	antialias: true
+});
 renderer.setPixelRatio(window.devicePixelRatio);
 renderer.setSize(window.innerWidth, window.innerHeight);
 camera.position.setZ(10);
@@ -52,7 +56,7 @@ const geo = new THREE.TorusGeometry(10, 3, 16, 100);
 const material = new THREE.MeshBasicMaterial({ color: 0xff6347, wireframe: true });
 const torus = new THREE.Mesh(geo, material);
 updatables.push(torus);
-torus.tick = delta => {
+(torus as any).tick = (delta: number) => {
 	torus.rotation.x += 1 * delta;
 };
 //scene.add(torus);
@@ -110,7 +114,7 @@ scene.add(croppedPfp);
  * animates objects with animations
  * @param delta consistency of animation
  */
-function tick(delta) {
+function tick(delta: number) {
 	for (const obj of updatables) {
 		obj.tick(delta);
 	}
