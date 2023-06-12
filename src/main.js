@@ -4,6 +4,8 @@ import { FontLoader } from 'three/examples/jsm/loaders/FontLoader.js';
 import { TextGeometry } from 'three/examples/jsm/geometries/TextGeometry.js';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
+import Titles from './components/titles.js';
+
 // all child objects where it will be animated through tick method
 const updatables = [];
 
@@ -54,26 +56,9 @@ torus.tick = delta => {
 	torus.rotation.x += 1 * delta;
 };
 //scene.add(torus);
-
-//let txt = new THREE.Mesh();
-const fontLoader = new FontLoader();
-const font = await fontLoader.loadAsync('/fonts/Hanken_Grotesk_Light_Regular.json');
-
-// name
-const textGeometry = new TextGeometry('SOFTWARE ENGINEER   SOFTWARE ENGINEER   ', {
-	font: font,
-	size: 3,
-	height: 0.0
-});
-
-const topText = new THREE.Mesh(
-	textGeometry,
-	new THREE.MeshBasicMaterial({
-		color: 0x2d3033
-	})
-);
-scene.add(topText);
-topText.position.set(-2, 4, -5);
+await Titles.init();
+scene.add(Titles.topTextGroup);
+updatables.push(Titles);
 
 const croppedPfp = new THREE.Group();
 
@@ -83,9 +68,6 @@ let h = 0;
 const pfpTexture = new THREE.TextureLoader().load('/pfp.jpg', texture => {
 	w = texture.image.width;
 	h = texture.image.height;
-	//pfpMesh.scale.x = 2;
-	//pfpMesh.scale.y = 3;
-	console.log(w, h);
 });
 pfpTexture.colorSpace = THREE.SRGBColorSpace;
 const pfpMesh = new THREE.Mesh(
