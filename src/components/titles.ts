@@ -1,15 +1,17 @@
 import * as THREE from 'three';
 import { FontLoader } from 'three/examples/jsm/loaders/FontLoader.js';
 import { TextGeometry } from 'three/examples/jsm/geometries/TextGeometry.js';
+import { TTFLoader } from 'three/examples/jsm/loaders/TTFLoader';
 
 export default class Titles {
 	static topTextGroup = new THREE.Group();
 	static botTextGroup = new THREE.Group();
 	constructor() {}
 	static async init() {
-		//let txt = new THREE.Mesh();
 		const fontLoader = new FontLoader();
-		const font = await fontLoader.loadAsync('/fonts/Hanken_Grotesk_Light_Regular.json');
+		const loader = new TTFLoader();
+		const ttf = await loader.loadAsync('/fonts/HankenGrotesk-Light.ttf');
+		const font = fontLoader.parse(ttf);
 		// create top text
 		let words = ['SOFTWARE ENGINEER', 'SOFTWARE ENGINEER', 'SOFTWARE ENGINEER'];
 		let coords = [
