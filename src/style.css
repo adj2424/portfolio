@@ -7,6 +7,7 @@ canvas {
 body {
 	font-family: 'Hanken Grotesk', sans-serif;
 	color: #2d3033;
+	//user-select: none;
 }
 
 .page {
@@ -19,10 +20,11 @@ body {
 	top: 1%;
 }
 .about-container {
+	background-color: aqua;
 	position: fixed;
-	right: 50%;
 	top: 20vh;
 	margin-left: 20vh;
+	margin-right: 45%;
 }
 
 .about-hello {
@@ -38,6 +40,18 @@ body {
 
 .line-wrapper {
 	overflow: hidden;
+}
+
+.project-container {
+	background-color: pink;
+	position: fixed;
+	left: 50%;
+	bottom: 6%;
+	transform: translateX(-50%);
+}
+
+.project-name {
+	text-align: center;
 }
 
 #animate {

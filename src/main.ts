@@ -1,6 +1,8 @@
 import './style.css';
 import * as THREE from 'three';
+import { DragControls } from 'three/examples/jsm/controls/DragControls.js';
 import { gsap } from 'gsap';
+
 import { ScrollTrigger } from 'gsap/all';
 import SplitType from 'split-type';
 
@@ -67,7 +69,7 @@ updatables.push(torus);
 	//torus.rotation.x += 1 * delta;
 };
 torus.position.set(0, -60, -8);
-scene.add(torus);
+//scene.add(torus);
 
 /**
  * Initialize meshes
@@ -87,6 +89,35 @@ scene.add(Portrait.borderPfpMesh);
 
 await Projects.init();
 scene.add(Projects.projectText);
+scene.add(Projects.projects);
+
+const draggables: any[] = [];
+// add all children of projects group to draggables
+Projects.projects.children.map(e => {
+	draggables.push(e);
+});
+draggables.push(Projects.projects);
+
+const dragControls = new DragControls([Projects.projects], camera, renderer.domElement);
+
+// this allows for multiple objects to be dragged
+dragControls.transformGroup = true;
+dragControls.addEventListener('dragstart', e => {});
+
+dragControls.addEventListener('drag', e => {
+	const item = -Math.round(Number(e.object.position.x) / 28) % 4;
+	console.log(-e.object.position.x.toFixed(0), item);
+	e.object.position.y = 0;
+	e.object.position.z = 1;
+	// left bounds
+	if (e.object.position.x < -112) {
+		e.object.position.set(e.object.position.x + 112, 0, 1);
+	}
+	// right bounds
+	if (e.object.position.x > 0) {
+		e.object.position.set(e.object.position.x - 112, 0, 1);
+	}
+});
 
 /**
  * animates objects with animations
@@ -117,7 +148,7 @@ let topTextGroupParam = { x: 0, y: 0, z: 0 };
 let botTextGroupParam = { x: 0, y: 0, z: 0 };
 let botTextGroupScaleParam = { x: 1, y: 1, z: 1 };
 
-let projectTextParam = { x: -36, y: -38, z: -8 };
+let projectTextParam = { x: -36, y: -40, z: -8 };
 let projectTextScaleParam = { x: 1, y: 1, z: 1 };
 
 /**
@@ -173,7 +204,7 @@ gsap.fromTo(
 		scrollTrigger: {
 			trigger: '.about-container',
 			start: '210% center',
-			end: '340% 0%',
+			end: '300% 0%',
 			markers: true,
 			toggleActions: 'play reverse play reverse'
 		},
@@ -191,13 +222,13 @@ gsap.fromTo(
 		scrollTrigger: {
 			trigger: '.about-container',
 			start: '210% center',
-			end: '340% 0%',
+			end: '300% 0%',
 			markers: true,
 			toggleActions: 'play reverse play reverse'
 		},
 		y: 0,
-		stagger: 0.15,
-		duration: 0.4
+		stagger: 0.1,
+		duration: 0.2
 	}
 );
 
@@ -236,15 +267,18 @@ timeline
 	.to(borderPfpScaleParam, { x: 0, y: 0, z: 0, duration: 0.5 }, 16)
 
 	// move camera to project text
-	.to(cameraParam, { x: 0, y: -31, z: 10, duration: 17 }, 18)
+	.to(cameraParam, { x: 0, y: -30, z: 10, duration: 20 }, 18)
+
+	// move about text out of screen
+	.to('.about-container', { xPercent: -150, duration: 5 }, 35)
 
 	// shrink project text
-	.to(cameraParam, { x: 0, y: -31, z: 10, duration: 8 }, 36)
-	.to(projectTextParam, { x: -18, y: -35, z: -8, duration: 8 }, 36)
-	.to(projectTextScaleParam, { x: 0.5, y: 0.5, z: 0.5, duration: 8 }, 36)
+	.to(cameraParam, { x: 0, y: -30, z: 10, duration: 8 }, 40)
+	.to(projectTextParam, { x: -18, y: -34, z: -8, duration: 8 }, 40)
+	.to(projectTextScaleParam, { x: 0.5, y: 0.5, z: 0.5, duration: 8 }, 40)
 
 	// move camera to project showcase
-	.to(cameraParam, { x: 0, y: -60, z: 10, duration: 20 }, 45)
+	.to(cameraParam, { x: 0, y: -60, z: 10, duration: 20 }, 50)
 
 	// to make start time a percentage out of 100 from total duration
 	.to({}, {}, 100);

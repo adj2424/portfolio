@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 import { FontLoader } from 'three/examples/jsm/loaders/FontLoader.js';
 import { TextGeometry } from 'three/examples/jsm/geometries/TextGeometry.js';
-import { TTFLoader } from 'three/examples/jsm/loaders/TTFLoader';
+import { TTFLoader } from 'three/examples/jsm/loaders/TTFLoader.js';
 
 export default class Titles {
 	static topTextGroup = new THREE.Group();
