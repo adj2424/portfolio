@@ -52,6 +52,11 @@ body {
 
 .project-name {
 	text-align: center;
+	overflow: hidden;
+}
+
+.project-desc {
+	overflow: hidden;
 }
 
 #animate {

@@ -91,34 +91,6 @@ await Projects.init();
 scene.add(Projects.projectText);
 scene.add(Projects.projects);
 
-const draggables: any[] = [];
-// add all children of projects group to draggables
-Projects.projects.children.map(e => {
-	draggables.push(e);
-});
-draggables.push(Projects.projects);
-
-const dragControls = new DragControls([Projects.projects], camera, renderer.domElement);
-
-// this allows for multiple objects to be dragged
-dragControls.transformGroup = true;
-dragControls.addEventListener('dragstart', e => {});
-
-dragControls.addEventListener('drag', e => {
-	const item = -Math.round(Number(e.object.position.x) / 28) % 4;
-	console.log(-e.object.position.x.toFixed(0), item);
-	e.object.position.y = 0;
-	e.object.position.z = 1;
-	// left bounds
-	if (e.object.position.x < -112) {
-		e.object.position.set(e.object.position.x + 112, 0, 1);
-	}
-	// right bounds
-	if (e.object.position.x > 0) {
-		e.object.position.set(e.object.position.x - 112, 0, 1);
-	}
-});
-
 /**
  * animates objects with animations
  * @param delta consistency of animation
@@ -181,64 +153,153 @@ function animate() {
 }
 renderer.setAnimationLoop(animate);
 
-const hello = new SplitType('.about-hello');
-const text = new SplitType('.about-text', { types: 'lines' });
-const lines = document.querySelectorAll('.about-text .line');
-lines.forEach(line => {
-	const wrapper = document.createElement('div');
-	wrapper.classList.add('line-wrapper');
-	line.parentNode!.insertBefore(wrapper, line);
-	wrapper.appendChild(line);
-});
+const aboutHello = new SplitType('.about-hello');
+const aboutText = new SplitType('.about-text', { types: 'lines' });
+const aboutLines = document.querySelectorAll('.about-text .line');
+
+const projectName = new SplitType('.project-name');
+const projectDesc = new SplitType('.project-desc');
+//const projectNameLines = document.querySelectorAll('.project-name .line');
+
+createLineWrapper(aboutLines);
+//createLineWrapper(projectNameLines);
+// wrap lines with div fsr to make line stagger work idk
+function createLineWrapper(lines: NodeListOf<Element>) {
+	lines.forEach(line => {
+		const wrapper = document.createElement('div');
+		wrapper.classList.add('line-wrapper');
+		line.parentNode!.insertBefore(wrapper, line);
+		wrapper.appendChild(line);
+	});
+}
 
 gsap.registerPlugin(ScrollTrigger);
 /**
  * scroll animation by toggle
  */
+// about
 gsap.fromTo(
-	hello.chars,
+	aboutHello.chars,
 	{
-		y: 300
+		yPercent: 300
 	},
 	{
 		scrollTrigger: {
 			trigger: '.about-container',
 			start: '210% center',
 			end: '300% 0%',
-			markers: true,
+			//markers: true,
 			toggleActions: 'play reverse play reverse'
 		},
-		y: 0,
+		yPercent: 0,
 		stagger: 0.1,
 		duration: 0.4
 	}
 );
 gsap.fromTo(
-	text.lines,
+	aboutText.lines,
 	{
-		y: 50
+		yPercent: 100
 	},
 	{
 		scrollTrigger: {
 			trigger: '.about-container',
 			start: '210% center',
 			end: '300% 0%',
-			markers: true,
+			//markers: true,
 			toggleActions: 'play reverse play reverse'
 		},
-		y: 0,
+		yPercent: 0,
 		stagger: 0.1,
 		duration: 0.2
 	}
 );
 
+/**
+ * Drag controls for projects
+ */
+const dragControls = new DragControls([Projects.projects], camera, renderer.domElement);
+// this allows for multiple objects to be dragged
+dragControls.transformGroup = true;
+dragControls.addEventListener('dragstart', e => {});
+
+let previousItem = 0;
+dragControls.addEventListener('drag', e => {
+	const item = -Math.round(Number(e.object.position.x) / 28) % 4;
+	// not equal means that the item has changed
+	if (item != previousItem) {
+		previousItem = item;
+		gsap
+			.timeline()
+			.fromTo(
+				projectName.lines,
+				{
+					yPercent: 0
+				},
+				{
+					yPercent: -100,
+					duration: 0.3
+				}
+			)
+			.fromTo(
+				projectName.lines,
+				{
+					yPercent: 100
+				},
+				{
+					yPercent: 0,
+					duration: 0.3
+				}
+			);
+		gsap
+			.timeline()
+			.fromTo(
+				projectDesc.lines,
+				{
+					yPercent: 0
+				},
+				{
+					yPercent: -100,
+					duration: 0.3
+				}
+			)
+			.fromTo(
+				projectDesc.lines,
+				{
+					yPercent: 100
+				},
+				{
+					yPercent: 0,
+					duration: 0.3
+				}
+			);
+
+		gsap;
+	}
+	console.log(-e.object.position.x.toFixed(0), item);
+	e.object.position.y = 0;
+	e.object.position.z = 1;
+	// left bounds
+	if (e.object.position.x < -112) {
+		e.object.position.set(e.object.position.x + 112, 0, 1);
+	}
+	// right bounds
+	if (e.object.position.x > 0) {
+		e.object.position.set(e.object.position.x - 112, 0, 1);
+	}
+});
+
+/**
+ * https://tympanus.net/codrops/2022/12/13/how-to-code-an-on-scroll-folding-3d-cardboard-box-animation-with-three-js-and-gsap/
+ * Animation timeline by scrolling
+ */
 const timeline = gsap.timeline({
 	scrollTrigger: {
 		trigger: '.page',
 		start: '0% 0%',
 		end: '100% 100%',
-		scrub: 1,
-		markers: true
+		scrub: 1
+		//markers: true
 	}
 });
 
@@ -281,4 +342,6 @@ timeline
 	.to(cameraParam, { x: 0, y: -60, z: 10, duration: 20 }, 50)
 
 	// to make start time a percentage out of 100 from total duration
+	// start time + duration cannot be greater than 100 or it will change timeline
 	.to({}, {}, 100);
+
