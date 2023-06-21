@@ -2,6 +2,7 @@ import './style.css';
 import * as THREE from 'three';
 import { DragControls } from 'three/examples/jsm/controls/DragControls.js';
 import { gsap } from 'gsap';
+import { TextPlugin } from 'gsap/TextPlugin';
 
 import { ScrollTrigger } from 'gsap/all';
 import SplitType from 'split-type';
@@ -157,8 +158,8 @@ const aboutHello = new SplitType('.about-hello');
 const aboutText = new SplitType('.about-text', { types: 'lines' });
 const aboutLines = document.querySelectorAll('.about-text .line');
 
-const projectName = new SplitType('.project-name');
-const projectDesc = new SplitType('.project-desc');
+let projectName = new SplitType('.project-name');
+let projectDesc = new SplitType('.project-desc');
 //const projectNameLines = document.querySelectorAll('.project-name .line');
 
 createLineWrapper(aboutLines);
@@ -173,7 +174,7 @@ function createLineWrapper(lines: NodeListOf<Element>) {
 	});
 }
 
-gsap.registerPlugin(ScrollTrigger);
+gsap.registerPlugin(ScrollTrigger, TextPlugin);
 /**
  * scroll animation by toggle
  */
@@ -221,71 +222,95 @@ gsap.fromTo(
 const dragControls = new DragControls([Projects.projects], camera, renderer.domElement);
 // this allows for multiple objects to be dragged
 dragControls.transformGroup = true;
-dragControls.addEventListener('dragstart', e => {});
 
 let previousItem = 0;
+const projectInfo: any = Projects.projectInfo;
+const itemCount = projectInfo.length;
+const offset = itemCount * 28;
+dragControls.addEventListener('dragstart', () => {
+	const startTime = new Date();
+	window.addEventListener('mouseup', () => {
+		const endTime = new Date();
+		const duration = endTime.getTime() - startTime.getTime();
+		console.log('duration', duration);
+		if (duration < 110) {
+			window.open(projectInfo[previousItem].url);
+		}
+	});
+});
 dragControls.addEventListener('drag', e => {
 	const item = -Math.round(Number(e.object.position.x) / 28) % 4;
 	// not equal means that the item has changed
 	if (item != previousItem) {
 		previousItem = item;
-		gsap
-			.timeline()
-			.fromTo(
-				projectName.lines,
-				{
-					yPercent: 0
-				},
-				{
-					yPercent: -100,
-					duration: 0.3
+		gsap.fromTo(
+			projectName.lines,
+			{
+				yPercent: 0
+			},
+			{
+				yPercent: -100,
+				duration: 0.3,
+				// plays other animation after this one is done
+				onComplete: () => {
+					// split type is weird so we have to revert it and then change text
+					projectName.revert();
+					let element = document.querySelector('.project-name') as HTMLElement;
+					element!.textContent = projectInfo[item].titles.toUpperCase();
+					// recreate split type with updated text
+					projectName = new SplitType('.project-name');
+					gsap.fromTo(
+						projectName.lines,
+						{
+							yPercent: 100
+						},
+						{
+							yPercent: 0,
+							duration: 0.3
+						}
+					);
 				}
-			)
-			.fromTo(
-				projectName.lines,
-				{
-					yPercent: 100
-				},
-				{
-					yPercent: 0,
-					duration: 0.3
-				}
-			);
-		gsap
-			.timeline()
-			.fromTo(
-				projectDesc.lines,
-				{
-					yPercent: 0
-				},
-				{
-					yPercent: -100,
-					duration: 0.3
-				}
-			)
-			.fromTo(
-				projectDesc.lines,
-				{
-					yPercent: 100
-				},
-				{
-					yPercent: 0,
-					duration: 0.3
-				}
-			);
+			}
+		);
 
-		gsap;
+		gsap.fromTo(
+			projectDesc.lines,
+			{
+				yPercent: 0
+			},
+			{
+				yPercent: -100,
+				duration: 0.3,
+				onComplete: () => {
+					projectDesc.revert();
+					const e = document.querySelector('.project-desc') as HTMLElement;
+					e!.textContent = projectInfo[item].descriptions;
+					projectDesc = new SplitType('.project-desc');
+					gsap.fromTo(
+						projectDesc.lines,
+						{
+							yPercent: 100
+						},
+						{
+							yPercent: 0,
+							duration: 0.3
+						}
+					);
+				}
+			}
+		);
 	}
-	console.log(-e.object.position.x.toFixed(0), item);
+	//console.log(-e.object.position.x.toFixed(0), item);
+	// same as group position except x
 	e.object.position.y = 0;
 	e.object.position.z = 1;
 	// left bounds
-	if (e.object.position.x < -112) {
-		e.object.position.set(e.object.position.x + 112, 0, 1);
+	if (e.object.position.x < -offset) {
+		e.object.position.set(e.object.position.x + offset, 0, 1);
 	}
 	// right bounds
 	if (e.object.position.x > 0) {
-		e.object.position.set(e.object.position.x - 112, 0, 1);
+		e.object.position.set(e.object.position.x - offset, 0, 1);
 	}
 });
 
@@ -338,8 +363,10 @@ timeline
 	.to(projectTextParam, { x: -18, y: -34, z: -8, duration: 8 }, 40)
 	.to(projectTextScaleParam, { x: 0.5, y: 0.5, z: 0.5, duration: 8 }, 40)
 
-	// move camera to project showcase
-	.to(cameraParam, { x: 0, y: -60, z: 10, duration: 20 }, 50)
+	// move camera to project showcase to expertise
+	.to(cameraParam, { x: 0, y: -85, z: 10, duration: 30 }, 50)
+	// move project desc with screen
+	.fromTo('.project-container', { yPercent: 280 }, { yPercent: -880, duration: 23 }, 56)
 
 	// to make start time a percentage out of 100 from total duration
 	// start time + duration cannot be greater than 100 or it will change timeline
