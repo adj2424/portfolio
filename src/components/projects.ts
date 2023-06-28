@@ -23,33 +23,32 @@ export default class Projects {
 		const projectText = new THREE.Mesh(
 			textGeometry,
 			new THREE.MeshBasicMaterial({
-				color: 0x2d3033
+				color: 0x0a0908
 			})
 		);
 		this.projectText = projectText;
 
-		const colors = [0xff6347, 0xffff00, 0x196f3d, 0x0000ff];
 		const pictureURLs = ['66.png', '1141549 Cropped.png', 'music Cropped.png', 'powow.png'];
-
+		// 3rd item is the center displayed project
 		const projectInfo = [
 			{
 				titles: 'NFT Minter',
-				descriptions: 'Web3, Blockchain, Solidity, Hardhat, IPFS',
+				descriptions: 'Web3/Blockchain/Solidity/Hardhat/IPFS',
 				url: 'https://nft-minter-polygon.vercel.app/'
 			},
 			{
 				titles: 'AI Trading Bot',
-				descriptions: 'API, Google Cloud Platform, ChatGPT, Alpaca, TypeScript',
+				descriptions: 'API/Google Cloud Platform/ChatGPT/Alpaca/TypeScript',
 				url: 'https://algosus.vercel.app/'
 			},
 			{
 				titles: 'Music Portfolio',
-				descriptions: 'Three.js, GSAP, TypeScript',
+				descriptions: 'Three.js/GSAP/TypeScript',
 				url: 'https://music-profile-three.vercel.app/'
 			},
 			{
 				titles: 'POWOW',
-				descriptions: 'MongoDB, Express, React, Node.js',
+				descriptions: 'MongoDB/Express/React/Node.js',
 				url: 'https://github.com/adj2424/video-chat-website'
 			}
 		];

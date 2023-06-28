@@ -26,12 +26,7 @@ export default class Titles {
 				height: 0.0
 			});
 
-			const topText = new THREE.Mesh(
-				textGeometry,
-				new THREE.MeshBasicMaterial({
-					color: 0x2d3033
-				})
-			);
+			const topText = new THREE.Mesh(textGeometry, new THREE.MeshBasicMaterial({ color: 0x0a0908 }));
 			const [x, y, z] = coords[i];
 			topText.position.set(x, y, z);
 			this.topTextGroup.add(topText);
@@ -53,7 +48,7 @@ export default class Titles {
 			const botText = new THREE.Mesh(
 				textGeometry,
 				new THREE.MeshBasicMaterial({
-					color: 0x2d3033
+					color: 0x0a0908
 				})
 			);
 			const [x, y, z] = coords[i];

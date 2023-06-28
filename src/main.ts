@@ -10,6 +10,7 @@ import SplitType from 'split-type';
 import Titles from './components/titles.ts';
 import Portrait from './components/portrait.ts';
 import Projects from './components/projects.ts';
+import Technologies from './components/technologies.ts';
 
 //import { FontLoader } from 'three/examples/jsm/loaders/FontLoader.js';
 //import { TextGeometry } from 'three/examples/jsm/geometries/TextGeometry.js';
@@ -37,7 +38,7 @@ camera.position.setZ(10);
  * Background
  */
 //https://coolors.co/palette/f8f9fa-e9ecef-dee2e6-ced4da-adb5bd-6c757d-495057-343a40-212529
-scene.background = new THREE.Color(0xe8e8e4);
+scene.background = new THREE.Color(0xe8e8e4).convertLinearToSRGB(); //0xe8e8e4);
 
 /**
  * Light Source
@@ -92,6 +93,11 @@ await Projects.init();
 scene.add(Projects.projectText);
 scene.add(Projects.projects);
 
+await Technologies.init();
+scene.add(Technologies.left1);
+scene.add(Technologies.left2);
+scene.add(Technologies.right);
+
 /**
  * animates objects with animations
  * @param delta consistency of animation
@@ -107,6 +113,7 @@ function tick(delta: number) {
  */
 
 let cameraParam = { x: 0, y: 0, z: 10 };
+let bgColorParam = { r: 232 / 255, g: 232 / 255, b: 228 / 255 };
 
 let pfpParam = { x: -12, y: -6, z: -8 };
 let pfpParamScale = { x: 8, y: 8, z: 8 };
@@ -123,6 +130,13 @@ let botTextGroupScaleParam = { x: 1, y: 1, z: 1 };
 
 let projectTextParam = { x: -36, y: -40, z: -8 };
 let projectTextScaleParam = { x: 1, y: 1, z: 1 };
+//let projectDraggableParam = { x: 0, y: 0, z: 1 };
+
+let techLeft1Param = { x: -35, y: -80, z: -5 };
+let techLeft2Param = { x: -70, y: -85, z: -5 };
+let techRightParam = { x: 10, y: -90, z: -5 };
+let techL2ColorParam = { r: 10 / 255, g: 9 / 255, b: 8 / 255 };
+let techL2ScaleParam = { x: 1, y: 1, z: 1 };
 
 /**
  * Animate
@@ -133,6 +147,7 @@ function animate() {
 	tick(delta);
 	//controls.update();
 	camera.position.set(cameraParam.x, cameraParam.y, cameraParam.z);
+	scene.background = new THREE.Color(bgColorParam.r, bgColorParam.g, bgColorParam.b).convertSRGBToLinear();
 
 	Portrait.pfpMesh.position.set(pfpParam.x, pfpParam.y, pfpParam.z);
 	Portrait.pfpMesh.scale.set(pfpParamScale.x, pfpParamScale.y, pfpParamScale.z);
@@ -149,6 +164,17 @@ function animate() {
 
 	Projects.projectText.position.set(projectTextParam.x, projectTextParam.y, projectTextParam.z);
 	Projects.projectText.scale.set(projectTextScaleParam.x, projectTextScaleParam.y, projectTextScaleParam.z);
+	//Projects.projects.position.set(projectDraggableParam.x, projectDraggableParam.y, projectDraggableParam.z);
+
+	Technologies.left1.position.set(techLeft1Param.x, techLeft1Param.y, techLeft1Param.z);
+	Technologies.right.position.set(techRightParam.x, techRightParam.y, techRightParam.z);
+	Technologies.left2.position.set(techLeft2Param.x, techLeft2Param.y, techLeft2Param.z);
+	(Technologies.left2.material as THREE.MeshBasicMaterial).color = new THREE.Color(
+		techL2ColorParam.r,
+		techL2ColorParam.g,
+		techL2ColorParam.b
+	).convertSRGBToLinear();
+	Technologies.left2.scale.set(techL2ScaleParam.x, techL2ScaleParam.y, techL2ScaleParam.z);
 
 	renderer.render(scene, camera);
 }
@@ -259,6 +285,7 @@ dragControls.addEventListener('drag', e => {
 					element!.textContent = projectInfo[item].titles.toUpperCase();
 					// recreate split type with updated text
 					projectName = new SplitType('.project-name');
+					// plays animation with updated text
 					gsap.fromTo(
 						projectName.lines,
 						{
@@ -300,7 +327,6 @@ dragControls.addEventListener('drag', e => {
 			}
 		);
 	}
-	//console.log(-e.object.position.x.toFixed(0), item);
 	// same as group position except x
 	e.object.position.y = 0;
 	e.object.position.z = 1;
@@ -364,11 +390,22 @@ timeline
 	.to(projectTextScaleParam, { x: 0.5, y: 0.5, z: 0.5, duration: 8 }, 40)
 
 	// move camera to project showcase to expertise
-	.to(cameraParam, { x: 0, y: -85, z: 10, duration: 30 }, 50)
+	.to(cameraParam, { x: 0, y: -85, z: 10, duration: 40 }, 50)
+
 	// move project desc with screen
 	.fromTo('.project-container', { yPercent: 280 }, { yPercent: -880, duration: 23 }, 56)
+	//.to(projectDraggableParam, { x: 0, y: 10, z: 1, duration: 15 }, 63.5)
 
-	// to make start time a percentage out of 100 from total duration
-	// start time + duration cannot be greater than 100 or it will change timeline
-	.to({}, {}, 100);
+	// move technologies text
+
+	.to(techLeft1Param, { x: -12, duration: 60 }, 60)
+	.to(techLeft2Param, { x: -14, duration: 30 }, 60)
+	.to(techRightParam, { x: -30, duration: 40 }, 70)
+
+	.to(techL2ColorParam, { r: 232 / 255, g: 232 / 255, b: 228 / 255, duration: 5 }, 85)
+	.to(bgColorParam, { r: 10 / 255, g: 9 / 255, b: 8 / 255, duration: 5 }, 85)
+
+	// to make start time a percentage out of 110 from total duration
+	// start time + duration cannot be greater than 110 or it will change timeline
+	.to({}, {}, 110);
 
