@@ -60,7 +60,14 @@ body {
 	overflow: hidden;
 }
 
-#animate {
+.technologies-container {
+	background-color: pink;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
 	position: fixed;
-	text-align: end;
+	bottom: 0;
+	left: 0;
+	width: 20%;
+	height: 100%;
 }

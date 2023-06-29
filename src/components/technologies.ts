@@ -45,5 +45,9 @@ export default class Technologies {
 				this.right = text;
 			}
 		}
+
+		//nextjs, react, threejs, ts, tailwind front end
+		//java, python, express, mongodb, google cloud platform backend
+		//solidity, hardhat, etherjs, metamask, ipfs
 	}
 }

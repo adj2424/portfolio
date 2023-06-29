@@ -38,7 +38,7 @@ camera.position.setZ(10);
  * Background
  */
 //https://coolors.co/palette/f8f9fa-e9ecef-dee2e6-ced4da-adb5bd-6c757d-495057-343a40-212529
-scene.background = new THREE.Color(0xe8e8e4).convertLinearToSRGB(); //0xe8e8e4);
+scene.background = new THREE.Color(0xe8e8e4).convertSRGBToLinear();
 
 /**
  * Light Source
@@ -396,16 +396,18 @@ timeline
 	.fromTo('.project-container', { yPercent: 280 }, { yPercent: -880, duration: 23 }, 56)
 	//.to(projectDraggableParam, { x: 0, y: 10, z: 1, duration: 15 }, 63.5)
 
-	// move technologies text
-
+	// transition to technologies showcase
 	.to(techLeft1Param, { x: -12, duration: 60 }, 60)
 	.to(techLeft2Param, { x: -14, duration: 30 }, 60)
 	.to(techRightParam, { x: -30, duration: 40 }, 70)
-
 	.to(techL2ColorParam, { r: 232 / 255, g: 232 / 255, b: 228 / 255, duration: 5 }, 85)
 	.to(bgColorParam, { r: 10 / 255, g: 9 / 255, b: 8 / 255, duration: 5 }, 85)
+
+	.to(techL2ScaleParam, { x: 0.6, y: 0.6, z: 0.6, duration: 15 }, 93)
+	.to(techLeft2Param, { x: 0.5, y: -95, z: -5, duration: 15 }, 93)
 
 	// to make start time a percentage out of 110 from total duration
 	// start time + duration cannot be greater than 110 or it will change timeline
 	.to({}, {}, 110);
+// it was 100% at 1200vh
 
