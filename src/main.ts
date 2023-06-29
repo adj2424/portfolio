@@ -68,8 +68,7 @@ const material = new THREE.MeshBasicMaterial({ color: 0xff6347, wireframe: true 
 const torus = new THREE.Mesh(geo, material);
 updatables.push(torus);
 (torus as any).tick = (delta: number) => {
-	console.log(delta);
-	//torus.rotation.x += 1 * delta;
+	torus.rotation.x += 1 * delta;
 };
 torus.position.set(0, -60, -8);
 //scene.add(torus);
