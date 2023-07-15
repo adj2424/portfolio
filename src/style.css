@@ -61,7 +61,8 @@ body {
 }
 
 .technologies-container {
-	background-color: pink;
+	//background-color: pink;
+	color: white;
 	display: flex;
 	flex-direction: column;
 	justify-content: space-around;

@@ -49,5 +49,9 @@ export default class Technologies {
 		//nextjs, react, threejs, ts, tailwind front end
 		//java, python, express, mongodb, google cloud platform backend
 		//solidity, hardhat, etherjs, metamask, ipfs
+
+		const row1 = ['nextjs', 'react', 'threejs', 'ts', 'tailwind'];
+
+		for (let i = 0; i < row1.length; i++) {}
 	}
 }
