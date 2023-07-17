@@ -60,7 +60,7 @@ body {
 	overflow: hidden;
 }
 
-.technologies-container {
+.list-container {
 	//background-color: pink;
 	color: white;
 	display: flex;
@@ -71,4 +71,26 @@ body {
 	left: 0;
 	width: 20%;
 	height: 100%;
+}
+
+.display-container {
+	background-color: pink;
+	position: fixed;
+	width: 70%;
+	left: 20%;
+	top: 0;
+	height: 70%;
+
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	grid-template-rows: repeat(2, 1fr);
+	margin-top: 3%;
+}
+
+.box {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-color: #e0e0e0;
+	margin: 20px;
 }

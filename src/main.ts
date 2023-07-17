@@ -97,6 +97,8 @@ await Technologies.init();
 scene.add(Technologies.left1);
 scene.add(Technologies.left2);
 scene.add(Technologies.right);
+scene.add(Technologies.row1);
+scene.add(Technologies.row2);
 
 /**
  * animates objects with animations
@@ -406,10 +408,9 @@ timeline
 	.to(techL2ScaleParam, { x: 0.6, y: 0.6, z: 0.6, duration: 15 }, 93)
 	.to(techLeft2Param, { x: 0.5, y: -95, z: -5, duration: 15 }, 93)
 	// move project desc with screen
-	.fromTo('.technologies-container', { xPercent: -105 }, { xPercent: 0, duration: 8 }, 82)
+	.fromTo('.list-container', { xPercent: -105 }, { xPercent: 0, duration: 8 }, 82)
 
 	// to make start time a percentage out of 110 from total duration
 	// start time + duration cannot be greater than 110 or it will change timeline
 	.to({}, {}, 110);
 // it was 100% at 1200vh
-

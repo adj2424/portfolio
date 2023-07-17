@@ -8,6 +8,9 @@ export default class Technologies {
 	static left2 = new THREE.Mesh();
 	static right = new THREE.Mesh();
 
+	static row1 = new THREE.Group();
+	static row2 = new THREE.Group();
+
 	constructor() {}
 	static async init() {
 		const fontLoader = new FontLoader();
@@ -52,6 +55,26 @@ export default class Technologies {
 
 		const row1 = ['nextjs', 'react', 'threejs', 'ts', 'tailwind'];
 
-		for (let i = 0; i < row1.length; i++) {}
+		// for (let i = 0; i < row1.length - 1; i++) {
+		// 	const techGeo = new THREE.PlaneGeometry(5, 5);
+		// 	const techMat = new THREE.MeshBasicMaterial({
+		// 		color: 0x00ff00, //0xe6e6fa
+		// 		side: THREE.DoubleSide
+		// 	});
+		// 	const tech = new THREE.Mesh(techGeo, techMat);
+		// 	tech.position.set(i * 6 - 8, -80, -1);
+		// 	this.row1.add(tech);
+		// }
+
+		// for (let i = 0; i < row1.length - 1; i++) {
+		// 	const techGeo = new THREE.PlaneGeometry(5, 5);
+		// 	const techMat = new THREE.MeshBasicMaterial({
+		// 		color: 0x00ff00, //0xe6e6fa
+		// 		side: THREE.DoubleSide
+		// 	});
+		// 	const tech = new THREE.Mesh(techGeo, techMat);
+		// 	tech.position.set(i * 6 - 8, -86, -1);
+		// 	this.row2.add(tech);
+		// }
 	}
 }
