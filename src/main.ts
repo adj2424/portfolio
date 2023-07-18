@@ -2,7 +2,6 @@ import './style.css';
 import * as THREE from 'three';
 import { DragControls } from 'three/examples/jsm/controls/DragControls.js';
 import { gsap } from 'gsap';
-import { TextPlugin } from 'gsap/TextPlugin';
 
 import { ScrollTrigger } from 'gsap/all';
 import SplitType from 'split-type';
@@ -50,7 +49,7 @@ scene.add(ambientLight);
  * Helpers
  */
 const gridHelper = new THREE.GridHelper(500);
-scene.add(gridHelper);
+//scene.add(gridHelper);
 //const controls = new OrbitControls(camera, renderer.domElement);
 
 /**
@@ -202,7 +201,7 @@ function createLineWrapper(lines: NodeListOf<Element>) {
 	});
 }
 
-gsap.registerPlugin(ScrollTrigger, TextPlugin);
+gsap.registerPlugin(ScrollTrigger);
 /**
  * scroll animation by toggle
  */
@@ -405,8 +404,8 @@ timeline
 	.to(techL2ColorParam, { r: 232 / 255, g: 232 / 255, b: 228 / 255, duration: 5 }, 85)
 	.to(bgColorParam, { r: 10 / 255, g: 9 / 255, b: 8 / 255, duration: 5 }, 85)
 
-	.to(techL2ScaleParam, { x: 0.6, y: 0.6, z: 0.6, duration: 15 }, 93)
-	.to(techLeft2Param, { x: 0.5, y: -95, z: -5, duration: 15 }, 93)
+	.to(techL2ScaleParam, { x: 0.65, y: 0.65, z: 0.65, duration: 15 }, 93)
+	.to(techLeft2Param, { x: -2, y: -94, z: -5, duration: 15 }, 93)
 	// move project desc with screen
 	.fromTo('.list-container', { xPercent: -105 }, { xPercent: 0, duration: 8 }, 82)
 
