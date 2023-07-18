@@ -394,7 +394,7 @@ timeline
 	.to(cameraParam, { x: 0, y: -85, z: 10, duration: 40 }, 50)
 
 	// move project desc with screen
-	.fromTo('.project-container', { yPercent: 280 }, { yPercent: -880, duration: 23 }, 56)
+	.fromTo('.project-container', { yPercent: 200 }, { yPercent: -870, duration: 30 }, 59)
 	//.to(projectDraggableParam, { x: 0, y: 10, z: 1, duration: 15 }, 63.5)
 
 	// transition to technologies showcase
@@ -404,10 +404,13 @@ timeline
 	.to(techL2ColorParam, { r: 232 / 255, g: 232 / 255, b: 228 / 255, duration: 5 }, 85)
 	.to(bgColorParam, { r: 10 / 255, g: 9 / 255, b: 8 / 255, duration: 5 }, 85)
 
-	.to(techL2ScaleParam, { x: 0.65, y: 0.65, z: 0.65, duration: 15 }, 93)
-	.to(techLeft2Param, { x: -2, y: -94, z: -5, duration: 15 }, 93)
+	.to(techL2ScaleParam, { x: 0.75, y: 0.75, z: 0.75, duration: 15 }, 93)
+	.to(techLeft2Param, { x: -6, y: -93.5, z: -5, duration: 15 }, 93)
 	// move project desc with screen
-	.fromTo('.list-container', { xPercent: -105 }, { xPercent: 0, duration: 8 }, 82)
+	.from('.list-container', { xPercent: -105, duration: 3 }, 85)
+	.from('.item', { opacity: 0, xPercent: -105, stagger: 3, duration: 5 }, 92)
+	.from('.box-container', { yPercent: -150, duration: 5 }, 90)
+	.from('.box', { opacity: 0, yPercent: -50, stagger: 1.5, duration: 8 }, 88)
 
 	// to make start time a percentage out of 110 from total duration
 	// start time + duration cannot be greater than 110 or it will change timeline

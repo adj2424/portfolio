@@ -57,41 +57,46 @@ export default class Technologies {
 		//java, python, express, mongodb, google cloud platform backend
 		//solidity, hardhat, etherjs, metamask, ipfs
 
-		const front = [
-			'logos/react.svg',
-			'Next.js',
-			'logos/typescript.svg',
-			'Tailwind CSS',
-			'React',
-			'logos/nextjs.svg',
-			'TypeScript',
-			'logos/tailwind.svg'
-		];
-
-		const back = [
-			'logos/java.svg',
-			'Python',
-			'logos/nodejs.svg',
-			'MongoDB',
-			'Java',
-			'logos/python.svg',
-			'Node.js',
-			'logos/mongodb.svg'
-		];
-
-		const misc = [
-			'logos/solidity.svg',
-			'Hardhat',
-			'logos/threejs.svg',
-			'Google Cloud Platform',
-			'Solidity',
-			'logos/hardhat.svg',
-			'Three.js',
-			'logos/gcp.svg'
-		];
-
 		let count = 0;
 		const playAnimation = () => {
+			const front = [
+				'logos/javascript.svg',
+				'TypeScript',
+				'logos/react.svg',
+				'Next.js',
+				'logos/tailwind.svg',
+				'JavaScript',
+				'logos/typescript.svg',
+				'React',
+				'logos/nextjs.svg',
+				'Tailwind CSS'
+			];
+
+			const back = [
+				'logos/python.svg',
+				'Java',
+				'logos/nodejs.svg',
+				'Solidity',
+				'logos/mongodb.svg',
+				'Python',
+				'logos/java.svg',
+				'Node.js',
+				'logos/solidity.svg',
+				'MongoDB'
+			];
+
+			const misc = [
+				'logos/gcp.svg',
+				'Hardhat',
+				'logos/threejs.svg',
+				'Git',
+				'logos/vscode.svg',
+				'Google Cloud Platform',
+				'logos/hardhat.svg',
+				'Three.js',
+				'logos/git.svg',
+				'VS Code'
+			];
 			if (count > 2) {
 				count = 0;
 			}
@@ -107,8 +112,8 @@ export default class Technologies {
 			count++;
 		};
 
-		// auto timer to play animation every 4 seconds
-		let timed = setInterval(playAnimation, 4000);
+		// auto timer to play animation every 5 seconds
+		let timed = setInterval(playAnimation, 4500);
 
 		document.getElementById('testbtn')!.onclick = () => {
 			// stop auto timer
@@ -118,74 +123,14 @@ export default class Technologies {
 			}
 			playAnimation();
 			// resume auto timer
-			timed = setInterval(playAnimation, 4000);
+			timed = setInterval(playAnimation, 4500);
 		};
 	}
 
 	static playAnimationHelper = (arr: string[]) => {
-		for (let i = 0; i < 8; i++) {
+		for (let i = 0; i < 10; i++) {
 			// change image
-			if (i === 0) {
-				const e = document.getElementById(`box-${i}`)!;
-				const imgElem = e.querySelector('img');
-				gsap
-					.timeline()
-					.fromTo(
-						imgElem,
-						{
-							xPercent: 0
-						},
-						{
-							xPercent: -200,
-							ease: 'back.in(2)',
-							duration: 0.6
-						}
-					)
-					.add(() => {
-						imgElem!.src = arr[i];
-					})
-					.fromTo(
-						imgElem,
-						{
-							xPercent: 150
-						},
-						{
-							xPercent: 0,
-							ease: 'back.out(2)',
-							duration: 0.6
-						}
-					);
-			} else if (i === 2) {
-				const e = document.getElementById(`box-${i}`)!;
-				const imgElem = e.querySelector('img');
-				gsap
-					.timeline()
-					.fromTo(
-						imgElem,
-						{
-							yPercent: 0
-						},
-						{
-							yPercent: -200,
-							ease: 'back.in(2)',
-							duration: 0.6
-						}
-					)
-					.add(() => {
-						imgElem!.src = arr[i];
-					})
-					.fromTo(
-						imgElem,
-						{
-							yPercent: 150
-						},
-						{
-							yPercent: 0,
-							ease: 'back.out(2)',
-							duration: 0.6
-						}
-					);
-			} else if (i === 5) {
+			if (i === 0 || i === 2 || i === 4) {
 				const e = document.getElementById(`box-${i}`)!;
 				const imgElem = e.querySelector('img');
 				gsap
@@ -215,7 +160,9 @@ export default class Technologies {
 							duration: 0.6
 						}
 					);
-			} else if (i === 7) {
+			}
+			// bottom row icons
+			else if (i === 6 || i === 8) {
 				const e = document.getElementById(`box-${i}`)!;
 				const imgElem = e.querySelector('img');
 				gsap
@@ -223,10 +170,10 @@ export default class Technologies {
 					.fromTo(
 						imgElem,
 						{
-							xPercent: 0
+							yPercent: 0
 						},
 						{
-							xPercent: 200,
+							yPercent: -200,
 							ease: 'back.in(2)',
 							duration: 0.6
 						}
@@ -237,10 +184,10 @@ export default class Technologies {
 					.fromTo(
 						imgElem,
 						{
-							xPercent: -150
+							yPercent: 150
 						},
 						{
-							xPercent: 0,
+							yPercent: 0,
 							ease: 'back.out(2)',
 							duration: 0.6
 						}
@@ -253,7 +200,7 @@ export default class Technologies {
 					text: {
 						value: arr[i]
 					},
-					ease: 'power2'
+					ease: 'power2.inOut'
 				});
 			}
 		}
