@@ -37,11 +37,11 @@ export default class Titles {
 			this.topTextGroup.add(topText);
 		}
 		// create bottom text
-		words = ['CREATIVE DEVELOPER', 'CREATIVE DEVELOPER', 'CREATIVE DEVELOPER'];
+		words = ['SOFTWARE DEVELOPER', 'SOFTWARE DEVELOPER', 'SOFTWARE DEVELOPER'];
 		coords = [
-			[-45.5, -4.5, -5],
+			[-48, -4.5, -5],
 			[0, -4.5, -5],
-			[45.5, -4.5, -5]
+			[48, -4.5, -5]
 		];
 		for (let i = 0; i < words.length; i++) {
 			const textGeometry = new TextGeometry(words[i], {
@@ -67,12 +67,12 @@ export default class Titles {
 			if (e.position.x < -90) {
 				e.position.x = 45;
 			}
-			e.position.x -= 6 * delta;
+			e.position.x -= 12 * delta;
 		});
 
 		this.botTextGroup.children.map(e => {
-			if (e.position.x > 45.5) {
-				e.position.x = -91;
+			if (e.position.x > 48) {
+				e.position.x = -96;
 			}
 			e.position.x += 6 * delta;
 		});

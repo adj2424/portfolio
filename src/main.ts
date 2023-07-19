@@ -78,7 +78,7 @@ torus.position.set(0, -60, -8);
 await Titles.init();
 scene.add(Titles.topTextGroup);
 scene.add(Titles.botTextGroup);
-//updatables.push(Titles);
+updatables.push(Titles);
 
 await Portrait.init();
 scene.add(Portrait.pfpMesh);
@@ -416,9 +416,9 @@ timeline
 	.to('.box', { xPercent: -700, duration: 23 }, 116)
 	.to('.item', { xPercent: -700, duration: 23 }, 116)
 	.to(techLeft2Param, { x: -59, y: -93.5, z: -5, duration: 23 }, 116)
-	.to('.contact-container', { xPercent: -100, duration: 20 }, 116)
+	.to('.contact-container', { xPercent: -100, duration: 21 }, 116)
 
-	// to make start time a percentage out of 110 from total duration
-	// start time + duration cannot be greater than 110 or it will change timeline
+	// to make start time a percentage out of 140 from total duration
+	// start time + duration cannot be greater than 140 or it will change timeline
 	.to({}, {}, 140);
 // it was 100% at 1500vh

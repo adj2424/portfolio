@@ -12,9 +12,14 @@
 	<body>
 		<div class="page">
 			<canvas id="bg"></canvas>
-			<div class="header">
-				<h1>{ALAN JIANG}</h1>
-				<p>ABOUT PROJECTS CONTACT</p>
+			<div class="header-container">
+				<p id="header-name">{ALAN JIANG}</p>
+				<div class="shortcut-container">
+					<p>ABOUT</p>
+					<p>PROJECTS</p>
+					<p>TECHNOLOGIES</p>
+					<p>CONTACT</p>
+				</div>
 			</div>
 
 			<div class="about-container">
@@ -95,13 +100,35 @@
 			</div>
 
 			<div class="contact-container">
-				<p>CONTACT ME</p>
+				<p id="contact">INTERESTED IN WORKING?</p> 
+				<!-- <p>LETS GET IN TOUCH</p> -->
+				<!-- <p>INTERESTED IN WORKING?</p> -->
+				<!-- <p>SEND ME A MESSAGE</p> -->
+				<!-- <p>SPEAK YOUR MIND</p> -->
 
-				<p>ALAN JIANG EMAIL</p>
-				<p> INSTAGRAM THREADS LINKEDIN GITHUB</p>
+				<div id="info">
+					ALAN JIANG 
+					<div>
+						SOFTWARE DEVELOPER
+					</div>
+				</div>
 
-				<p>DESIGNED BY ME CODED BY ME </p>
-				<p>© ALAN JIANG 2023</p>
+				<div id="socials-container">
+					<a id="email" href="mailto:adj2424@gmail.com">ADJ2424@GMAIL.COM</a>
+					<div id="socials">
+						<a href="https://www.instagram.com/alanjiang24/" target="_blank">INSTAGRAM</a>
+						<a href="https://www.threads.net/@alanjiang24" target="_blank">THREADS</a>
+						<a href="https://www.linkedin.com/in/alanjiang24/" target="_blank">LINKEDIN</a>
+						<a href="https://github.com/adj2424" target="_blank">GITHUB</a>
+					</div>
+				</div>
+
+				<div id="coded">
+					DESIGNED & CODED BY ME 
+					<div id="copyright">
+						© ALAN JIANG 2023
+					</div>
+				</div>
 			</div>
 		</div>
 		<script type="module" src="/src/main.ts"></script>
