@@ -412,7 +412,13 @@ timeline
 	.from('.box-container', { yPercent: -150, duration: 5 }, 90)
 	.from('.box', { opacity: 0, yPercent: -50, stagger: 1.5, duration: 8 }, 88)
 
+	// transition to contact page
+	.to('.box', { xPercent: -700, duration: 23 }, 116)
+	.to('.item', { xPercent: -700, duration: 23 }, 116)
+	.to(techLeft2Param, { x: -59, y: -93.5, z: -5, duration: 23 }, 116)
+	.to('.contact-container', { xPercent: -100, duration: 20 }, 116)
+
 	// to make start time a percentage out of 110 from total duration
 	// start time + duration cannot be greater than 110 or it will change timeline
-	.to({}, {}, 110);
-// it was 100% at 1200vh
+	.to({}, {}, 140);
+// it was 100% at 1500vh

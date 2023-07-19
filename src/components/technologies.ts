@@ -115,16 +115,16 @@ export default class Technologies {
 		// auto timer to play animation every 5 seconds
 		let timed = setInterval(playAnimation, 4500);
 
-		document.getElementById('testbtn')!.onclick = () => {
-			// stop auto timer
-			clearInterval(timed);
-			if (count > 2) {
-				count = 0;
-			}
-			playAnimation();
-			// resume auto timer
-			timed = setInterval(playAnimation, 4500);
-		};
+		// document.getElementById('testbtn')!.onclick = () => {
+		// 	// stop auto timer
+		// 	clearInterval(timed);
+		// 	if (count > 2) {
+		// 		count = 0;
+		// 	}
+		// 	playAnimation();
+		// 	// resume auto timer
+		// 	timed = setInterval(playAnimation, 4500);
+		// };
 	}
 
 	static playAnimationHelper = (arr: string[]) => {

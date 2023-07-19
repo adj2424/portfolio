@@ -76,7 +76,7 @@ export default class Projects {
 			// background is so it can be draggable
 			const backgroundGeo = new THREE.PlaneGeometry(36, 26);
 			const backgroundMat = new THREE.MeshBasicMaterial({
-				color: 0xe8e8e4, //0xe6e6fa
+				color: 0xe8e8e4,
 				side: THREE.DoubleSide
 			});
 			const projectBackground = new THREE.Mesh(backgroundGeo, backgroundMat);
