@@ -76,29 +76,51 @@ torus.position.set(0, -60, -8);
 /**
  * Initialize meshes
  */
-await Titles.init();
-scene.add(Titles.topTextGroup);
-scene.add(Titles.botTextGroup);
-updatables.push(Titles);
+// await Titles.init();
+// scene.add(Titles.topTextGroup);
+// scene.add(Titles.botTextGroup);
+// updatables.push(Titles);
 
-await Portrait.init();
-scene.add(Portrait.pfpMesh);
-// scene.add(Portrait.topPfpMesh);
-// scene.add(Portrait.botPfpMesh);
-// scene.add(Portrait.leftPfpMesh);
-// scene.add(Portrait.rightPfpMesh);
-scene.add(Portrait.borderPfpMesh);
+// await Portrait.init();
+// scene.add(Portrait.pfpMesh);
+// // scene.add(Portrait.topPfpMesh);
+// // scene.add(Portrait.botPfpMesh);
+// // scene.add(Portrait.leftPfpMesh);
+// // scene.add(Portrait.rightPfpMesh);
+// scene.add(Portrait.borderPfpMesh);
 
-await Projects.init();
-scene.add(Projects.projectText);
-scene.add(Projects.projects);
+// await Projects.init();
+// scene.add(Projects.projectText);
+// scene.add(Projects.projects);
 
-await Technologies.init();
-scene.add(Technologies.left1);
-scene.add(Technologies.left2);
-scene.add(Technologies.right);
-scene.add(Technologies.row1);
-scene.add(Technologies.row2);
+// await Technologies.init();
+// scene.add(Technologies.left1);
+// scene.add(Technologies.left2);
+// scene.add(Technologies.right);
+// scene.add(Technologies.row1);
+// scene.add(Technologies.row2);
+
+Promise.all([Titles.init(), Portrait.init(), Projects.init(), Technologies.init()]).then(() => {
+	scene.add(Titles.topTextGroup);
+	scene.add(Titles.botTextGroup);
+	updatables.push(Titles);
+
+	scene.add(Portrait.pfpMesh);
+	// scene.add(Portrait.topPfpMesh);
+	// scene.add(Portrait.botPfpMesh);
+	// scene.add(Portrait.leftPfpMesh);
+	// scene.add(Portrait.rightPfpMesh);
+	scene.add(Portrait.borderPfpMesh);
+
+	scene.add(Projects.projectText);
+	scene.add(Projects.projects);
+
+	scene.add(Technologies.left1);
+	scene.add(Technologies.left2);
+	scene.add(Technologies.right);
+	scene.add(Technologies.row1);
+	scene.add(Technologies.row2);
+});
 
 /**
  * animates objects with animations
@@ -157,7 +179,6 @@ const elements: HTMLElement[] = [
 
 elements.map(e => {
 	e.addEventListener('mouseover', () => {
-		e.style.color = '#aqua';
 		hover = true;
 	});
 	e.addEventListener('mouseout', () => {
