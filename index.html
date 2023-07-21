@@ -12,13 +12,18 @@
 	<body>
 		<div class="page">
 			<canvas id="bg"></canvas>
+			<div class="cursor">
+				<span class="cursor-dot"></span>
+				<span class="cursor-text">CLICK& DRAG</span>
+			</div>
+			
 			<div class="header-container">
 				<p id="header-name">{ALAN JIANG}</p>
 				<div class="shortcut-container">
-					<p>ABOUT</p>
-					<p>PROJECTS</p>
-					<p>TECHNOLOGIES</p>
-					<p>CONTACT</p>
+					<p id="header-abt">ABOUT</p>
+					<p id="header-proj">PROJECTS</p>
+					<p id="header-tech">TECHNOLOGIES</p>
+					<p id="header-contact">CONTACT</p>
 				</div>
 			</div>
 
@@ -30,14 +35,13 @@
 				</p>
 			</div>
 			<div class="project-container">
-				<!-- <p class="project-id">project number</p> -->
-				<h2 class="project-name">MUSIC PORTFOLIO</h2>
+				<p class="project-name">MUSIC PORTFOLIO</p>
 				<p class="project-desc">Three.js/GSAP/TypeScript</p>
 			</div>
 
 			<div class="technologies-container">
 				<div class="list-container">
-					<div class="item">
+					<div id="frontend" class="item">
 						<p>FRONTEND 01/</p>
 						<ul>
 							<li>JAVASCRIPT</li>
@@ -47,7 +51,7 @@
 							<li>TAILWIND</li>
 						</ul>
 					</div>
-					<div class="item">
+					<div id="backend" class="item">
 						<p>BACKEND 02/</h2>
 						<ul>
 							<li>PYTHON<li>
@@ -57,10 +61,10 @@
 							<li>MONGODB</li>
 						</ul>
 					</div>
-					<div class="item">
+					<div id="misc" class="item">
 						<p>MISC 03/</p>
 						<ul>
-							<li>GOOGLE CLOUD PLATFORM</li>
+							<li id="gcp">GOOGLE CLOUD PLATFORM</li>
 							<li>HARDHAT</li>
 							<li>THREEJS</li>
 							<li>GIT</li>
@@ -114,12 +118,12 @@
 				</div>
 
 				<div id="socials-container">
-					<a id="email" href="mailto:adj2424@gmail.com">ADJ2424@GMAIL.COM</a>
+					<a id="socials-email" href="mailto:adj2424@gmail.com">ADJ2424@GMAIL.COM</a>
 					<div id="socials">
-						<a href="https://www.instagram.com/alanjiang24/" target="_blank">INSTAGRAM</a>
-						<a href="https://www.threads.net/@alanjiang24" target="_blank">THREADS</a>
-						<a href="https://www.linkedin.com/in/alanjiang24/" target="_blank">LINKEDIN</a>
-						<a href="https://github.com/adj2424" target="_blank">GITHUB</a>
+						<a id="socials-instagram" href="https://www.instagram.com/alanjiang24/" target="_blank">INSTAGRAM</a>
+						<a id="socials-threads" href="https://www.threads.net/@alanjiang24" target="_blank">THREADS</a>
+						<a id="socials-linkedin" href="https://www.linkedin.com/in/alanjiang24/" target="_blank">LINKEDIN</a>
+						<a id="socials-github" href="https://github.com/adj2424" target="_blank">GITHUB</a>
 					</div>
 				</div>
 

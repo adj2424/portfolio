@@ -3,7 +3,7 @@ import * as THREE from 'three';
 import { DragControls } from 'three/examples/jsm/controls/DragControls.js';
 import { gsap } from 'gsap';
 
-import { ScrollTrigger } from 'gsap/all';
+import { ScrollTrigger, ScrollToPlugin } from 'gsap/all';
 import SplitType from 'split-type';
 
 import Titles from './components/titles.ts';
@@ -16,6 +16,7 @@ import Technologies from './components/technologies.ts';
 //import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
 //import Titles from './components/titles.js';
+gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
 // all child objects where it will be animated through tick method
 const updatables: any[] = [];
@@ -49,7 +50,7 @@ scene.add(ambientLight);
  * Helpers
  */
 const gridHelper = new THREE.GridHelper(500);
-//scene.add(gridHelper);
+scene.add(gridHelper);
 //const controls = new OrbitControls(camera, renderer.domElement);
 
 /**
@@ -139,10 +140,106 @@ let techRightParam = { x: 10, y: -90, z: -5 };
 let techL2ColorParam = { r: 10 / 255, g: 9 / 255, b: 8 / 255 };
 let techL2ScaleParam = { x: 1, y: 1, z: 1 };
 
+const cursor = document.querySelector('.cursor') as HTMLElement;
+const cursorText = document.querySelector('.cursor-text') as HTMLElement;
+const cursorDot = document.querySelector('.cursor-dot') as HTMLElement;
+document.addEventListener('mousemove', e => {
+	let mouseX = e.clientX - 10;
+	let mouseY = e.clientY - 20;
+
+	let percentX = (mouseX / window.innerWidth) * 100;
+	let percentY = (mouseY / window.innerHeight) * 100;
+
+	cursor.style.top = percentY + '%';
+	cursor.style.left = percentX + '%';
+});
+
+document.addEventListener('mousedown', () => {
+	cursor.style.transform = 'scale(0.75)';
+});
+
+document.addEventListener('mouseup', () => {
+	cursor.style.transform = 'scale(1)';
+});
+
+let hover = false;
+let dragHover = false;
+
+const elements: HTMLElement[] = [
+	document.getElementById('header-name')!,
+	document.getElementById('header-abt')!,
+	document.getElementById('header-proj')!,
+	document.getElementById('header-tech')!,
+	document.getElementById('header-contact')!,
+	document.getElementById('frontend')!,
+	document.getElementById('backend')!,
+	document.getElementById('misc')!,
+	document.getElementById('socials-email')!,
+	document.getElementById('socials-instagram')!,
+	document.getElementById('socials-threads')!,
+	document.getElementById('socials-linkedin')!,
+	document.getElementById('socials-github')!
+];
+
+elements.map(e => {
+	e.addEventListener('mouseover', () => {
+		hover = true;
+	});
+	e.addEventListener('mouseout', () => {
+		hover = false;
+	});
+});
+
+document.getElementById('header-name')!.addEventListener('click', () => {
+	scrollToPosition(0);
+});
+document.getElementById('header-abt')!.addEventListener('click', () => {
+	scrollToPosition(0.11);
+});
+document.getElementById('header-proj')!.addEventListener('click', () => {
+	scrollToPosition(0.3);
+});
+document.getElementById('header-tech')!.addEventListener('click', () => {
+	scrollToPosition(0.75);
+});
+document.getElementById('header-contact')!.addEventListener('click', () => {
+	scrollToPosition(0.92);
+});
+
+const scrollToPosition = (percent: number) => {
+	let scrollContentHeight = document.querySelector('.page')!.scrollHeight;
+	gsap.to(window, { duration: 3.5, ease: 'power2.out', scrollTo: scrollContentHeight * percent });
+};
+
 /**
  * Animate
  */
+let t = 0;
 function animate() {
+	t += 1;
+	if (t % 3 === 0 && (dragHover || hover)) {
+		if (dragHover) {
+			cursor.style.width = '6vw';
+			cursor.style.height = '6vw';
+			cursorText.style.opacity = '1';
+			cursorDot.style.opacity = '0';
+		} else {
+			//cursorDot.style.width = '3.5vw';
+			//cursorDot.style.height = '3.5vw';
+			cursor.style.width = '3.5vw';
+			cursor.style.height = '3.5vw';
+			cursorDot.style.opacity = '0';
+		}
+	}
+	if (t % 3 === 0 && !dragHover && !hover) {
+		cursor.style.width = '2vw';
+		cursor.style.height = '2vw';
+		cursorText.style.opacity = '0';
+		//cursorDot.style.width = '5px';
+		//cursorDot.style.height = '5px';
+		cursorDot.style.opacity = '1';
+	}
+
 	// delta for consistency
 	const delta = 0.005;
 	tick(delta);
@@ -201,7 +298,6 @@ function createLineWrapper(lines: NodeListOf<Element>) {
 	});
 }
 
-gsap.registerPlugin(ScrollTrigger);
 /**
  * scroll animation by toggle
  */
@@ -256,15 +352,24 @@ const itemCount = projectInfo.length;
 const offset = itemCount * 28;
 dragControls.addEventListener('dragstart', () => {
 	const startTime = new Date();
+	// open project on click
 	window.addEventListener('mouseup', () => {
 		const endTime = new Date();
 		const duration = endTime.getTime() - startTime.getTime();
-		console.log('duration', duration);
 		if (duration < 110) {
 			window.open(projectInfo[previousItem].url);
 		}
 	});
 });
+
+dragControls.addEventListener('hoveron', () => {
+	dragHover = true;
+});
+
+dragControls.addEventListener('hoveroff', () => {
+	dragHover = false;
+});
+
 dragControls.addEventListener('drag', e => {
 	const item = -Math.round(Number(e.object.position.x) / 28) % 4;
 	// not equal means that the item has changed
@@ -394,7 +499,7 @@ timeline
 	.to(cameraParam, { x: 0, y: -85, z: 10, duration: 40 }, 50)
 
 	// move project desc with screen
-	.fromTo('.project-container', { yPercent: 200 }, { yPercent: -870, duration: 30 }, 59)
+	.fromTo('.project-container', { yPercent: 260 }, { yPercent: -1550, duration: 30 }, 59)
 	//.to(projectDraggableParam, { x: 0, y: 10, z: 1, duration: 15 }, 63.5)
 
 	// transition to technologies showcase
@@ -422,3 +527,5 @@ timeline
 	// start time + duration cannot be greater than 140 or it will change timeline
 	.to({}, {}, 140);
 // it was 100% at 1500vh
+
+//let btn = document.getElementById('header-name')!;
