@@ -49,9 +49,9 @@ scene.add(ambientLight);
 /**
  * Helpers
  */
-const gridHelper = new THREE.GridHelper(500);
-scene.add(gridHelper);
-//const controls = new OrbitControls(camera, renderer.domElement);
+// const gridHelper = new THREE.GridHelper(500);
+// scene.add(gridHelper);
+// //const controls = new OrbitControls(camera, renderer.domElement);
 
 /**
  * resize window
@@ -110,36 +110,6 @@ function tick(delta: number) {
 	}
 }
 
-/**
- * Initial values of objects
- */
-
-let cameraParam = { x: 0, y: 0, z: 10 };
-let bgColorParam = { r: 232 / 255, g: 232 / 255, b: 228 / 255 };
-
-let pfpParam = { x: -12, y: -6, z: -8 };
-let pfpParamScale = { x: 8, y: 8, z: 8 };
-let borderPfpParam = { x: 0, y: 0, z: 0 };
-let borderPfpScaleParam = { x: 1, y: 1, z: 1 };
-let topPfpMeshParam = { x: -12, y: 12, z: -8 };
-let botPfpMeshParam = { x: -12, y: -17, z: -8 };
-let leftPfpMeshParam = { x: -26, y: -4, z: -8 };
-let rightPfpMeshParam = { x: 2, y: -4, z: -8 };
-
-let topTextGroupParam = { x: 0, y: 0, z: 0 };
-let botTextGroupParam = { x: 0, y: 0, z: 0 };
-let botTextGroupScaleParam = { x: 1, y: 1, z: 1 };
-
-let projectTextParam = { x: -36, y: -40, z: -8 };
-let projectTextScaleParam = { x: 1, y: 1, z: 1 };
-//let projectDraggableParam = { x: 0, y: 0, z: 1 };
-
-let techLeft1Param = { x: -35, y: -80, z: -5 };
-let techLeft2Param = { x: -70, y: -85, z: -5 };
-let techRightParam = { x: 10, y: -90, z: -5 };
-let techL2ColorParam = { r: 10 / 255, g: 9 / 255, b: 8 / 255 };
-let techL2ScaleParam = { x: 1, y: 1, z: 1 };
-
 const cursor = document.querySelector('.cursor') as HTMLElement;
 const cursorText = document.querySelector('.cursor-text') as HTMLElement;
 const cursorDot = document.querySelector('.cursor-dot') as HTMLElement;
@@ -187,6 +157,7 @@ const elements: HTMLElement[] = [
 
 elements.map(e => {
 	e.addEventListener('mouseover', () => {
+		e.style.color = '#aqua';
 		hover = true;
 	});
 	e.addEventListener('mouseout', () => {
@@ -214,6 +185,36 @@ const scrollToPosition = (percent: number) => {
 	let scrollContentHeight = document.querySelector('.page')!.scrollHeight;
 	gsap.to(window, { duration: 3.5, ease: 'power2.out', scrollTo: scrollContentHeight * percent });
 };
+
+/**
+ * Initial values of objects
+ */
+
+let cameraParam = { x: 0, y: 0, z: 10 };
+let bgColorParam = { r: 232 / 255, g: 232 / 255, b: 228 / 255 };
+
+let pfpParam = { x: -12, y: -6, z: -8 };
+let pfpParamScale = { x: 8, y: 8, z: 8 };
+let borderPfpParam = { x: 0, y: 0, z: 0 };
+let borderPfpScaleParam = { x: 1, y: 1, z: 1 };
+let topPfpMeshParam = { x: -12, y: 12, z: -8 };
+let botPfpMeshParam = { x: -12, y: -17, z: -8 };
+let leftPfpMeshParam = { x: -26, y: -4, z: -8 };
+let rightPfpMeshParam = { x: 2, y: -4, z: -8 };
+
+let topTextGroupParam = { x: 0, y: 0, z: 0 };
+let botTextGroupParam = { x: 0, y: 0, z: 0 };
+let botTextGroupScaleParam = { x: 1, y: 1, z: 1 };
+
+let projectTextParam = { x: -36, y: -40, z: -8 };
+let projectTextScaleParam = { x: 1, y: 1, z: 1 };
+//let projectDraggableParam = { x: 0, y: 0, z: 1 };
+
+let techLeft1Param = { x: -35, y: -80, z: -5 };
+let techLeft2Param = { x: -70, y: -85, z: -5 };
+let techRightParam = { x: 10, y: -90, z: -5 };
+let techL2ColorParam = { r: 10 / 255, g: 9 / 255, b: 8 / 255 };
+let techL2ScaleParam = { x: 1, y: 1, z: 1 };
 
 /**
  * Animate
@@ -269,7 +270,6 @@ function animate() {
 
 	Projects.projectText.position.set(projectTextParam.x, projectTextParam.y, projectTextParam.z);
 	Projects.projectText.scale.set(projectTextScaleParam.x, projectTextScaleParam.y, projectTextScaleParam.z);
-	//Projects.projects.position.set(projectDraggableParam.x, projectDraggableParam.y, projectDraggableParam.z);
 
 	Technologies.left1.position.set(techLeft1Param.x, techLeft1Param.y, techLeft1Param.z);
 	Technologies.right.position.set(techRightParam.x, techRightParam.y, techRightParam.z);
@@ -514,6 +514,7 @@ timeline
 	.to(techLeft2Param, { x: -14, duration: 30 }, 60)
 	.to(techRightParam, { x: -30, duration: 40 }, 70)
 	.to(techL2ColorParam, { r: 232 / 255, g: 232 / 255, b: 228 / 255, duration: 5 }, 85)
+	//.to('::-webkit-scrollbar-track', { backgroundColor: '#8e7d70', duration: 5 }, 85)
 	.to(bgColorParam, { r: 10 / 255, g: 9 / 255, b: 8 / 255, duration: 5 }, 85)
 
 	.to(techL2ScaleParam, { x: 0.75, y: 0.75, z: 0.75, duration: 15 }, 93)

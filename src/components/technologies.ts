@@ -57,6 +57,10 @@ export default class Technologies {
 		//java, python, express, mongodb, google cloud platform backend
 		//solidity, hardhat, etherjs, metamask, ipfs
 
+		const frontE = document.getElementById('frontend')! as HTMLElement;
+		const backE = document.getElementById('backend')! as HTMLElement;
+		const miscE = document.getElementById('misc')! as HTMLElement;
+
 		let count = 0;
 		const playAnimation = () => {
 			const front = [
@@ -101,16 +105,47 @@ export default class Technologies {
 				count = 0;
 			}
 			if (count === 0) {
+				frontE.style.color = '#809bce';
+				backE.style.color = '#e8e8e4';
+				miscE.style.color = '#e8e8e4';
 				this.playAnimationHelper(front);
 			}
 			if (count === 1) {
+				frontE.style.color = '#e8e8e4';
+				backE.style.color = '#809bce';
+				miscE.style.color = '#e8e8e4';
 				this.playAnimationHelper(back);
 			}
 			if (count === 2) {
+				frontE.style.color = '#e8e8e4';
+				backE.style.color = '#e8e8e4';
+				miscE.style.color = '#809bce';
 				this.playAnimationHelper(misc);
 			}
 			count++;
 		};
+
+		const elements: HTMLElement[] = [frontE, backE, miscE];
+
+		elements.map(e => {
+			e.addEventListener('click', () => {
+				// stop auto timer
+				clearInterval(timed);
+				if (e === frontE && count !== 1) {
+					count = 0;
+					playAnimation();
+				} else if (e === backE && count !== 2) {
+					count = 1;
+					playAnimation();
+				} else if (e === miscE && count !== 0) {
+					count = 2;
+					playAnimation();
+				}
+
+				// resume auto timer
+				timed = setInterval(playAnimation, 4500);
+			});
+		});
 
 		// auto timer to play animation every 5 seconds
 		let timed = setInterval(playAnimation, 4500);
