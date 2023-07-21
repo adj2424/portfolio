@@ -146,6 +146,10 @@ const cursorDot = document.querySelector('.cursor-dot') as HTMLElement;
 document.addEventListener('mousemove', e => {
 	let mouseX = e.clientX - 10;
 	let mouseY = e.clientY - 20;
+	// if (hover) {
+	// 	mouseX = e.clientX + 10;
+	// 	mouseY = e.clientY;
+	// }
 
 	let percentX = (mouseX / window.innerWidth) * 100;
 	let percentY = (mouseY / window.innerHeight) * 100;
@@ -224,11 +228,12 @@ function animate() {
 			cursorText.style.opacity = '1';
 			cursorDot.style.opacity = '0';
 		} else {
-			//cursorDot.style.width = '3.5vw';
-			//cursorDot.style.height = '3.5vw';
-			cursor.style.width = '3.5vw';
-			cursor.style.height = '3.5vw';
-			cursorDot.style.opacity = '0';
+			cursor.style.width = '.5vw';
+			cursor.style.height = '.5vw';
+			cursorDot.style.width = '1vw';
+			cursorDot.style.height = '1vw';
+			cursor.style.opacity = '.8';
+			cursorDot.style.opacity = '1';
 		}
 	}
 	if (t % 3 === 0 && !dragHover && !hover) {
@@ -237,7 +242,9 @@ function animate() {
 		cursorText.style.opacity = '0';
 		//cursorDot.style.width = '5px';
 		//cursorDot.style.height = '5px';
-		cursorDot.style.opacity = '1';
+		cursor.style.opacity = '1';
+		cursorDot.style.width = '0vw';
+		cursorDot.style.height = '0vw';
 	}
 
 	// delta for consistency
