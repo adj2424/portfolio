@@ -2,20 +2,13 @@ import './style.css';
 import * as THREE from 'three';
 import { DragControls } from 'three/examples/jsm/controls/DragControls.js';
 import { gsap } from 'gsap';
-
 import { ScrollTrigger, ScrollToPlugin } from 'gsap/all';
 import SplitType from 'split-type';
-
 import Titles from './components/titles.ts';
 import Portrait from './components/portrait.ts';
 import Projects from './components/projects.ts';
 import Technologies from './components/technologies.ts';
 
-//import { FontLoader } from 'three/examples/jsm/loaders/FontLoader.js';
-//import { TextGeometry } from 'three/examples/jsm/geometries/TextGeometry.js';
-//import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
-
-//import Titles from './components/titles.js';
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
 // all child objects where it will be animated through tick method
@@ -47,13 +40,6 @@ const ambientLight = new THREE.AmbientLight(0xffffff);
 scene.add(ambientLight);
 
 /**
- * Helpers
- */
-// const gridHelper = new THREE.GridHelper(500);
-// scene.add(gridHelper);
-// //const controls = new OrbitControls(camera, renderer.domElement);
-
-/**
  * resize window
  */
 window.addEventListener('resize', () => {
@@ -63,53 +49,15 @@ window.addEventListener('resize', () => {
 	renderer.setPixelRatio(window.devicePixelRatio);
 });
 
-const geo = new THREE.TorusGeometry(10, 3, 16, 100);
-const material = new THREE.MeshBasicMaterial({ color: 0xff6347, wireframe: true });
-const torus = new THREE.Mesh(geo, material);
-updatables.push(torus);
-(torus as any).tick = (delta: number) => {
-	torus.rotation.x += 1 * delta;
-};
-torus.position.set(0, -60, -8);
-//scene.add(torus);
-
 /**
  * Initialize meshes
  */
-// await Titles.init();
-// scene.add(Titles.topTextGroup);
-// scene.add(Titles.botTextGroup);
-// updatables.push(Titles);
-
-// await Portrait.init();
-// scene.add(Portrait.pfpMesh);
-// // scene.add(Portrait.topPfpMesh);
-// // scene.add(Portrait.botPfpMesh);
-// // scene.add(Portrait.leftPfpMesh);
-// // scene.add(Portrait.rightPfpMesh);
-// scene.add(Portrait.borderPfpMesh);
-
-// await Projects.init();
-// scene.add(Projects.projectText);
-// scene.add(Projects.projects);
-
-// await Technologies.init();
-// scene.add(Technologies.left1);
-// scene.add(Technologies.left2);
-// scene.add(Technologies.right);
-// scene.add(Technologies.row1);
-// scene.add(Technologies.row2);
-
 Promise.all([Titles.init(), Portrait.init(), Projects.init(), Technologies.init()]).then(() => {
 	scene.add(Titles.topTextGroup);
 	scene.add(Titles.botTextGroup);
 	updatables.push(Titles);
 
 	scene.add(Portrait.pfpMesh);
-	// scene.add(Portrait.topPfpMesh);
-	// scene.add(Portrait.botPfpMesh);
-	// scene.add(Portrait.leftPfpMesh);
-	// scene.add(Portrait.rightPfpMesh);
 	scene.add(Portrait.borderPfpMesh);
 
 	scene.add(Projects.projectText);
@@ -207,10 +155,26 @@ const scrollToPosition = (percent: number) => {
 	gsap.to(window, { duration: 3.5, ease: 'power2.out', scrollTo: scrollContentHeight * percent });
 };
 
+document.getElementById('contact')!.addEventListener('mouseover', () => {
+	gsap.to('#contact', {
+		duration: 0.8,
+		text: {
+			value: 'LETS GET IN TOUCH'
+		}
+	});
+});
+document.getElementById('contact')!.addEventListener('mouseout', () => {
+	gsap.to('#contact', {
+		duration: 0.8,
+		text: {
+			value: 'INTERESTED IN WORKING?'
+		}
+	});
+});
+
 /**
  * Initial values of objects
  */
-
 let cameraParam = { x: 0, y: 0, z: 10 };
 let bgColorParam = { r: 232 / 255, g: 232 / 255, b: 228 / 255 };
 
@@ -229,7 +193,6 @@ let botTextGroupScaleParam = { x: 1, y: 1, z: 1 };
 
 let projectTextParam = { x: -36, y: -40, z: -8 };
 let projectTextScaleParam = { x: 1, y: 1, z: 1 };
-//let projectDraggableParam = { x: 0, y: 0, z: 1 };
 
 let techLeft1Param = { x: -35, y: -80, z: -5 };
 let techLeft2Param = { x: -70, y: -85, z: -5 };
@@ -243,27 +206,27 @@ let techL2ScaleParam = { x: 1, y: 1, z: 1 };
 let t = 0;
 function animate() {
 	t += 1;
+	// change cursor based on hover states
 	if (t % 3 === 0 && (dragHover || hover)) {
-		if (dragHover) {
-			cursor.style.width = '6vw';
-			cursor.style.height = '6vw';
-			cursorText.style.opacity = '1';
-			cursorDot.style.opacity = '0';
-		} else {
+		if (hover) {
 			cursor.style.width = '.5vw';
 			cursor.style.height = '.5vw';
 			cursorDot.style.width = '1vw';
 			cursorDot.style.height = '1vw';
 			cursor.style.opacity = '.8';
 			cursorDot.style.opacity = '1';
+			cursorText.style.opacity = '0';
+		} else {
+			cursor.style.width = '6vw';
+			cursor.style.height = '6vw';
+			cursorText.style.opacity = '1';
+			cursorDot.style.opacity = '0';
 		}
 	}
 	if (t % 3 === 0 && !dragHover && !hover) {
 		cursor.style.width = '2vw';
 		cursor.style.height = '2vw';
 		cursorText.style.opacity = '0';
-		//cursorDot.style.width = '5px';
-		//cursorDot.style.height = '5px';
 		cursor.style.opacity = '1';
 		cursorDot.style.width = '0vw';
 		cursorDot.style.height = '0vw';
@@ -384,7 +347,7 @@ dragControls.addEventListener('dragstart', () => {
 	window.addEventListener('mouseup', () => {
 		const endTime = new Date();
 		const duration = endTime.getTime() - startTime.getTime();
-		if (duration < 110) {
+		if (duration < 130) {
 			window.open(projectInfo[previousItem].url);
 		}
 	});
@@ -403,6 +366,7 @@ dragControls.addEventListener('drag', e => {
 	// not equal means that the item has changed
 	if (item != previousItem) {
 		previousItem = item;
+		console.log(previousItem);
 		gsap.fromTo(
 			projectName.lines,
 			{
@@ -525,21 +489,19 @@ timeline
 
 	// move camera to project showcase to expertise
 	.to(cameraParam, { x: 0, y: -85, z: 10, duration: 40 }, 50)
-
 	// move project desc with screen
 	.fromTo('.project-container', { yPercent: 260 }, { yPercent: -1550, duration: 30 }, 59)
-	//.to(projectDraggableParam, { x: 0, y: 10, z: 1, duration: 15 }, 63.5)
 
 	// transition to technologies showcase
 	.to(techLeft1Param, { x: -12, duration: 60 }, 60)
 	.to(techLeft2Param, { x: -14, duration: 30 }, 60)
 	.to(techRightParam, { x: -30, duration: 40 }, 70)
 	.to(techL2ColorParam, { r: 232 / 255, g: 232 / 255, b: 228 / 255, duration: 5 }, 85)
-	//.to('::-webkit-scrollbar-track', { backgroundColor: '#8e7d70', duration: 5 }, 85)
+	.to('.header-container p', { color: '#e8e8e4', duration: 5 }, 85)
 	.to(bgColorParam, { r: 10 / 255, g: 9 / 255, b: 8 / 255, duration: 5 }, 85)
 
 	.to(techL2ScaleParam, { x: 0.75, y: 0.75, z: 0.75, duration: 15 }, 93)
-	.to(techLeft2Param, { x: -6, y: -93.5, z: -5, duration: 15 }, 93)
+	.to(techLeft2Param, { x: -6, y: -94.25, z: -5, duration: 15 }, 93)
 	// move project desc with screen
 	.from('.list-container', { xPercent: -105, duration: 3 }, 85)
 	.from('.item', { opacity: 0, xPercent: -105, stagger: 3, duration: 5 }, 92)
@@ -551,10 +513,13 @@ timeline
 	.to('.item', { xPercent: -700, duration: 23 }, 116)
 	.to(techLeft2Param, { x: -59, y: -93.5, z: -5, duration: 23 }, 116)
 	.to('.contact-container', { xPercent: -100, duration: 21 }, 116)
+	.to('#header-contact', { color: '#0a0908', duration: 3 }, 116)
+	.to('#header-tech', { color: '#0a0908', duration: 3 }, 116.67)
+	.to('#header-proj', { color: '#0a0908', duration: 3 }, 117.33)
+	.to('#header-abt', { color: '#0a0908', duration: 3 }, 118)
+	.to('#header-name', { color: '#0a0908', duration: 4 }, 129.5)
 
 	// to make start time a percentage out of 140 from total duration
 	// start time + duration cannot be greater than 140 or it will change timeline
 	.to({}, {}, 140);
 // it was 100% at 1500vh
-
-//let btn = document.getElementById('header-name')!;
