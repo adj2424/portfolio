@@ -62,7 +62,6 @@ Promise.all([Titles.init(), Portrait.init(), Projects.init(), Technologies.init(
 
 	scene.add(Projects.projectText);
 	scene.add(Projects.projects);
-	projectInfo = structuredClone(Projects.projectInfo);
 
 	scene.add(Technologies.left1);
 	scene.add(Technologies.left2);
@@ -100,7 +99,7 @@ document.addEventListener('mousemove', e => {
 });
 
 document.addEventListener('mousedown', () => {
-	cursor.style.transform = 'scale(0.75)';
+	cursor.style.transform = 'scale(0.6)';
 });
 
 document.addEventListener('mouseup', () => {
@@ -141,6 +140,7 @@ const masks: HTMLElement[] = [document.getElementById('mask1')!, document.getEle
 masks.map(e => {
 	e.addEventListener('mouseover', () => {
 		defaultCursor = true;
+		dragHover = false;
 	});
 	e.addEventListener('mouseout', () => {
 		defaultCursor = false;
@@ -352,7 +352,29 @@ const dragControls = new DragControls([Projects.projects], camera, renderer.domE
 dragControls.transformGroup = true;
 
 let previousItem = 0;
-var projectInfo: any[] = [];
+// cant use async await
+let projectInfo: any[] = [
+	{
+		titles: 'NFT Minter',
+		descriptions: 'Web3/Blockchain/Solidity/Hardhat/IPFS',
+		url: 'https://nft-minter-polygon.vercel.app/'
+	},
+	{
+		titles: 'AI Trading Bot',
+		descriptions: 'API/Google Cloud Platform/ChatGPT/Alpaca/TypeScript',
+		url: 'https://algosus.vercel.app/'
+	},
+	{
+		titles: 'Music Portfolio',
+		descriptions: 'Three.js/GSAP/TypeScript',
+		url: 'https://music-profile-three.vercel.app/'
+	},
+	{
+		titles: 'POWOW',
+		descriptions: 'MongoDB/Express/React/Node.js',
+		url: 'https://github.com/adj2424/video-chat-website'
+	}
+];
 const itemCount = projectInfo.length;
 const offset = itemCount * 28;
 dragControls.addEventListener('dragstart', () => {

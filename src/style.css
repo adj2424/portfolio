@@ -109,7 +109,7 @@ body {
 	align-items: center;
 	width: 1vh;
 	height: 1vh;
-	border: 0.1rem solid var(--accent-clr);
+	border: 0.15rem solid var(--accent-clr);
 	border-radius: 50%;
 	pointer-events: none;
 	z-index: 9999;
