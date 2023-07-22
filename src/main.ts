@@ -62,6 +62,7 @@ Promise.all([Titles.init(), Portrait.init(), Projects.init(), Technologies.init(
 
 	scene.add(Projects.projectText);
 	scene.add(Projects.projects);
+	projectInfo = structuredClone(Projects.projectInfo);
 
 	scene.add(Technologies.left1);
 	scene.add(Technologies.left2);
@@ -108,6 +109,7 @@ document.addEventListener('mouseup', () => {
 
 let hover = false;
 let dragHover = false;
+let defaultCursor = true;
 
 const elements: HTMLElement[] = [
 	document.getElementById('header-name')!,
@@ -134,6 +136,16 @@ elements.map(e => {
 	});
 });
 
+const masks: HTMLElement[] = [document.getElementById('mask1')!, document.getElementById('mask2')!];
+
+masks.map(e => {
+	e.addEventListener('mouseover', () => {
+		defaultCursor = true;
+	});
+	e.addEventListener('mouseout', () => {
+		defaultCursor = false;
+	});
+});
 document.getElementById('header-name')!.addEventListener('click', () => {
 	scrollToPosition(0);
 });
@@ -141,13 +153,13 @@ document.getElementById('header-abt')!.addEventListener('click', () => {
 	scrollToPosition(0.11);
 });
 document.getElementById('header-proj')!.addEventListener('click', () => {
-	scrollToPosition(0.3);
+	scrollToPosition(0.41);
 });
 document.getElementById('header-tech')!.addEventListener('click', () => {
 	scrollToPosition(0.75);
 });
 document.getElementById('header-contact')!.addEventListener('click', () => {
-	scrollToPosition(0.92);
+	scrollToPosition(0.93);
 });
 
 const scrollToPosition = (percent: number) => {
@@ -217,13 +229,15 @@ function animate() {
 			cursorDot.style.opacity = '1';
 			cursorText.style.opacity = '0';
 		} else {
+			// drag hover
+			document.body.style.cursor = 'none';
 			cursor.style.width = '6vw';
 			cursor.style.height = '6vw';
 			cursorText.style.opacity = '1';
 			cursorDot.style.opacity = '0';
 		}
 	}
-	if (t % 3 === 0 && !dragHover && !hover) {
+	if ((t % 3 === 0 && !dragHover && !hover) || (t % 3 === 0 && defaultCursor)) {
 		cursor.style.width = '2vw';
 		cursor.style.height = '2vw';
 		cursorText.style.opacity = '0';
@@ -338,7 +352,7 @@ const dragControls = new DragControls([Projects.projects], camera, renderer.domE
 dragControls.transformGroup = true;
 
 let previousItem = 0;
-const projectInfo: any = Projects.projectInfo;
+var projectInfo: any[] = [];
 const itemCount = projectInfo.length;
 const offset = itemCount * 28;
 dragControls.addEventListener('dragstart', () => {
@@ -366,7 +380,6 @@ dragControls.addEventListener('drag', e => {
 	// not equal means that the item has changed
 	if (item != previousItem) {
 		previousItem = item;
-		console.log(previousItem);
 		gsap.fromTo(
 			projectName.lines,
 			{
@@ -489,8 +502,11 @@ timeline
 
 	// move camera to project showcase to expertise
 	.to(cameraParam, { x: 0, y: -85, z: 10, duration: 40 }, 50)
+	.fromTo('#mask1', { yPercent: 0 }, { yPercent: -205, duration: 40 }, 50)
 	// move project desc with screen
 	.fromTo('.project-container', { yPercent: 260 }, { yPercent: -1550, duration: 30 }, 59)
+	.fromTo('#mask2', { yPercent: 25 }, { yPercent: -125, duration: 40 }, 58)
+	.to('#mask2', { scaleY: 1.5, duration: 8 }, 82)
 
 	// transition to technologies showcase
 	.to(techLeft1Param, { x: -12, duration: 60 }, 60)
