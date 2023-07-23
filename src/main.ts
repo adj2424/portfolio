@@ -109,6 +109,13 @@ document.addEventListener('mouseup', () => {
 let hover = false;
 let dragHover = false;
 
+const masks: HTMLElement[] = [document.getElementById('mask1')!, document.getElementById('mask2')!];
+masks.map(e => {
+	e.addEventListener('mouseover', () => {
+		dragHover = false;
+	});
+});
+
 const elements: HTMLElement[] = [
 	document.getElementById('header-name')!,
 	document.getElementById('header-abt')!,
@@ -349,7 +356,6 @@ dragControls.addEventListener('dragstart', () => {
 	const startTime = new Date();
 	// open project on click
 	window.addEventListener('mouseup', () => {
-		dragHover = false;
 		const endTime = new Date();
 		const duration = endTime.getTime() - startTime.getTime();
 		if (duration < 130) {
