@@ -60,6 +60,5 @@ export default class Portrait {
 		this.rightPfpMesh.scale.set(8, 8, 8);
 		this.rightPfpMesh.position.set(5, -2, -8);
 		this.borderPfpMesh.add(this.rightPfpMesh);
-		//this.croppedPfp.position.set(-2.5, -2, 0);
 	}
 }

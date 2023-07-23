@@ -53,10 +53,6 @@ export default class Technologies {
 			}
 		}
 
-		//nextjs, react, threejs, js, ts, tailwind, html, css  front end
-		//java, python, express, mongodb, google cloud platform backend
-		//solidity, hardhat, etherjs, metamask, ipfs
-
 		const frontE = document.getElementById('frontend')! as HTMLElement;
 		const backE = document.getElementById('backend')! as HTMLElement;
 		const miscE = document.getElementById('misc')! as HTMLElement;
@@ -124,9 +120,9 @@ export default class Technologies {
 			}
 			count++;
 		};
-
+		// auto timer to play animation every 4.5 seconds
+		let timed = setInterval(playAnimation, 4500);
 		const elements: HTMLElement[] = [frontE, backE, miscE];
-
 		elements.map(e => {
 			e.addEventListener('click', () => {
 				// stop auto timer
@@ -141,30 +137,15 @@ export default class Technologies {
 					count = 2;
 					playAnimation();
 				}
-
 				// resume auto timer
 				timed = setInterval(playAnimation, 4500);
 			});
 		});
-
-		// auto timer to play animation every 5 seconds
-		let timed = setInterval(playAnimation, 4500);
-
-		// document.getElementById('testbtn')!.onclick = () => {
-		// 	// stop auto timer
-		// 	clearInterval(timed);
-		// 	if (count > 2) {
-		// 		count = 0;
-		// 	}
-		// 	playAnimation();
-		// 	// resume auto timer
-		// 	timed = setInterval(playAnimation, 4500);
-		// };
 	}
 
 	static playAnimationHelper = (arr: string[]) => {
 		for (let i = 0; i < 10; i++) {
-			// change image
+			// change top row icons
 			if (i === 0 || i === 2 || i === 4) {
 				const e = document.getElementById(`box-${i}`)!;
 				const imgElem = e.querySelector('img');

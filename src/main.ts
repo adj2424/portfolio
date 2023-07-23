@@ -108,7 +108,6 @@ document.addEventListener('mouseup', () => {
 
 let hover = false;
 let dragHover = false;
-let defaultCursor = true;
 
 const elements: HTMLElement[] = [
 	document.getElementById('header-name')!,
@@ -135,17 +134,6 @@ elements.map(e => {
 	});
 });
 
-const masks: HTMLElement[] = [document.getElementById('mask1')!, document.getElementById('mask2')!];
-
-masks.map(e => {
-	e.addEventListener('mouseover', () => {
-		defaultCursor = true;
-		dragHover = false;
-	});
-	e.addEventListener('mouseout', () => {
-		defaultCursor = false;
-	});
-});
 document.getElementById('header-name')!.addEventListener('click', () => {
 	scrollToPosition(0);
 });
@@ -219,7 +207,7 @@ let t = 0;
 function animate() {
 	t += 1;
 	// change cursor based on hover states
-	if (t % 3 === 0 && (dragHover || hover)) {
+	if (t % 3 === 0) {
 		if (hover) {
 			cursor.style.width = '.5vw';
 			cursor.style.height = '.5vw';
@@ -228,24 +216,26 @@ function animate() {
 			cursor.style.opacity = '.8';
 			cursorDot.style.opacity = '1';
 			cursorText.style.opacity = '0';
-		} else {
-			// drag hover
+		}
+		// drag hover
+		else if (dragHover) {
 			document.body.style.cursor = 'none';
 			cursor.style.width = '6vw';
 			cursor.style.height = '6vw';
 			cursorText.style.opacity = '1';
 			cursorDot.style.opacity = '0';
 		}
+		// default cursor
+		else {
+			dragHover = false;
+			cursor.style.width = '2vw';
+			cursor.style.height = '2vw';
+			cursorText.style.opacity = '0';
+			cursor.style.opacity = '1';
+			cursorDot.style.width = '0vw';
+			cursorDot.style.height = '0vw';
+		}
 	}
-	if ((t % 3 === 0 && !dragHover && !hover) || (t % 3 === 0 && defaultCursor)) {
-		cursor.style.width = '2vw';
-		cursor.style.height = '2vw';
-		cursorText.style.opacity = '0';
-		cursor.style.opacity = '1';
-		cursorDot.style.width = '0vw';
-		cursorDot.style.height = '0vw';
-	}
-
 	// delta for consistency
 	const delta = 0.005;
 	tick(delta);
@@ -352,35 +342,14 @@ const dragControls = new DragControls([Projects.projects], camera, renderer.domE
 dragControls.transformGroup = true;
 
 let previousItem = 0;
-// cant use async await
-let projectInfo: any[] = [
-	{
-		titles: 'NFT Minter',
-		descriptions: 'Web3/Blockchain/Solidity/Hardhat/IPFS',
-		url: 'https://nft-minter-polygon.vercel.app/'
-	},
-	{
-		titles: 'AI Trading Bot',
-		descriptions: 'API/Google Cloud Platform/ChatGPT/Alpaca/TypeScript',
-		url: 'https://algosus.vercel.app/'
-	},
-	{
-		titles: 'Music Portfolio',
-		descriptions: 'Three.js/GSAP/TypeScript',
-		url: 'https://music-profile-three.vercel.app/'
-	},
-	{
-		titles: 'POWOW',
-		descriptions: 'MongoDB/Express/React/Node.js',
-		url: 'https://github.com/adj2424/video-chat-website'
-	}
-];
+let projectInfo: any[] = new Projects().getProjectInfo();
 const itemCount = projectInfo.length;
 const offset = itemCount * 28;
 dragControls.addEventListener('dragstart', () => {
 	const startTime = new Date();
 	// open project on click
 	window.addEventListener('mouseup', () => {
+		dragHover = false;
 		const endTime = new Date();
 		const duration = endTime.getTime() - startTime.getTime();
 		if (duration < 130) {
@@ -388,15 +357,12 @@ dragControls.addEventListener('dragstart', () => {
 		}
 	});
 });
-
 dragControls.addEventListener('hoveron', () => {
 	dragHover = true;
 });
-
 dragControls.addEventListener('hoveroff', () => {
 	dragHover = false;
 });
-
 dragControls.addEventListener('drag', e => {
 	const item = -Math.round(Number(e.object.position.x) / 28) % 4;
 	// not equal means that the item has changed
