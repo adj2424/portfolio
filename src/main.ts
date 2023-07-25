@@ -146,7 +146,6 @@ document.addEventListener('mousemove', e => {
 	// 	mouseX = e.clientX + 10;
 	// 	mouseY = e.clientY;
 	// }
-
 	let percentX = (mouseX / window.innerWidth) * 100;
 	let percentY = (mouseY / window.innerHeight) * 100;
 
@@ -509,7 +508,7 @@ const timeline = gsap.timeline({
 		trigger: '.page',
 		start: '0% 0%',
 		end: '100% 100%',
-		scrub: 1
+		scrub: 1.5
 		//markers: true
 	}
 });
