@@ -7,9 +7,9 @@ export default class Titles {
 	static topTextGroup = new THREE.Group();
 	static botTextGroup = new THREE.Group();
 	constructor() {}
-	static async init() {
-		const fontLoader = new FontLoader();
-		const loader = new TTFLoader();
+	static async init(loadManager: THREE.LoadingManager) {
+		const fontLoader = new FontLoader(loadManager);
+		const loader = new TTFLoader(loadManager);
 		const ttf = await loader.loadAsync('/fonts/HankenGrotesk-Light.ttf');
 		const font = fontLoader.parse(ttf);
 		// create top text

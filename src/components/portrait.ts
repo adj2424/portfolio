@@ -9,8 +9,8 @@ export default class Portrait {
 	static borderPfpMesh = new THREE.Group();
 
 	constructor() {}
-	static async init() {
-		const pfpTexture = new THREE.TextureLoader().load('/pfp.jpg');
+	static async init(loadManager: THREE.LoadingManager) {
+		const pfpTexture = new THREE.TextureLoader(loadManager).load('/pfp.jpg');
 		pfpTexture.colorSpace = THREE.SRGBColorSpace;
 		this.pfpMesh = new THREE.Mesh(
 			new THREE.PlaneGeometry(4, 5),

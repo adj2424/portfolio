@@ -29,9 +29,9 @@ export default class Projects {
 		}
 	];
 	constructor() {}
-	static async init() {
-		const fontLoader = new FontLoader();
-		const loader = new TTFLoader();
+	static async init(loadManager: THREE.LoadingManager) {
+		const fontLoader = new FontLoader(loadManager);
+		const loader = new TTFLoader(loadManager);
 		const ttf = await loader.loadAsync('/fonts/HankenGrotesk-Medium.ttf');
 		const font = fontLoader.parse(ttf);
 		const textGeometry = new TextGeometry('WORKS', {
@@ -51,7 +51,7 @@ export default class Projects {
 		const pictureURLs = ['powow.png', 'algosus.png', 'nft.png', 'music.png'];
 		const itemCount = pictureURLs.length;
 		for (let i = 0; i < itemCount * 2; i++) {
-			const texture = new THREE.TextureLoader().load(pictureURLs[i % itemCount]);
+			const texture = new THREE.TextureLoader(loadManager).load(pictureURLs[i % itemCount]);
 			texture.colorSpace = THREE.SRGBColorSpace;
 			const geometry = new THREE.PlaneGeometry(18, 18);
 			const material = new THREE.MeshBasicMaterial({ map: texture });

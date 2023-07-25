@@ -14,6 +14,57 @@ gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 // all child objects where it will be animated through tick method
 const updatables: any[] = [];
 
+let count = 0;
+let loadPercent = 0;
+
+/**
+ * Loading screen
+ */
+function load() {
+	// finished loading and play enter animation
+	if (count >= 100) {
+		gsap
+			.timeline()
+			.to('#load-name', {
+				fontSize: '30px',
+				top: '2.5%',
+				left: '5%',
+				duration: 1.5,
+				ease: 'power2.out',
+				delay: 1
+			})
+			.to('.loader-container', {
+				opacity: 0,
+				duration: 0.5,
+				ease: 'power2.out'
+			})
+			.add(() => {
+				document.querySelector('.loader-container')!.remove();
+			});
+		return;
+	}
+	// must wait for load manager to finish
+	if (count / 100 >= loadPercent) {
+		setTimeout(load, 60);
+	} else {
+		count++;
+	}
+	const loading = document.getElementById('loading')!;
+	loading.innerHTML = count + '%';
+	let scalePercent = (count * 82) / 100;
+	document.getElementById('loading')!.style.right = 82 - scalePercent + '%';
+	setTimeout(load, 60);
+}
+
+// artificial loading
+load();
+// actual loading stuff should be very fast
+const loadManager = new THREE.LoadingManager();
+loadManager.onProgress = (_, loaded, total) => {
+	loadPercent = loaded / total;
+	console.log(loadPercent, count);
+};
+
 /**
  * World
  */
@@ -52,7 +103,12 @@ window.addEventListener('resize', () => {
 /**
  * Initialize meshes
  */
-Promise.all([Titles.init(), Portrait.init(), Projects.init(), Technologies.init()]).then(() => {
+Promise.all([
+	Titles.init(loadManager),
+	Portrait.init(loadManager),
+	Projects.init(loadManager),
+	Technologies.init(loadManager)
+]).then(() => {
 	scene.add(Titles.topTextGroup);
 	scene.add(Titles.botTextGroup);
 	updatables.push(Titles);
@@ -226,7 +282,6 @@ function animate() {
 		}
 		// drag hover
 		else if (dragHover) {
-			document.body.style.cursor = 'none';
 			cursor.style.width = '6vw';
 			cursor.style.height = '6vw';
 			cursorText.style.opacity = '1';

@@ -15,10 +15,10 @@ export default class Technologies {
 	static row2 = new THREE.Group();
 
 	constructor() {}
-	static async init() {
+	static async init(loadManager: THREE.LoadingManager) {
 		gsap.registerPlugin(ScrollTrigger, TextPlugin);
-		const fontLoader = new FontLoader();
-		const loader = new TTFLoader();
+		const fontLoader = new FontLoader(loadManager);
+		const loader = new TTFLoader(loadManager);
 		const ttf = await loader.loadAsync('/fonts/HankenGrotesk-Light.ttf');
 		const font = fontLoader.parse(ttf);
 
