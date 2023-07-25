@@ -23,24 +23,35 @@ let loadPercent = 0;
 function load() {
 	// finished loading and play enter animation
 	if (count >= 100) {
-		gsap
-			.timeline()
-			.to('#load-name', {
-				fontSize: '30px',
-				top: '2.5%',
-				left: '5%',
-				duration: 1.5,
-				ease: 'power2.out',
-				delay: 1
-			})
-			.to('.loader-container', {
-				opacity: 0,
-				duration: 0.5,
-				ease: 'power2.out'
-			})
-			.add(() => {
-				document.querySelector('.loader-container')!.remove();
-			});
+		gsap.to('#load-name', {
+			fontSize: '30px',
+			top: '2.5%',
+			left: '5%',
+			duration: 1.5,
+			ease: 'power2.out',
+			delay: 0.6
+		});
+		// wait for .5 seconds
+		setTimeout(() => {
+			let loadingPercent = new SplitType('#loading');
+			gsap
+				.timeline()
+				.to(loadingPercent!.chars, {
+					yPercent: -200,
+					stagger: 0.15,
+					duration: 0.5,
+					delay: 0.5
+				})
+				.to('.loader-container', {
+					opacity: 0,
+					duration: 0.5,
+					delay: 0.3,
+					ease: 'power2.out'
+				})
+				.add(() => {
+					document.querySelector('.loader-container')?.remove();
+				});
+		}, 500);
 		return;
 	}
 	// must wait for load manager to finish
@@ -62,7 +73,6 @@ load();
 const loadManager = new THREE.LoadingManager();
 loadManager.onProgress = (_, loaded, total) => {
 	loadPercent = loaded / total;
-	console.log(loadPercent, count);
 };
 
 /**
