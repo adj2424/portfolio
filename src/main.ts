@@ -1,6 +1,6 @@
 import './style.css';
 import * as THREE from 'three';
-import { DragControls } from 'three/examples/jsm/controls/DragControls.js';
+//import { DragControls } from 'three/examples/jsm/controls/DragControls.js';
 import { gsap } from 'gsap';
 import { ScrollTrigger, ScrollToPlugin } from 'gsap/all';
 import SplitType from 'split-type';
@@ -14,7 +14,7 @@ gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 // all child objects where it will be animated through tick method
 const updatables: any[] = [];
 
-let count = 0;
+let count = 100;
 let loadPercent = 0;
 
 /**
@@ -68,7 +68,8 @@ function load() {
 }
 
 // artificial loading
-load();
+//load();
+document.querySelector('.loader-container')?.remove();
 // actual loading stuff should be very fast
 const loadManager = new THREE.LoadingManager();
 loadManager.onProgress = (_, loaded, total) => {
@@ -92,7 +93,7 @@ camera.position.setZ(10);
  * Background
  */
 //https://coolors.co/palette/f8f9fa-e9ecef-dee2e6-ced4da-adb5bd-6c757d-495057-343a40-212529
-scene.background = new THREE.Color(0xe8e8e4).convertSRGBToLinear();
+scene.background = new THREE.Color(0x0a0908);
 
 /**
  * Light Source
@@ -127,7 +128,7 @@ Promise.all([
 	scene.add(Portrait.borderPfpMesh);
 
 	scene.add(Projects.projectText);
-	scene.add(Projects.projects);
+	//scene.add(Projects.projects);
 
 	scene.add(Technologies.left1);
 	scene.add(Technologies.left2);
@@ -147,7 +148,6 @@ function tick(delta: number) {
 }
 
 const cursor = document.querySelector('.cursor') as HTMLElement;
-const cursorText = document.querySelector('.cursor-text') as HTMLElement;
 const cursorDot = document.querySelector('.cursor-dot') as HTMLElement;
 document.addEventListener('mousemove', e => {
 	let mouseX = e.clientX - 10;
@@ -172,14 +172,6 @@ document.addEventListener('mouseup', () => {
 });
 
 let hover = false;
-let dragHover = false;
-
-const masks: HTMLElement[] = [document.getElementById('mask1')!, document.getElementById('mask2')!];
-masks.map(e => {
-	e.addEventListener('mouseover', () => {
-		dragHover = false;
-	});
-});
 
 const elements: HTMLElement[] = [
 	document.getElementById('header-name')!,
@@ -248,7 +240,7 @@ document.getElementById('contact')!.addEventListener('mouseout', () => {
  * Initial values of objects
  */
 let cameraParam = { x: 0, y: 0, z: 10 };
-let bgColorParam = { r: 232 / 255, g: 232 / 255, b: 228 / 255 };
+//let bgColorParam = { r: 232 / 255, g: 232 / 255, b: 228 / 255 };
 
 let pfpParam = { x: -12, y: -6, z: -8 };
 let pfpParamScale = { x: 8, y: 8, z: 8 };
@@ -269,7 +261,9 @@ let projectTextScaleParam = { x: 1, y: 1, z: 1 };
 let techLeft1Param = { x: -35, y: -80, z: -5 };
 let techLeft2Param = { x: -70, y: -85, z: -5 };
 let techRightParam = { x: 10, y: -90, z: -5 };
-let techL2ColorParam = { r: 10 / 255, g: 9 / 255, b: 8 / 255 };
+let techL1ColorParam = { r: 232 / 255, g: 232 / 255, b: 228 / 255 };
+let techL2ColorParam = { r: 232 / 255, g: 232 / 255, b: 228 / 255 };
+let techRColorParam = { r: 232 / 255, g: 232 / 255, b: 228 / 255 };
 let techL2ScaleParam = { x: 1, y: 1, z: 1 };
 
 /**
@@ -287,21 +281,12 @@ function animate() {
 			cursorDot.style.height = '1vw';
 			cursor.style.opacity = '.8';
 			cursorDot.style.opacity = '1';
-			cursorText.style.opacity = '0';
-		}
-		// drag hover
-		else if (dragHover) {
-			cursor.style.width = '6vw';
-			cursor.style.height = '6vw';
-			cursorText.style.opacity = '1';
-			cursorDot.style.opacity = '0';
 		}
 		// default cursor
 		else {
-			dragHover = false;
+			//dragHover = false;
 			cursor.style.width = '2vw';
 			cursor.style.height = '2vw';
-			cursorText.style.opacity = '0';
 			cursor.style.opacity = '1';
 			cursorDot.style.width = '0vw';
 			cursorDot.style.height = '0vw';
@@ -312,7 +297,7 @@ function animate() {
 	tick(delta);
 	//controls.update();
 	camera.position.set(cameraParam.x, cameraParam.y, cameraParam.z);
-	scene.background = new THREE.Color(bgColorParam.r, bgColorParam.g, bgColorParam.b).convertSRGBToLinear();
+	//scene.background = new THREE.Color(bgColorParam.r, bgColorParam.g, bgColorParam.b).convertSRGBToLinear();
 
 	Portrait.pfpMesh.position.set(pfpParam.x, pfpParam.y, pfpParam.z);
 	Portrait.pfpMesh.scale.set(pfpParamScale.x, pfpParamScale.y, pfpParamScale.z);
@@ -333,10 +318,20 @@ function animate() {
 	Technologies.left1.position.set(techLeft1Param.x, techLeft1Param.y, techLeft1Param.z);
 	Technologies.right.position.set(techRightParam.x, techRightParam.y, techRightParam.z);
 	Technologies.left2.position.set(techLeft2Param.x, techLeft2Param.y, techLeft2Param.z);
+	(Technologies.left1.material as THREE.MeshBasicMaterial).color = new THREE.Color(
+		techL1ColorParam.r,
+		techL1ColorParam.g,
+		techL1ColorParam.b
+	).convertSRGBToLinear();
 	(Technologies.left2.material as THREE.MeshBasicMaterial).color = new THREE.Color(
 		techL2ColorParam.r,
 		techL2ColorParam.g,
 		techL2ColorParam.b
+	).convertSRGBToLinear();
+	(Technologies.right.material as THREE.MeshBasicMaterial).color = new THREE.Color(
+		techRColorParam.r,
+		techRColorParam.g,
+		techRColorParam.b
 	).convertSRGBToLinear();
 	Technologies.left2.scale.set(techL2ScaleParam.x, techL2ScaleParam.y, techL2ScaleParam.z);
 
@@ -347,10 +342,6 @@ renderer.setAnimationLoop(animate);
 const aboutHello = new SplitType('.about-hello');
 const aboutText = new SplitType('.about-text', { types: 'lines' });
 const aboutLines = document.querySelectorAll('.about-text .line');
-
-let projectName = new SplitType('.project-name');
-let projectDesc = new SplitType('.project-desc');
-//const projectNameLines = document.querySelectorAll('.project-name .line');
 
 createLineWrapper(aboutLines);
 //createLineWrapper(projectNameLines);
@@ -406,110 +397,6 @@ gsap.fromTo(
 );
 
 /**
- * Drag controls for projects
- */
-const dragControls = new DragControls([Projects.projects], camera, renderer.domElement);
-// this allows for multiple objects to be dragged
-dragControls.transformGroup = true;
-
-let previousItem = 0;
-let projectInfo: any[] = new Projects().getProjectInfo();
-const itemCount = projectInfo.length;
-const offset = itemCount * 28;
-dragControls.addEventListener('dragstart', () => {
-	const startTime = new Date();
-	// open project on click
-	window.addEventListener('mouseup', () => {
-		const endTime = new Date();
-		const duration = endTime.getTime() - startTime.getTime();
-		if (duration < 130) {
-			window.open(projectInfo[previousItem].url);
-		}
-	});
-});
-dragControls.addEventListener('hoveron', () => {
-	dragHover = true;
-});
-dragControls.addEventListener('hoveroff', () => {
-	dragHover = false;
-});
-dragControls.addEventListener('drag', e => {
-	const item = -Math.round(Number(e.object.position.x) / 28) % 4;
-	// not equal means that the item has changed
-	if (item != previousItem) {
-		previousItem = item;
-		gsap.fromTo(
-			projectName.lines,
-			{
-				yPercent: 0
-			},
-			{
-				yPercent: -100,
-				duration: 0.3,
-				// plays other animation after this one is done
-				onComplete: () => {
-					// split type is weird so we have to revert it and then change text
-					projectName.revert();
-					let element = document.querySelector('.project-name') as HTMLElement;
-					element!.textContent = projectInfo[item].titles.toUpperCase();
-					// recreate split type with updated text
-					projectName = new SplitType('.project-name');
-					// plays animation with updated text
-					gsap.fromTo(
-						projectName.lines,
-						{
-							yPercent: 100
-						},
-						{
-							yPercent: 0,
-							duration: 0.3
-						}
-					);
-				}
-			}
-		);
-
-		gsap.fromTo(
-			projectDesc.lines,
-			{
-				yPercent: 0
-			},
-			{
-				yPercent: -100,
-				duration: 0.3,
-				onComplete: () => {
-					projectDesc.revert();
-					const e = document.querySelector('.project-desc') as HTMLElement;
-					e!.textContent = projectInfo[item].descriptions;
-					projectDesc = new SplitType('.project-desc');
-					gsap.fromTo(
-						projectDesc.lines,
-						{
-							yPercent: 100
-						},
-						{
-							yPercent: 0,
-							duration: 0.3
-						}
-					);
-				}
-			}
-		);
-	}
-	// same as group position except x
-	e.object.position.y = 0;
-	e.object.position.z = 1;
-	// left bounds
-	if (e.object.position.x < -offset) {
-		e.object.position.set(e.object.position.x + offset, 0, 1);
-	}
-	// right bounds
-	if (e.object.position.x > 0) {
-		e.object.position.set(e.object.position.x - offset, 0, 1);
-	}
-});
-
-/**
  * https://tympanus.net/codrops/2022/12/13/how-to-code-an-on-scroll-folding-3d-cardboard-box-animation-with-three-js-and-gsap/
  * Animation timeline by scrolling
  */
@@ -560,19 +447,16 @@ timeline
 
 	// move camera to project showcase to expertise
 	.to(cameraParam, { x: 0, y: -85, z: 10, duration: 40 }, 50)
-	.fromTo('#mask1', { yPercent: 0 }, { yPercent: -205, duration: 40 }, 50)
-	// move project desc with screen
-	.fromTo('.project-container', { yPercent: 260 }, { yPercent: -1550, duration: 30 }, 59)
-	.fromTo('#mask2', { yPercent: 25 }, { yPercent: -125, duration: 40 }, 58)
-	.to('#mask2', { scaleY: 1.5, duration: 8 }, 82)
 
 	// transition to technologies showcase
 	.to(techLeft1Param, { x: -12, duration: 60 }, 60)
 	.to(techLeft2Param, { x: -14, duration: 30 }, 60)
 	.to(techRightParam, { x: -30, duration: 40 }, 70)
-	.to(techL2ColorParam, { r: 232 / 255, g: 232 / 255, b: 228 / 255, duration: 5 }, 85)
-	.to('.header-container p', { color: '#e8e8e4', duration: 5 }, 85)
-	.to(bgColorParam, { r: 10 / 255, g: 9 / 255, b: 8 / 255, duration: 5 }, 85)
+	.to(techL1ColorParam, { r: 10 / 255, g: 9 / 255, b: 8 / 255, duration: 5 }, 85)
+	.to(techRColorParam, { r: 10 / 255, g: 9 / 255, b: 8 / 255, duration: 5 }, 85)
+	//.to(techL2ColorParam, { r: 232 / 255, g: 232 / 255, b: 228 / 255, duration: 5 }, 85)
+	//.to('.header-container p', { color: '#e8e8e4', duration: 5 }, 85)
+	//.to(bgColorParam, { r: 10 / 255, g: 9 / 255, b: 8 / 255, duration: 5 }, 85)
 
 	.to(techL2ScaleParam, { x: 0.75, y: 0.75, z: 0.75, duration: 15 }, 93)
 	.to(techLeft2Param, { x: -6, y: -94.25, z: -5, duration: 15 }, 93)
@@ -585,7 +469,8 @@ timeline
 	// transition to contact page
 	.to('.box', { xPercent: -700, duration: 23 }, 116)
 	.to('.item', { xPercent: -700, duration: 23 }, 116)
-	.to(techLeft2Param, { x: -59, y: -93.5, z: -5, duration: 23 }, 116)
+	.to(techLeft2Param, { x: -59, y: -94.25, z: -5, duration: 23 }, 116)
+	.to('.contact-container', { color: '#0a0908', duration: 2 }, 116)
 	.to('.contact-container', { xPercent: -100, duration: 21 }, 116)
 	.to('#header-contact', { color: '#0a0908', duration: 3 }, 116)
 	.to('#header-tech', { color: '#0a0908', duration: 3 }, 116.67)

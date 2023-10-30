@@ -29,7 +29,7 @@ export default class Titles {
 			const topText = new THREE.Mesh(
 				textGeometry,
 				new THREE.MeshBasicMaterial({
-					color: 0x0a0908
+					color: 0xe8e8e4
 				})
 			);
 			const [x, y, z] = coords[i];
@@ -53,7 +53,7 @@ export default class Titles {
 			const botText = new THREE.Mesh(
 				textGeometry,
 				new THREE.MeshBasicMaterial({
-					color: 0x0a0908
+					color: 0xe8e8e4
 				})
 			);
 			const [x, y, z] = coords[i];

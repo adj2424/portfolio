@@ -11,6 +11,7 @@ export default class Portrait {
 	constructor() {}
 	static async init(loadManager: THREE.LoadingManager) {
 		const pfpTexture = new THREE.TextureLoader(loadManager).load('/pfp.jpg');
+		const color = 0x0a0908;
 		pfpTexture.colorSpace = THREE.SRGBColorSpace;
 		this.pfpMesh = new THREE.Mesh(
 			new THREE.PlaneGeometry(4, 5),
@@ -24,7 +25,7 @@ export default class Portrait {
 		this.topPfpMesh = new THREE.Mesh(
 			new THREE.PlaneGeometry(4, 2),
 			new THREE.MeshBasicMaterial({
-				color: 0xe8e8e4 //0xf3f3ec
+				color: color //0xf3f3ec
 			})
 		);
 		this.topPfpMesh.scale.set(8, 8, 8);
@@ -34,7 +35,7 @@ export default class Portrait {
 		this.botPfpMesh = new THREE.Mesh(
 			new THREE.PlaneGeometry(4, 4),
 			new THREE.MeshBasicMaterial({
-				color: 0xe8e8e4
+				color: color
 			})
 		);
 		this.botPfpMesh.scale.set(8, 8, 8);
@@ -44,7 +45,7 @@ export default class Portrait {
 		this.leftPfpMesh = new THREE.Mesh(
 			new THREE.PlaneGeometry(0.5, 4),
 			new THREE.MeshBasicMaterial({
-				color: 0xe8e8e4
+				color: color
 			})
 		);
 		this.leftPfpMesh.scale.set(8, 8, 8);
@@ -54,7 +55,7 @@ export default class Portrait {
 		this.rightPfpMesh = new THREE.Mesh(
 			new THREE.PlaneGeometry(0.5, 4),
 			new THREE.MeshBasicMaterial({
-				color: 0xe8e8e4
+				color: color
 			})
 		);
 		this.rightPfpMesh.scale.set(8, 8, 8);

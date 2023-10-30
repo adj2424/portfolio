@@ -36,7 +36,7 @@ export default class Technologies {
 				height: 0.0
 			});
 
-			const text = new THREE.Mesh(textGeometry, new THREE.MeshBasicMaterial({ color: 0x0a0908 }));
+			const text = new THREE.Mesh(textGeometry, new THREE.MeshBasicMaterial({ color: 0xe8e8e4 }));
 			const [x, y, z] = coords[i];
 			text.position.set(x, y, z);
 			text.material.color;
