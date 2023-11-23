@@ -405,7 +405,7 @@ const timeline = gsap.timeline({
 		trigger: '.page',
 		start: '0% 0%',
 		end: '100% 100%',
-		scrub: 1.5
+		scrub: 2
 		//markers: true
 	}
 });
@@ -447,6 +447,7 @@ timeline
 
 	// move camera to project showcase to expertise
 	.to(cameraParam, { x: 0, y: -85, z: 10, duration: 40 }, 50)
+	.to('.projects-container', { yPercent: -200, duration: 40 }, 50)
 
 	// transition to technologies showcase
 	.to(techLeft1Param, { x: -12, duration: 60 }, 60)

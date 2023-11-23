@@ -1,5 +1,6 @@
 :root {
-	--fs-xl: 200px;
+	--fs-xxl: 200px;
+	--fs-xl: 75px;
 	--fs-l: 30px;
 	--fs-m: 20px;
 	--fs-s: 15px;
@@ -11,7 +12,7 @@
 
 @media (min-width: 1401px) and (max-width: 1600px) {
 	:root {
-		--fs-xl: 160px;
+		--fs-xxl: 160px;
 		--fs-l: 25px;
 		--fs-m: 18px;
 		--fs-s: 13.5px;
@@ -20,7 +21,7 @@
 
 @media (min-width: 1101px) and (max-width: 1400px) {
 	:root {
-		--fs-xl: 130px;
+		--fs-xxl: 130px;
 		--fs-l: 20px;
 		--fs-m: 16px;
 		--fs-s: 12px;
@@ -29,7 +30,7 @@
 
 @media (min-width: 851px) and (max-width: 1100px) {
 	:root {
-		--fs-xl: 90px;
+		--fs-xxl: 90px;
 		--fs-l: 18px;
 		--fs-m: 14px;
 		--fs-s: 11px;
@@ -38,7 +39,7 @@
 
 @media (min-width: 651px) and (max-width: 850px) {
 	:root {
-		--fs-xl: 70px;
+		--fs-xxl: 70px;
 		--fs-l: 15px;
 		--fs-m: 12.5px;
 		--fs-s: 10px;
@@ -47,7 +48,7 @@
 
 @media (max-width: 650px) {
 	:root {
-		--fs-xl: 50px;
+		--fs-xxl: 50px;
 		--fs-l: 13px;
 		--fs-m: 11px;
 		--fs-s: 9px;
@@ -63,7 +64,7 @@ canvas {
 body {
 	font-family: 'Hanken Grotesk', sans-serif;
 	color: var(--light-clr);
-	cursor: none;
+	//cursor: none;
 }
 
 ::-webkit-scrollbar {
@@ -95,7 +96,7 @@ body {
 	top: -1%;
 	right: 2%;
 	//background-color: aqua;
-	font-size: var(--fs-xl);
+	font-size: var(--fs-xxl);
 }
 
 #loading {
@@ -103,7 +104,7 @@ body {
 	bottom: -2%;
 	margin-right: 1%;
 	right: 82%;
-	font-size: var(--fs-xl);
+	font-size: var(--fs-xxl);
 	transition: right 0.5s ease-out;
 	overflow: hidden;
 }
@@ -175,7 +176,7 @@ body {
 	overflow: hidden;
 	top: 10%;
 	padding: 0;
-	font-size: var(--fs-xl);
+	font-size: var(--fs-xxl);
 }
 
 .about-text {
@@ -183,35 +184,42 @@ body {
 	font-size: var(--fs-l);
 }
 
-.line-wrapper {
-	overflow: hidden;
+.projects-container {
+	position: fixed;
+	top: 100%;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	opacity: 1;
 }
 
-.project-container {
-	position: fixed;
-	left: 50%;
-	bottom: 5%;
-	transform: translateX(-50%);
-	pointer-events: none;
-	margin: 0;
-	padding: 0;
+.project-item {
+	display: grid;
+	grid-template-columns: 2fr 8fr 1fr;
+	align-items: center;
+	height: 10rem;
+	//background-color: pink;
+}
+
+.project-number {
+	text-align: right;
+	font-size: var(--fs-m);
+	margin-right: 15%;
+	//background-color: rosybrown;
 }
 
 .project-name {
-	margin: 0;
-	padding: 0;
-	text-align: center;
-	overflow: hidden;
-	font-size: var(--fs-l);
+	//background-color: cornsilk;
+	font-size: var(--fs-xl);
+}
+.project-technologies-container {
+	//color: aqua;
+	display: flex;
+	flex-direction: column;
 }
 
-.project-desc {
-	margin: 0;
-	margin-top: 2%;
-	padding: 0;
-	text-align: center;
+.line-wrapper {
 	overflow: hidden;
-	font-size: var(--fs-s);
 }
 
 .list-container {
@@ -303,7 +311,7 @@ img {
 
 #contact {
 	position: absolute;
-	font-size: var(--fs-xl);
+	font-size: var(--fs-xxl);
 	top: 20%;
 	left: 50%;
 	width: 80%;
