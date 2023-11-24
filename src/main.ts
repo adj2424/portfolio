@@ -1,6 +1,5 @@
 import './style.css';
 import * as THREE from 'three';
-//import { DragControls } from 'three/examples/jsm/controls/DragControls.js';
 import { gsap } from 'gsap';
 import { ScrollTrigger, ScrollToPlugin } from 'gsap/all';
 import SplitType from 'split-type';
@@ -68,7 +67,7 @@ function load() {
 }
 
 // artificial loading
-//load();
+load();
 document.querySelector('.loader-container')?.remove();
 // actual loading stuff should be very fast
 const loadManager = new THREE.LoadingManager();
@@ -173,6 +172,8 @@ document.addEventListener('mouseup', () => {
 
 let hover = false;
 
+const projectElements = [...(document.getElementsByClassName('project-name') as HTMLCollectionOf<HTMLElement>)];
+
 const elements: HTMLElement[] = [
 	document.getElementById('header-name')!,
 	document.getElementById('header-abt')!,
@@ -186,7 +187,8 @@ const elements: HTMLElement[] = [
 	document.getElementById('socials-instagram')!,
 	document.getElementById('socials-threads')!,
 	document.getElementById('socials-linkedin')!,
-	document.getElementById('socials-github')!
+	document.getElementById('socials-github')!,
+	...projectElements
 ];
 
 elements.map(e => {
@@ -195,6 +197,19 @@ elements.map(e => {
 	});
 	e.addEventListener('mouseout', () => {
 		hover = false;
+	});
+});
+
+const url = [
+	'https://nft-minter-polygon.vercel.app/',
+	'https://algosus.vercel.app/',
+	'https://music-profile-three.vercel.app/',
+	'https://github.com/adj2424/video-chat-website'
+];
+
+projectElements.map((e, i) => {
+	e.addEventListener('click', () => {
+		window.open(url[i]);
 	});
 });
 
