@@ -146,33 +146,56 @@ function tick(delta: number) {
 	}
 }
 
-const cursor = document.querySelector('.cursor') as HTMLElement;
+const cursor = document.querySelector('.cursor-container') as HTMLElement;
+const cursorCircle = document.querySelector('.cursor-circle') as HTMLElement;
 const cursorDot = document.querySelector('.cursor-dot') as HTMLElement;
+const cursorDisplay = document.querySelector('.cursor-display') as HTMLElement;
 document.addEventListener('mousemove', e => {
-	let mouseX = e.clientX - 10;
-	let mouseY = e.clientY - 20;
-	// if (hover) {
-	// 	mouseX = e.clientX + 10;
-	// 	mouseY = e.clientY;
-	// }
-	let percentX = (mouseX / window.innerWidth) * 100;
+	const cursorOutlineWidth = 3;
+	const cursorW = document.querySelector('.cursor-circle')!.clientWidth + cursorOutlineWidth;
+	let mouseX = e.clientX - cursorW / 2;
+	let mouseY = e.clientY - cursorW / 2;
+
+	// from css
+	const scrollBarWidth = 14;
+	let percentX = (mouseX / (window.innerWidth - scrollBarWidth)) * 100;
 	let percentY = (mouseY / window.innerHeight) * 100;
 
 	cursor.style.top = percentY + '%';
 	cursor.style.left = percentX + '%';
+	cursorDisplay.style.left = `-${cursorW / 2}px`;
+	cursorDisplay.style.top = `${cursorW / 2}px`;
+	if (hover) {
+		cursorCircle.style.width = '17px';
+		cursorCircle.style.height = '17px';
+		cursorCircle.style.opacity = '.8';
+		cursorDot.style.width = '20px';
+		cursorDot.style.height = '20px';
+	}
+	// default cursor
+	else {
+		cursorCircle.style.width = '35px';
+		cursorCircle.style.height = '35px';
+		cursorCircle.style.opacity = '1';
+		cursorDot.style.width = '0px';
+		cursorDot.style.height = '0px';
+	}
 });
 
 document.addEventListener('mousedown', () => {
-	cursor.style.transform = 'scale(0.6)';
+	cursorCircle.style.transform = 'scale(0.6)';
 });
 
 document.addEventListener('mouseup', () => {
-	cursor.style.transform = 'scale(1)';
+	cursorCircle.style.transform = 'scale(1)';
 });
 
 let hover = false;
 
-const projectElements = [...(document.getElementsByClassName('project-name') as HTMLCollectionOf<HTMLElement>)];
+const projectElements = [
+	...(document.getElementsByClassName('project-name') as HTMLCollectionOf<HTMLElement>),
+	...(document.getElementsByClassName('arrow') as HTMLCollectionOf<HTMLElement>)
+];
 
 const elements: HTMLElement[] = [
 	document.getElementById('header-name')!,
@@ -201,16 +224,27 @@ elements.map(e => {
 });
 
 const url = [
-	'https://nft-minter-polygon.vercel.app/',
-	'https://algosus.vercel.app/',
-	'https://music-profile-three.vercel.app/',
-	'https://github.com/adj2424/video-chat-website'
+	{ site: 'https://nft-minter-polygon.vercel.app/', src: 'nft.png' },
+	{ site: 'https://algosus.vercel.app/', src: 'algosus.png' },
+	{ site: 'https://music-profile-three.vercel.app/', src: 'music.png' },
+	{ site: 'https://github.com/adj2424/video-chat-website', src: 'powow.png' }
 ];
 
 projectElements.map((e, i) => {
+	const img = document.getElementById('display')! as HTMLImageElement;
 	e.addEventListener('click', () => {
-		window.open(url[i]);
+		window.open(url[i % url.length].site);
 	});
+	// shows the image when hovering over project name
+	if (e.className === 'project-name') {
+		e.addEventListener('mouseover', () => {
+			img.src = url[i % url.length].src;
+			img.style.opacity = '1';
+		});
+		e.addEventListener('mouseout', () => {
+			img.style.opacity = '0';
+		});
+	}
 });
 
 document.getElementById('header-name')!.addEventListener('click', () => {
@@ -284,29 +318,7 @@ let techL2ScaleParam = { x: 1, y: 1, z: 1 };
 /**
  * Animate
  */
-let t = 0;
 function animate() {
-	t += 1;
-	// change cursor based on hover states
-	if (t % 3 === 0) {
-		if (hover) {
-			cursor.style.width = '.5vw';
-			cursor.style.height = '.5vw';
-			cursorDot.style.width = '1vw';
-			cursorDot.style.height = '1vw';
-			cursor.style.opacity = '.8';
-			cursorDot.style.opacity = '1';
-		}
-		// default cursor
-		else {
-			//dragHover = false;
-			cursor.style.width = '2vw';
-			cursor.style.height = '2vw';
-			cursor.style.opacity = '1';
-			cursorDot.style.width = '0vw';
-			cursorDot.style.height = '0vw';
-		}
-	}
 	// delta for consistency
 	const delta = 0.005;
 	tick(delta);

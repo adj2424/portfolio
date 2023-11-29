@@ -64,18 +64,18 @@ canvas {
 body {
 	font-family: 'Hanken Grotesk', sans-serif;
 	color: var(--light-clr);
-	//cursor: none;
+	cursor: none;
 }
 
 ::-webkit-scrollbar {
-	width: 0.8em;
+	width: 14px;
 }
 ::-webkit-scrollbar-track {
 	background: #cdcdc4;
 }
 
 ::-webkit-scrollbar-thumb {
-	width: 1em;
+	width: 15px;
 	background: var(--accent-clr);
 	border-radius: 100vw;
 }
@@ -114,31 +114,43 @@ body {
 	height: 1500vh;
 }
 
-.cursor {
+.cursor-container {
+	display: flex;
+	flex-direction: row-reverse;
 	position: fixed;
+	pointer-events: none;
+	z-index: 9999;
+}
+
+.cursor-circle {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	width: 1vh;
-	height: 1vh;
-	border: 0.15rem solid var(--accent-clr);
+	width: 35px;
+	height: 35px;
+	border: 2px solid var(--accent-clr);
 	border-radius: 50%;
-	pointer-events: none;
-	z-index: 9999;
 	transform-origin: center;
-	transition: transform 0.3s ease, width 0.4s ease, height 0.4s ease;
-	transition-timing-function: ease-out;
+	transition: transform 0.3s ease, width 0.3s ease, height 0.3s ease;
 }
 
 .cursor-dot {
 	position: fixed;
-	height: 3px;
-	width: 3px;
+	height: 4px;
+	width: 4px;
 	background-color: var(--accent-clr);
 	border-radius: 50%;
-	pointer-events: none;
-	z-index: 9999;
-	transition: opacity 0.2s ease-out, width 0.5s ease, height 0.5s ease;
+	transition: opacity 0.2s ease, width 0.5s ease-out, height 0.5s ease-out;
+}
+
+.cursor-display {
+	position: relative;
+}
+#display {
+	width: clamp(210px, 27vw, 540px);
+	height: clamp(140px, 18vw, 360px);
+	transition: opacity 0.25s ease-out;
+	opacity: 0;
 }
 
 .header-container {
@@ -203,31 +215,38 @@ body {
 
 .project-item {
 	display: grid;
-	grid-template-columns: 1fr 5fr 1fr;
+	grid-template-columns: 1fr 4fr 2fr 0fr;
 	align-items: center;
 	height: 10rem;
+	width: 94%;
 	transition: all 0.5s ease;
-	//background-color: pink;
+	background-color: var(--dark-clr);
 }
 
 .project-item:hover {
-	margin-left: 2%;
+	margin-left: 3%;
+	width: 86%;
 	transition: all 0.5s ease;
 }
 
 .project-number {
 	text-align: center;
 	font-size: var(--fs-m);
-	//background-color: rosybrown;
+}
+
+.arrow {
+	position: fixed;
+	right: 5.5%;
+	width: 5%;
+	max-width: 10rem;
+	z-index: -1;
 }
 
 .project-name {
-	//background-color: cornsilk;
 	font-size: var(--fs-xl);
 }
 .project-technologies-container {
 	display: flex;
-	margin-right: 46%;
 	text-align: right;
 	flex-direction: column;
 }
