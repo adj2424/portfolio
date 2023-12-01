@@ -7,6 +7,7 @@ import Titles from './components/titles.ts';
 import Portrait from './components/portrait.ts';
 import Projects from './components/projects.ts';
 import Technologies from './components/technologies.ts';
+import { darkColor, lightColor } from './colors.ts';
 
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
@@ -92,7 +93,7 @@ camera.position.setZ(10);
  * Background
  */
 //https://coolors.co/palette/f8f9fa-e9ecef-dee2e6-ced4da-adb5bd-6c757d-495057-343a40-212529
-scene.background = new THREE.Color(0x0a0908);
+scene.background = new THREE.Color(darkColor.hex);
 
 /**
  * Light Source
@@ -157,7 +158,7 @@ document.addEventListener('mousemove', e => {
 	let mouseY = e.clientY - cursorW / 2;
 
 	// from css
-	const scrollBarWidth = 14;
+	const scrollBarWidth = 11;
 	let percentX = (mouseX / (window.innerWidth - scrollBarWidth)) * 100;
 	let percentY = (mouseY / window.innerHeight) * 100;
 
@@ -168,7 +169,7 @@ document.addEventListener('mousemove', e => {
 	if (hover) {
 		cursorCircle.style.width = '17px';
 		cursorCircle.style.height = '17px';
-		cursorCircle.style.opacity = '.8';
+		cursorCircle.style.opacity = '.7';
 		cursorDot.style.width = '20px';
 		cursorDot.style.height = '20px';
 	}
@@ -223,13 +224,7 @@ elements.map(e => {
 	});
 });
 
-const url = [
-	{ site: 'https://nft-minter-polygon.vercel.app/', src: 'nft.png' },
-	{ site: 'https://algosus.vercel.app/', src: 'algosus.png' },
-	{ site: 'https://music-profile-three.vercel.app/', src: 'music.png' },
-	{ site: 'https://github.com/adj2424/video-chat-website', src: 'powow.png' }
-];
-
+const url = Projects.projectInfo;
 projectElements.map((e, i) => {
 	const img = document.getElementById('display')! as HTMLImageElement;
 	e.addEventListener('click', () => {
@@ -289,8 +284,6 @@ document.getElementById('contact')!.addEventListener('mouseout', () => {
  * Initial values of objects
  */
 let cameraParam = { x: 0, y: 0, z: 10 };
-//let bgColorParam = { r: 232 / 255, g: 232 / 255, b: 228 / 255 };
-
 let pfpParam = { x: -12, y: -6, z: -8 };
 let pfpParamScale = { x: 8, y: 8, z: 8 };
 let borderPfpParam = { x: 0, y: 0, z: 0 };
@@ -310,9 +303,9 @@ let projectTextScaleParam = { x: 1, y: 1, z: 1 };
 let techLeft1Param = { x: -35, y: -80, z: -5 };
 let techLeft2Param = { x: -70, y: -85, z: -5 };
 let techRightParam = { x: 10, y: -90, z: -5 };
-let techL1ColorParam = { r: 232 / 255, g: 232 / 255, b: 228 / 255 };
-let techL2ColorParam = { r: 232 / 255, g: 232 / 255, b: 228 / 255 };
-let techRColorParam = { r: 232 / 255, g: 232 / 255, b: 228 / 255 };
+let techL1ColorParam = structuredClone(lightColor.rgb);
+let techL2ColorParam = structuredClone(lightColor.rgb);
+let techRColorParam = structuredClone(lightColor.rgb);
 let techL2ScaleParam = { x: 1, y: 1, z: 1 };
 
 /**
@@ -482,10 +475,6 @@ timeline
 	.to(techRightParam, { x: -30, duration: 40 }, 70)
 	.to(techL1ColorParam, { r: 10 / 255, g: 9 / 255, b: 8 / 255, duration: 5 }, 85)
 	.to(techRColorParam, { r: 10 / 255, g: 9 / 255, b: 8 / 255, duration: 5 }, 85)
-	//.to(techL2ColorParam, { r: 232 / 255, g: 232 / 255, b: 228 / 255, duration: 5 }, 85)
-	//.to('.header-container p', { color: '#e8e8e4', duration: 5 }, 85)
-	//.to(bgColorParam, { r: 10 / 255, g: 9 / 255, b: 8 / 255, duration: 5 }, 85)
-
 	.to(techL2ScaleParam, { x: 0.75, y: 0.75, z: 0.75, duration: 15 }, 93)
 	.to(techLeft2Param, { x: -6, y: -94.25, z: -5, duration: 15 }, 93)
 	// move project desc with screen
@@ -498,13 +487,13 @@ timeline
 	.to('.box', { xPercent: -700, duration: 23 }, 116)
 	.to('.item', { xPercent: -700, duration: 23 }, 116)
 	.to(techLeft2Param, { x: -59, y: -94.25, z: -5, duration: 23 }, 116)
-	.to('.contact-container', { color: '#0a0908', duration: 2 }, 116)
 	.to('.contact-container', { xPercent: -100, duration: 21 }, 116)
-	.to('#header-contact', { color: '#0a0908', duration: 3 }, 116)
-	.to('#header-tech', { color: '#0a0908', duration: 3 }, 116.67)
-	.to('#header-proj', { color: '#0a0908', duration: 3 }, 117.33)
-	.to('#header-abt', { color: '#0a0908', duration: 3 }, 118)
-	.to('#header-name', { color: '#0a0908', duration: 4 }, 129.5)
+	.to('.contact-container', { color: darkColor.hexString, duration: 2 }, 116)
+	.to('#header-contact', { color: darkColor.hexString, duration: 3 }, 116)
+	.to('#header-tech', { color: darkColor.hexString, duration: 3 }, 116.67)
+	.to('#header-proj', { color: darkColor.hexString, duration: 3 }, 117.33)
+	.to('#header-abt', { color: darkColor.hexString, duration: 3 }, 118)
+	.to('#header-name', { color: darkColor.hexString, duration: 4 }, 129.5)
 
 	// to make start time a percentage out of 140 from total duration
 	// start time + duration cannot be greater than 140 or it will change timeline

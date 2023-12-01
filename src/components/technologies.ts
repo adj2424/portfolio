@@ -5,6 +5,7 @@ import { TTFLoader } from 'three/examples/jsm/loaders/TTFLoader.js';
 import { gsap } from 'gsap';
 import { TextPlugin } from 'gsap/TextPlugin';
 import { ScrollTrigger } from 'gsap/all';
+import { lightColor, accentColor } from '../colors';
 
 export default class Technologies {
 	static left1 = new THREE.Mesh();
@@ -36,7 +37,7 @@ export default class Technologies {
 				height: 0.0
 			});
 
-			const text = new THREE.Mesh(textGeometry, new THREE.MeshBasicMaterial({ color: 0xe8e8e4 }));
+			const text = new THREE.Mesh(textGeometry, new THREE.MeshBasicMaterial({ color: lightColor.hex }));
 			const [x, y, z] = coords[i];
 			text.position.set(x, y, z);
 			text.material.color;
@@ -101,21 +102,21 @@ export default class Technologies {
 				count = 0;
 			}
 			if (count === 0) {
-				frontE.style.color = '#809bce';
-				backE.style.color = '#e8e8e4';
-				miscE.style.color = '#e8e8e4';
+				frontE.style.color = accentColor.hexString;
+				backE.style.color = lightColor.hexString;
+				miscE.style.color = lightColor.hexString;
 				this.playAnimationHelper(front);
 			}
 			if (count === 1) {
-				frontE.style.color = '#e8e8e4';
-				backE.style.color = '#809bce';
-				miscE.style.color = '#e8e8e4';
+				frontE.style.color = lightColor.hexString;
+				backE.style.color = accentColor.hexString;
+				miscE.style.color = lightColor.hexString;
 				this.playAnimationHelper(back);
 			}
 			if (count === 2) {
-				frontE.style.color = '#e8e8e4';
-				backE.style.color = '#e8e8e4';
-				miscE.style.color = '#809bce';
+				frontE.style.color = lightColor.hexString;
+				backE.style.color = lightColor.hexString;
+				miscE.style.color = accentColor.hexString;
 				this.playAnimationHelper(misc);
 			}
 			count++;

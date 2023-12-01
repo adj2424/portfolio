@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import { darkColor } from '../colors';
 
 export default class Portrait {
 	static pfpMesh = new THREE.Mesh();
@@ -11,7 +12,7 @@ export default class Portrait {
 	constructor() {}
 	static async init(loadManager: THREE.LoadingManager) {
 		const pfpTexture = new THREE.TextureLoader(loadManager).load('/pfp.jpg');
-		const color = 0x0a0908;
+		const color = darkColor.hex;
 		pfpTexture.colorSpace = THREE.SRGBColorSpace;
 		this.pfpMesh = new THREE.Mesh(
 			new THREE.PlaneGeometry(4, 5),

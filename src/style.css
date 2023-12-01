@@ -5,9 +5,9 @@
 	--fs-m: 20px;
 	--fs-s: 15px;
 
-	--accent-clr: #809bce;
+	--accent-clr: #b31312;
 	--dark-clr: #0a0908;
-	--light-clr: #e8e8e4;
+	--light-clr: #f8f8ff; //#e8e8e4;
 }
 
 @media (min-width: 1401px) and (max-width: 1600px) {
@@ -68,14 +68,14 @@ body {
 }
 
 ::-webkit-scrollbar {
-	width: 14px;
+	width: 11px;
 }
 ::-webkit-scrollbar-track {
-	background: #cdcdc4;
+	background: #0a0908;
 }
 
 ::-webkit-scrollbar-thumb {
-	width: 15px;
+	width: 11px;
 	background: var(--accent-clr);
 	border-radius: 100vw;
 }
@@ -140,7 +140,7 @@ body {
 	width: 4px;
 	background-color: var(--accent-clr);
 	border-radius: 50%;
-	transition: opacity 0.2s ease, width 0.5s ease-out, height 0.5s ease-out;
+	transition: opacity 0.5s ease, width 0.5s ease-out, height 0.5s ease-out;
 }
 
 .cursor-display {
@@ -149,7 +149,7 @@ body {
 #display {
 	width: clamp(210px, 27vw, 540px);
 	height: clamp(140px, 18vw, 360px);
-	transition: opacity 0.25s ease-out;
+	transition: opacity 0.2s ease-out;
 	opacity: 0;
 }
 
@@ -273,7 +273,7 @@ body {
 	justify-content: center;
 	margin: 10%;
 	margin-right: 1%;
-	color: #e8e8e4;
+	color: var(--light-clr);
 	font-size: var(--fs-s);
 	overflow: hidden;
 	transition-delay: 0.1s;
@@ -316,7 +316,7 @@ body {
 	align-items: center;
 	justify-content: center;
 	margin: 1%;
-	color: #e8e8e4;
+	color: var(--light-clr);
 	font-size: var(--fs-l);
 	overflow: hidden;
 	text-align: center;
@@ -334,7 +334,7 @@ img {
 
 .contact-container {
 	font-size: var(--fs-m);
-	background-color: #e8e8e4;
+	background-color: var(--light-clr);
 	position: fixed;
 	top: 0;
 	left: 100%;
