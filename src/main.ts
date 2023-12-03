@@ -118,7 +118,7 @@ Promise.all([
 	Titles.init(loadManager),
 	Portrait.init(loadManager),
 	Projects.init(loadManager),
-	Technologies.init(loadManager)
+	Technologies.init()
 ]).then(() => {
 	scene.add(Titles.topTextGroup);
 	scene.add(Titles.botTextGroup);

@@ -1,7 +1,4 @@
 import * as THREE from 'three';
-import { FontLoader } from 'three/examples/jsm/loaders/FontLoader.js';
-import { TextGeometry } from 'three/examples/jsm/geometries/TextGeometry.js';
-import { TTFLoader } from 'three/examples/jsm/loaders/TTFLoader.js';
 import { gsap } from 'gsap';
 import { TextPlugin } from 'gsap/TextPlugin';
 import { ScrollTrigger } from 'gsap/all';
@@ -13,7 +10,7 @@ export default class Technologies {
 	static right = new THREE.Mesh();
 
 	constructor() {}
-	static async init(loadManager: THREE.LoadingManager) {
+	static async init() {
 		gsap.registerPlugin(ScrollTrigger, TextPlugin);
 
 		const frontE = document.getElementById('frontend')! as HTMLElement;
