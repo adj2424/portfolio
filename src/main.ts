@@ -7,7 +7,7 @@ import Titles from './components/titles.ts';
 import Portrait from './components/portrait.ts';
 import Projects from './components/projects.ts';
 import Technologies from './components/technologies.ts';
-import { darkColor, lightColor } from './colors.ts';
+import { darkColor } from './colors.ts';
 
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
