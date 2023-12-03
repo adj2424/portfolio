@@ -5,7 +5,7 @@ import { ScrollTrigger, ScrollToPlugin } from 'gsap/all';
 import SplitType from 'split-type';
 import Titles from './components/titles.ts';
 import Portrait from './components/portrait.ts';
-import Projects from './components/projects.ts';
+import { projectInfo } from './components/projects.ts';
 import Technologies from './components/technologies.ts';
 import { darkColor } from './colors.ts';
 
@@ -114,12 +114,7 @@ window.addEventListener('resize', () => {
 /**
  * Initialize meshes
  */
-Promise.all([
-	Titles.init(loadManager),
-	Portrait.init(loadManager),
-	Projects.init(loadManager),
-	Technologies.init()
-]).then(() => {
+Promise.all([Titles.init(loadManager), Portrait.init(loadManager), Technologies.init()]).then(() => {
 	scene.add(Titles.topTextGroup);
 	scene.add(Titles.botTextGroup);
 	updatables.push(Titles);
@@ -215,7 +210,7 @@ elements.map(e => {
 	});
 });
 
-const url = Projects.projectInfo;
+const url = projectInfo;
 projectElements.map((e, i) => {
 	const img = document.getElementById('display')! as HTMLImageElement;
 	e.addEventListener('click', () => {
@@ -288,9 +283,6 @@ let topTextGroupParam = { x: 0, y: 0, z: 0 };
 let botTextGroupParam = { x: 0, y: 0, z: 0 };
 let botTextGroupScaleParam = { x: 1, y: 1, z: 1 };
 
-let projectTextParam = { x: -36, y: -40, z: -8 };
-let projectTextScaleParam = { x: 1, y: 1, z: 1 };
-
 /**
  * Animate
  */
@@ -314,9 +306,6 @@ function animate() {
 	Titles.topTextGroup.position.set(topTextGroupParam.x, topTextGroupParam.y, topTextGroupParam.z);
 	Titles.botTextGroup.position.set(botTextGroupParam.x, botTextGroupParam.y, botTextGroupParam.z);
 	Titles.botTextGroup.scale.set(botTextGroupScaleParam.x, botTextGroupScaleParam.y, botTextGroupScaleParam.z);
-
-	Projects.projectText.position.set(projectTextParam.x, projectTextParam.y, projectTextParam.z);
-	Projects.projectText.scale.set(projectTextScaleParam.x, projectTextScaleParam.y, projectTextScaleParam.z);
 
 	renderer.render(scene, camera);
 }

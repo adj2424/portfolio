@@ -1,14 +1,9 @@
-import * as THREE from 'three';
 import { gsap } from 'gsap';
 import { TextPlugin } from 'gsap/TextPlugin';
 import { ScrollTrigger } from 'gsap/all';
 import { lightColor, accentColor } from '../colors';
 
 export default class Technologies {
-	static left1 = new THREE.Mesh();
-	static left2 = new THREE.Mesh();
-	static right = new THREE.Mesh();
-
 	constructor() {}
 	static async init() {
 		gsap.registerPlugin(ScrollTrigger, TextPlugin);
@@ -109,33 +104,34 @@ export default class Technologies {
 			if (i === 0 || i === 2 || i === 4) {
 				const e = document.getElementById(`box-${i}`)!;
 				const imgElem = e.querySelector('img');
-				gsap
-					.timeline()
-					.fromTo(
-						imgElem,
-						{
-							yPercent: 0
-						},
-						{
-							yPercent: 200,
-							ease: 'back.in(2)',
-							duration: 0.6
-						}
-					)
+				const tl = gsap.timeline();
+				tl.fromTo(
+					imgElem,
+					{
+						yPercent: 0
+					},
+					{
+						yPercent: 280,
+						ease: 'back.in(2)',
+						duration: 0.6
+					}
+				)
 					.add(() => {
 						imgElem!.src = arr[i];
-					})
-					.fromTo(
-						imgElem,
-						{
-							yPercent: -150
-						},
-						{
-							yPercent: 0,
-							ease: 'back.out(2)',
-							duration: 0.6
-						}
-					);
+					}, 0.68)
+					.add(() => {
+						gsap.fromTo(
+							imgElem,
+							{
+								yPercent: -280
+							},
+							{
+								yPercent: 0,
+								ease: 'back.out(2)',
+								duration: 0.6
+							}
+						);
+					}, 0.75);
 			}
 			// bottom row icons
 			else if (i === 6 || i === 8) {
@@ -149,30 +145,32 @@ export default class Technologies {
 							yPercent: 0
 						},
 						{
-							yPercent: -200,
+							yPercent: -280,
 							ease: 'back.in(2)',
 							duration: 0.6
 						}
 					)
 					.add(() => {
 						imgElem!.src = arr[i];
-					})
-					.fromTo(
-						imgElem,
-						{
-							yPercent: 150
-						},
-						{
-							yPercent: 0,
-							ease: 'back.out(2)',
-							duration: 0.6
-						}
-					);
+					}, 0.68)
+					.add(() => {
+						gsap.fromTo(
+							imgElem,
+							{
+								yPercent: 200
+							},
+							{
+								yPercent: 0,
+								ease: 'back.out(2)',
+								duration: 0.6
+							}
+						);
+					}, 0.75);
 			}
 			// change text
 			else {
 				gsap.to(`#box-${i}`, {
-					duration: 1,
+					duration: 1.2,
 					text: {
 						value: arr[i]
 					},
