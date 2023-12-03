@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root {
 	--fs-xxl: 200px;
 	--fs-xl: 75px;
@@ -13,6 +17,7 @@
 @media (min-width: 1401px) and (max-width: 1600px) {
 	:root {
 		--fs-xxl: 160px;
+		--fs-xl: 65px;
 		--fs-l: 25px;
 		--fs-m: 18px;
 		--fs-s: 13.5px;
@@ -22,6 +27,7 @@
 @media (min-width: 1101px) and (max-width: 1400px) {
 	:root {
 		--fs-xxl: 130px;
+		--fs-xl: 50px;
 		--fs-l: 20px;
 		--fs-m: 16px;
 		--fs-s: 12px;
@@ -31,6 +37,7 @@
 @media (min-width: 851px) and (max-width: 1100px) {
 	:root {
 		--fs-xxl: 90px;
+		--fs-xl: 45px;
 		--fs-l: 18px;
 		--fs-m: 14px;
 		--fs-s: 11px;
@@ -40,15 +47,27 @@
 @media (min-width: 651px) and (max-width: 850px) {
 	:root {
 		--fs-xxl: 70px;
+		--fs-xl: 36px;
 		--fs-l: 15px;
 		--fs-m: 12.5px;
 		--fs-s: 10px;
 	}
 }
 
-@media (max-width: 650px) {
+@media (min-width: 451px) and (max-width: 650px) {
 	:root {
 		--fs-xxl: 50px;
+		--fs-xl: 30px;
+		--fs-l: 13px;
+		--fs-m: 11px;
+		--fs-s: 9px;
+	}
+}
+
+@media (max-width: 450px) {
+	:root {
+		--fs-xxl: 50px;
+		--fs-xl: 28px;
 		--fs-l: 13px;
 		--fs-m: 11px;
 		--fs-s: 9px;
@@ -63,6 +82,7 @@ canvas {
 
 body {
 	font-family: 'Hanken Grotesk', sans-serif;
+	font-weight: 500;
 	color: var(--light-clr);
 	cursor: none;
 }
@@ -95,7 +115,6 @@ body {
 	position: fixed;
 	top: -1%;
 	right: 2%;
-	//background-color: aqua;
 	font-size: var(--fs-xxl);
 }
 
@@ -110,7 +129,6 @@ body {
 }
 
 .page {
-	width: 100%;
 	height: 1500vh;
 }
 
@@ -199,10 +217,17 @@ body {
 .projects-container {
 	position: fixed;
 	top: 100%;
-	//left: 0;
 	width: 100%;
-	height: 100%;
-	opacity: 1;
+}
+
+#works {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 100vh;
+}
+#works div {
+	font-size: 35vw;
 }
 
 .project-divider {
@@ -234,14 +259,6 @@ body {
 	font-size: var(--fs-m);
 }
 
-.arrow {
-	position: fixed;
-	right: 5.5%;
-	width: 5%;
-	max-width: 10rem;
-	z-index: -1;
-}
-
 .project-name {
 	font-size: var(--fs-xl);
 }
@@ -250,9 +267,44 @@ body {
 	text-align: right;
 	flex-direction: column;
 }
+.arrow {
+	position: fixed;
+	right: 5.5%;
+	width: 5%;
+	max-width: 10rem;
+	z-index: -1;
+}
 
 .line-wrapper {
 	overflow: hidden;
+}
+
+.technologies-container {
+	position: fixed;
+	top: 100%;
+	width: 100%;
+	height: 100vh;
+}
+
+.technologies-desc {
+	position: fixed;
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 80%;
+}
+
+.technologies-wrapper {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+.technologies-wrapper div {
+	font-size: var(--fs-xxl);
+	font-weight: 300;
+	margin: calc(var(--fs-xxl) * -0.14);
 }
 
 .list-container {
@@ -280,10 +332,6 @@ body {
 	transition: color 1s ease;
 }
 
-#gcp {
-	white-space: nowrap;
-}
-
 .item ul {
 	display: flex;
 	flex-direction: column;
@@ -299,10 +347,14 @@ body {
 	font-size: var(--fs-l);
 }
 
+#gcp {
+	white-space: nowrap;
+}
+
 .box-container {
 	position: fixed;
 	width: 81.5%;
-	right: 0%;
+	right: -100%;
 	top: 6%;
 	height: 62.66%;
 	display: grid;

@@ -12,47 +12,9 @@ export default class Technologies {
 	static left2 = new THREE.Mesh();
 	static right = new THREE.Mesh();
 
-	static row1 = new THREE.Group();
-	static row2 = new THREE.Group();
-
 	constructor() {}
 	static async init(loadManager: THREE.LoadingManager) {
 		gsap.registerPlugin(ScrollTrigger, TextPlugin);
-		const fontLoader = new FontLoader(loadManager);
-		const loader = new TTFLoader(loadManager);
-		const ttf = await loader.loadAsync('/fonts/HankenGrotesk-Light.ttf');
-		const font = fontLoader.parse(ttf);
-
-		const words = ['THE BEST', 'TECHNOLOGIES', 'I USE'];
-		const coords = [
-			[-30, -80, -5],
-			[-30, -85, -5],
-			[0, -95, -5]
-		];
-
-		for (let i = 0; i < words.length; i++) {
-			const textGeometry = new TextGeometry(words[i], {
-				font: font,
-				size: 3.5,
-				height: 0.0
-			});
-
-			const text = new THREE.Mesh(textGeometry, new THREE.MeshBasicMaterial({ color: lightColor.hex }));
-			const [x, y, z] = coords[i];
-			text.position.set(x, y, z);
-			text.material.color;
-			if (i === 0) {
-				this.left1 = text;
-			}
-			//
-			else if (i === 1) {
-				this.left2 = text;
-			}
-			//
-			else if (i === 2) {
-				this.right = text;
-			}
-		}
 
 		const frontE = document.getElementById('frontend')! as HTMLElement;
 		const backE = document.getElementById('backend')! as HTMLElement;

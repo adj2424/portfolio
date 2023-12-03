@@ -126,15 +126,6 @@ Promise.all([
 
 	scene.add(Portrait.pfpMesh);
 	scene.add(Portrait.borderPfpMesh);
-
-	scene.add(Projects.projectText);
-	//scene.add(Projects.projects);
-
-	scene.add(Technologies.left1);
-	scene.add(Technologies.left2);
-	scene.add(Technologies.right);
-	scene.add(Technologies.row1);
-	scene.add(Technologies.row2);
 });
 
 /**
@@ -300,14 +291,6 @@ let botTextGroupScaleParam = { x: 1, y: 1, z: 1 };
 let projectTextParam = { x: -36, y: -40, z: -8 };
 let projectTextScaleParam = { x: 1, y: 1, z: 1 };
 
-let techLeft1Param = { x: -35, y: -80, z: -5 };
-let techLeft2Param = { x: -70, y: -85, z: -5 };
-let techRightParam = { x: 10, y: -90, z: -5 };
-let techL1ColorParam = structuredClone(lightColor.rgb);
-let techL2ColorParam = structuredClone(lightColor.rgb);
-let techRColorParam = structuredClone(lightColor.rgb);
-let techL2ScaleParam = { x: 1, y: 1, z: 1 };
-
 /**
  * Animate
  */
@@ -334,26 +317,6 @@ function animate() {
 
 	Projects.projectText.position.set(projectTextParam.x, projectTextParam.y, projectTextParam.z);
 	Projects.projectText.scale.set(projectTextScaleParam.x, projectTextScaleParam.y, projectTextScaleParam.z);
-
-	Technologies.left1.position.set(techLeft1Param.x, techLeft1Param.y, techLeft1Param.z);
-	Technologies.right.position.set(techRightParam.x, techRightParam.y, techRightParam.z);
-	Technologies.left2.position.set(techLeft2Param.x, techLeft2Param.y, techLeft2Param.z);
-	(Technologies.left1.material as THREE.MeshBasicMaterial).color = new THREE.Color(
-		techL1ColorParam.r,
-		techL1ColorParam.g,
-		techL1ColorParam.b
-	).convertSRGBToLinear();
-	(Technologies.left2.material as THREE.MeshBasicMaterial).color = new THREE.Color(
-		techL2ColorParam.r,
-		techL2ColorParam.g,
-		techL2ColorParam.b
-	).convertSRGBToLinear();
-	(Technologies.right.material as THREE.MeshBasicMaterial).color = new THREE.Color(
-		techRColorParam.r,
-		techRColorParam.g,
-		techRColorParam.b
-	).convertSRGBToLinear();
-	Technologies.left2.scale.set(techL2ScaleParam.x, techL2ScaleParam.y, techL2ScaleParam.z);
 
 	renderer.render(scene, camera);
 }
@@ -453,30 +416,32 @@ timeline
 	.to(botTextGroupScaleParam, { x: 0, y: 0, z: 0, duration: 0.2 }, 15)
 	.to(borderPfpParam, { x: 0, y: 0, z: -10, duration: 0.5 }, 15)
 	.to(borderPfpScaleParam, { x: 0, y: 0, z: 0, duration: 0.5 }, 16)
-
-	// move camera to project text
-	.to(cameraParam, { x: 0, y: -30, z: 10, duration: 20 }, 18)
-
+	.to(cameraParam, { x: 0, y: -35, z: 10, duration: 22 }, 18)
 	// move about text out of screen
-	.to('.about-container', { xPercent: -150, duration: 5 }, 35)
+	.to('.about-container', { xPercent: -150, duration: 5 }, 28)
 
-	// shrink project text
-	.to(cameraParam, { x: 0, y: -30, z: 10, duration: 8 }, 40)
-	.to(projectTextParam, { x: -18, y: -34, z: -8, duration: 8 }, 40)
-	.to(projectTextScaleParam, { x: 0.5, y: 0.5, z: 0.5, duration: 8 }, 40)
+	// move works text then shrink then move again
+	.to('.projects-container', { yPercent: -58, duration: 16 }, 22)
+	.to('#works div', { fontSize: (window.innerWidth - 14) * 0.18, duration: 8 }, 40)
+	.to('.projects-container', { yPercent: -200, duration: 48 }, 50)
 
-	// move camera to project showcase to expertise
+	// moves technologies text left and right
+	.fromTo('#best', { x: -window.innerWidth * 0.45 }, { x: -window.innerWidth * 0.15, duration: 35 }, 64)
+	.fromTo('.main', { x: -window.innerWidth * 0.8 }, { x: window.innerWidth * 0.08, duration: 26 }, 64)
+	.fromTo('#use', { x: window.innerWidth * 0.7 }, { x: -window.innerWidth * 0.35, duration: 35 }, 64)
+
+	// fix box
+	.to('.box-container', { xPercent: -122.7, duration: 2 }, 78)
+
+	// moves technologies up then down
+	.to('.technologies-desc', { y: 0, duration: 26 }, 60)
+	.to('.technologies-container', { yPercent: -100, duration: 26 }, 64)
+	.to('.secondary', { opacity: 0, duration: 5 }, 85)
+	.to('.main', { y: window.innerHeight * 0.45, duration: 15 }, 93)
+	.to('.main', { scale: 0.75, duration: 15 }, 93)
+
 	.to(cameraParam, { x: 0, y: -85, z: 10, duration: 40 }, 50)
-	.to('.projects-container', { yPercent: -200, duration: 40 }, 50)
 
-	// transition to technologies showcase
-	.to(techLeft1Param, { x: -12, duration: 60 }, 60)
-	.to(techLeft2Param, { x: -14, duration: 30 }, 60)
-	.to(techRightParam, { x: -30, duration: 40 }, 70)
-	.to(techL1ColorParam, { r: 10 / 255, g: 9 / 255, b: 8 / 255, duration: 5 }, 85)
-	.to(techRColorParam, { r: 10 / 255, g: 9 / 255, b: 8 / 255, duration: 5 }, 85)
-	.to(techL2ScaleParam, { x: 0.75, y: 0.75, z: 0.75, duration: 15 }, 93)
-	.to(techLeft2Param, { x: -6, y: -94.25, z: -5, duration: 15 }, 93)
 	// move project desc with screen
 	.from('.list-container', { xPercent: -105, duration: 3 }, 85)
 	.from('.item', { opacity: 0, xPercent: -105, stagger: 3, duration: 5 }, 92)
@@ -484,9 +449,8 @@ timeline
 	.from('.box', { opacity: 0, yPercent: -50, stagger: 1.5, duration: 8 }, 88)
 
 	// transition to contact page
-	.to('.box', { xPercent: -700, duration: 23 }, 116)
-	.to('.item', { xPercent: -700, duration: 23 }, 116)
-	.to(techLeft2Param, { x: -59, y: -94.25, z: -5, duration: 23 }, 116)
+	.to('.technologies-container', { xPercent: -100, duration: 23 }, 116)
+	.to('.main', { x: 0, duration: 23 }, 116)
 	.to('.contact-container', { xPercent: -100, duration: 21 }, 116)
 	.to('.contact-container', { color: darkColor.hexString, duration: 2 }, 116)
 	.to('#header-contact', { color: darkColor.hexString, duration: 3 }, 116)
