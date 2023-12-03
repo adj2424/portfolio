@@ -104,18 +104,19 @@ export default class Technologies {
 			if (i === 0 || i === 2 || i === 4) {
 				const e = document.getElementById(`box-${i}`)!;
 				const imgElem = e.querySelector('img');
-				const tl = gsap.timeline();
-				tl.fromTo(
-					imgElem,
-					{
-						yPercent: 0
-					},
-					{
-						yPercent: 280,
-						ease: 'back.in(2)',
-						duration: 0.6
-					}
-				)
+				gsap
+					.timeline()
+					.fromTo(
+						imgElem,
+						{
+							yPercent: 0
+						},
+						{
+							yPercent: 280,
+							ease: 'back.in(2)',
+							duration: 0.6
+						}
+					)
 					.add(() => {
 						imgElem!.src = arr[i];
 					}, 0.68)
