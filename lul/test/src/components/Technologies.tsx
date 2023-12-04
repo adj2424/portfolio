@@ -1,5 +1,5 @@
 const Technologies = () => {
-	return <>tech</>;
+	return <div>tech</div>;
 };
 
 export default Technologies;

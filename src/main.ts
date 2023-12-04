@@ -377,7 +377,7 @@ const timeline = gsap.timeline({
 		trigger: '.page',
 		start: '0% 0%',
 		end: '100% 100%',
-		scrub: 2
+		scrub: 1
 		//markers: true
 	}
 });

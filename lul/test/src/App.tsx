@@ -1,4 +1,5 @@
 import './App.css';
+import Cursor from './components/Cursor';
 import Header from './components/Header';
 import Hero from './components/Hero';
 import Works from './components/Works';
@@ -8,7 +9,8 @@ import Contact from './components/Contact';
 function App() {
 	return (
 		<>
-			<div className="h-[1500vh]">
+			<div className="flex flex-col bg-black">
+				<Cursor />
 				<Header />
 				<Hero />
 				<Works />

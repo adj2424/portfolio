@@ -1,3 +1,23 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+:root {
+	--fs-xxl: 200px;
+	--fs-xl: 75px;
+	--fs-l: 30px;
+	--fs-m: 20px;
+	--fs-s: 15px;
+
+	--accent-clr: #b31312;
+	--dark-clr: #0a0908;
+	--light-clr: #f8f8ff;
+}
+
+body {
+	font-family: 'Hanken Grotesk', sans-serif;
+	font-weight: 500;
+	color: var(--light-clr);
+	//cursor: none;
+}
+

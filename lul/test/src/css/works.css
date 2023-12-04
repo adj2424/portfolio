@@ -1,0 +1,7 @@
+.divider {
+	background-color: var(--light-clr);
+	height: 2px;
+	margin-left: 5%;
+	width: 90%;
+	opacity: 0.25;
+}
