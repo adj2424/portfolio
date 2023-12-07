@@ -9,12 +9,14 @@
 		"preview": "vite preview"
 	},
 	"devDependencies": {
+		"@types/matter-js": "^0.19.5",
 		"typescript": "^5.0.2",
 		"vite": "^4.3.9"
 	},
 	"dependencies": {
 		"@types/three": "^0.152.1",
 		"gsap": "^3.12.1",
+		"matter-js": "^0.19.0",
 		"split-type": "^0.3.3",
 		"three": "^0.153.0"
 	}

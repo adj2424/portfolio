@@ -1,183 +1,125 @@
-import { gsap } from 'gsap';
-import { TextPlugin } from 'gsap/TextPlugin';
-import { ScrollTrigger } from 'gsap/all';
-import { lightColor, accentColor } from '../colors';
+import './css/technologies.css';
+import { Engine, Render, Runner, Bodies, Composite, Mouse, MouseConstraint, Body, Vector } from 'matter-js';
 
 export default class Technologies {
+	scale = 1;
 	constructor() {}
-	static async init() {
-		gsap.registerPlugin(ScrollTrigger, TextPlugin);
+	async init() {
+		const bigNumber = 10000;
+		const thickness = 80;
+		const canvas = document.getElementById('canvas')! as HTMLCanvasElement;
+		this.setPillScale();
 
-		const frontE = document.getElementById('frontend')! as HTMLElement;
-		const backE = document.getElementById('backend')! as HTMLElement;
-		const miscE = document.getElementById('misc')! as HTMLElement;
-
-		let count = 0;
-		const playAnimation = () => {
-			const front = [
-				'logos/javascript.svg',
-				'TypeScript',
-				'logos/react.svg',
-				'Next.js',
-				'logos/tailwind.svg',
-				'JavaScript',
-				'logos/typescript.svg',
-				'React',
-				'logos/nextjs.svg',
-				'Tailwind CSS'
-			];
-
-			const back = [
-				'logos/python.svg',
-				'Java',
-				'logos/nodejs.svg',
-				'Solidity',
-				'logos/mongodb.svg',
-				'Python',
-				'logos/java.svg',
-				'Node.js',
-				'logos/solidity.svg',
-				'MongoDB'
-			];
-
-			const misc = [
-				'logos/gcp.svg',
-				'Hardhat',
-				'logos/threejs.svg',
-				'Git',
-				'logos/vscode.svg',
-				'Google Cloud Platform',
-				'logos/hardhat.svg',
-				'Three.js',
-				'logos/git.svg',
-				'VS Code'
-			];
-			if (count > 2) {
-				count = 0;
+		let engine = Engine.create();
+		let render = Render.create({
+			canvas: canvas,
+			engine: engine,
+			options: {
+				width: window.innerWidth,
+				height: window.innerHeight,
+				background: 'transparent',
+				wireframes: false,
+				showAngleIndicator: true
 			}
-			if (count === 0) {
-				frontE.style.color = accentColor.hexString;
-				backE.style.color = lightColor.hexString;
-				miscE.style.color = lightColor.hexString;
-				this.playAnimationHelper(front);
-			}
-			if (count === 1) {
-				frontE.style.color = lightColor.hexString;
-				backE.style.color = accentColor.hexString;
-				miscE.style.color = lightColor.hexString;
-				this.playAnimationHelper(back);
-			}
-			if (count === 2) {
-				frontE.style.color = lightColor.hexString;
-				backE.style.color = lightColor.hexString;
-				miscE.style.color = accentColor.hexString;
-				this.playAnimationHelper(misc);
-			}
-			count++;
-		};
-		// auto timer to play animation every 4.5 seconds
-		let timed = setInterval(playAnimation, 4500);
-		const elements: HTMLElement[] = [frontE, backE, miscE];
-		elements.map(e => {
-			e.addEventListener('click', () => {
-				// stop auto timer
-				clearInterval(timed);
-				if (e === frontE && count !== 1) {
-					count = 0;
-					playAnimation();
-				} else if (e === backE && count !== 2) {
-					count = 1;
-					playAnimation();
-				} else if (e === miscE && count !== 0) {
-					count = 2;
-					playAnimation();
-				}
-				// resume auto timer
-				timed = setInterval(playAnimation, 4500);
-			});
 		});
+
+		const mouseConstraint = MouseConstraint.create(engine, {
+			mouse: Mouse.create(render.canvas),
+			constraint: {
+				stiffness: 0.2,
+				render: {
+					visible: false
+				}
+			}
+		});
+
+		const pills = await Promise.all([
+			this.createPill(0.8 * Math.random() * window.innerWidth, 100, '/pills/angular.png', this.scale),
+			this.createPill(0.8 * Math.random() * window.innerWidth, 100, '/pills/aws.png', this.scale),
+			this.createPill(0.8 * Math.random() * window.innerWidth, 100, '/pills/drag.png', this.scale),
+			this.createPill(0.8 * Math.random() * window.innerWidth, 100, '/pills/gcp.png', this.scale),
+			this.createPill(0.8 * Math.random() * window.innerWidth, 100, '/pills/git.png', this.scale),
+			this.createPill(0.8 * Math.random() * window.innerWidth, 100, '/pills/gsap.png', this.scale),
+			this.createPill(0.8 * Math.random() * window.innerWidth, 100, '/pills/java.png', this.scale),
+			this.createPill(0.8 * Math.random() * window.innerWidth, 100, '/pills/javascript.png', this.scale),
+			this.createPill(0.8 * Math.random() * window.innerWidth, 100, '/pills/react.png', this.scale),
+			this.createPill(0.8 * Math.random() * window.innerWidth, 100, '/pills/solidity.png', this.scale),
+			this.createPill(0.8 * Math.random() * window.innerWidth, 100, '/pills/tailwind.png', this.scale),
+			this.createPill(0.8 * Math.random() * window.innerWidth, 100, '/pills/technologies.png', this.scale),
+			this.createPill(0.8 * Math.random() * window.innerWidth, 100, '/pills/three.png', this.scale),
+			this.createPill(0.8 * Math.random() * window.innerWidth, 100, '/pills/typescript.png', this.scale)
+		]);
+
+		const ground = Bodies.rectangle(bigNumber / 2, window.innerHeight + thickness / 2.2, bigNumber, thickness, {
+			isStatic: true,
+			render: {
+				fillStyle: 'transparent'
+			}
+		});
+		const left = Bodies.rectangle(-thickness / 2.3, 0, thickness, bigNumber, {
+			isStatic: true,
+			render: {
+				fillStyle: 'transparent'
+			}
+		});
+		const right = Bodies.rectangle(window.innerWidth + (thickness - 15) / 2.3, 0, thickness, bigNumber, {
+			isStatic: true,
+			render: {
+				fillStyle: 'transparent'
+			}
+		});
+
+		Composite.add(engine.world, [ground, left, right, mouseConstraint, ...pills]);
+		Render.run(render);
+		Runner.run(Runner.create(), engine);
+
+		window.addEventListener('resize', () => {
+			this.setPillScale();
+			render.canvas.width = window.innerWidth;
+			render.canvas.height = window.innerHeight;
+			Body.setPosition(ground, Vector.create(window.innerWidth / 2, window.innerHeight + thickness / 2.2));
+			Body.setPosition(left, Vector.create(-thickness / 2.3, window.innerHeight));
+			Body.setPosition(right, Vector.create(window.innerWidth + (thickness - 15) / 2.3, window.innerHeight));
+		});
+		mouseConstraint.mouse.element.removeEventListener('mousewheel', (mouseConstraint.mouse as any).mousewheel);
+		mouseConstraint.mouse.element.removeEventListener('DOMMouseScroll', (mouseConstraint.mouse as any).mousewheel);
 	}
 
-	static playAnimationHelper = (arr: string[]) => {
-		for (let i = 0; i < 10; i++) {
-			// change top row icons
-			if (i === 0 || i === 2 || i === 4) {
-				const e = document.getElementById(`box-${i}`)!;
-				const imgElem = e.querySelector('img');
-				gsap
-					.timeline()
-					.fromTo(
-						imgElem,
-						{
-							yPercent: 0
-						},
-						{
-							yPercent: 280,
-							ease: 'back.in(2)',
-							duration: 0.6
-						}
-					)
-					.add(() => {
-						imgElem!.src = arr[i];
-					}, 0.68)
-					.add(() => {
-						gsap.fromTo(
-							imgElem,
-							{
-								yPercent: -280
-							},
-							{
-								yPercent: 0,
-								ease: 'back.out(2)',
-								duration: 0.6
-							}
-						);
-					}, 0.75);
+	createPill = async (x: number, y: number, url: string, scale: number) => {
+		const img = new Image();
+		img.src = url;
+		await img.decode();
+		const pill = Bodies.rectangle(x, y, img.width * scale, img.height * scale, {
+			restitution: 0.6,
+			chamfer: { radius: (img.height / 2) * 0.9 * scale },
+			render: {
+				sprite: {
+					texture: url,
+					xScale: scale,
+					yScale: scale
+				}
 			}
-			// bottom row icons
-			else if (i === 6 || i === 8) {
-				const e = document.getElementById(`box-${i}`)!;
-				const imgElem = e.querySelector('img');
-				gsap
-					.timeline()
-					.fromTo(
-						imgElem,
-						{
-							yPercent: 0
-						},
-						{
-							yPercent: -280,
-							ease: 'back.in(2)',
-							duration: 0.6
-						}
-					)
-					.add(() => {
-						imgElem!.src = arr[i];
-					}, 0.68)
-					.add(() => {
-						gsap.fromTo(
-							imgElem,
-							{
-								yPercent: 200
-							},
-							{
-								yPercent: 0,
-								ease: 'back.out(2)',
-								duration: 0.6
-							}
-						);
-					}, 0.75);
-			}
-			// change text
-			else {
-				gsap.to(`#box-${i}`, {
-					duration: 1.2,
-					text: {
-						value: arr[i]
-					},
-					ease: 'power2.inOut'
-				});
-			}
+		});
+		return pill;
+	};
+	setPillScale = () => {
+		this.scale = 1;
+		if (window.innerWidth > 2000) {
+			this.scale = 1;
+		} else if (window.innerWidth > 1600) {
+			this.scale = 0.7;
+		} else if (window.innerWidth > 1200) {
+			this.scale = 0.65;
+		} else if (window.innerWidth > 1050) {
+			this.scale = 0.6;
+		} else if (window.innerWidth > 800) {
+			this.scale = 0.525;
+		} else if (window.innerWidth > 600) {
+			this.scale = 0.45;
+		} else if (window.innerWidth > 450) {
+			this.scale = 0.37;
+		} else {
+			this.scale = 0.35;
 		}
 	};
 }
