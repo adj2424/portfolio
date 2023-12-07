@@ -9,9 +9,6 @@ import { darkColor } from './colors.ts';
 
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin, TextPlugin);
 
-// all child objects where it will be animated through tick method
-const updatables: any[] = [];
-
 let count = 100;
 let loadPercent = 0;
 
@@ -72,9 +69,6 @@ document.querySelector('.loader-container')?.remove();
 /**
  * Initialize meshes
  */
-// Promise.all([Technologies.init()]).then(() => {
-// 	//updatables.push(Titles);
-// });
 
 new Cursor();
 new Technologies().init();
@@ -220,16 +214,6 @@ timeline
 	.to('.technologies-desc', { y: 0, duration: 26 }, 60)
 	.to('.technologies-container', { yPercent: -100, duration: 26 }, 64)
 	.to('.secondary', { opacity: 0, duration: 5 }, 85)
-	//.to('.main', { y: window.innerHeight * 0.45, duration: 15 }, 93)
-	//.to('.main', { scale: 0.75, duration: 15 }, 93)
-
-	//.to(cameraParam, { x: 0, y: -85, z: 10, duration: 40 }, 50)
-
-	// move project desc with screen
-	// .from('.list-container', { xPercent: -105, duration: 3 }, 85)
-	// .from('.item', { opacity: 0, xPercent: -105, stagger: 3, duration: 5 }, 92)
-	// .from('.box-container', { yPercent: -150, duration: 5 }, 90)
-	// .from('.box', { opacity: 0, yPercent: -50, stagger: 1.5, duration: 8 }, 88)
 
 	// transition to contact page
 	.to('.technologies-container', { xPercent: -100, duration: 23 }, 116)
