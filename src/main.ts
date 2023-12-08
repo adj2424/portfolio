@@ -202,18 +202,19 @@ timeline
 	.to('#works div', { fontSize: (window.innerWidth - 14) * 0.18, duration: 8 }, 40)
 	.to('.projects-container', { yPercent: -200, duration: 48 }, 50)
 
-	// moves technologies text left and right
-	.fromTo('#best', { x: -window.innerWidth * 0.45 }, { x: -window.innerWidth * 0.15, duration: 35 }, 64)
-	.fromTo('.main', { x: -window.innerWidth * 0.5 }, { x: window.innerWidth * 0.08, duration: 26 }, 64)
-	.fromTo('#use', { x: window.innerWidth * 0.7 }, { x: -window.innerWidth * 0.35, duration: 35 }, 64)
+	// transition to technologies
+	.to('.technologies-container', { yPercent: -100, duration: 26 }, 62)
+	.fromTo('#best', { x: -window.innerWidth * 0.65 }, { x: -window.innerWidth * 0.21, duration: 28 }, 62)
+	.fromTo('.main', { x: -window.innerWidth * 1.8 }, { x: 0, duration: 28 }, 60)
+	.fromTo('#use', { x: window.innerWidth * 0.7 }, { x: -window.innerWidth * 0.1, duration: 35 }, 62)
 
-	// fix box
-	// .to('.box-container', { xPercent: -122.7, duration: 2 }, 78)
+	// move mask if mobile
+	.to('#top', { yPercent: 100, duration: 5 }, 80)
+	.to('#left', { xPercent: 100, duration: 5 }, 80)
+	.to('#right', { xPercent: -100, duration: 5 }, 80)
 
-	// moves technologies up then down
-	.to('.technologies-desc', { y: 0, duration: 26 }, 60)
-	.to('.technologies-container', { yPercent: -100, duration: 26 }, 64)
-	.to('.secondary', { opacity: 0, duration: 5 }, 85)
+	.to('.secondary', { opacity: 0, duration: 7 }, 83)
+	.to('#canvas', { yPercent: -50, duration: 12 }, 86.5)
 
 	// transition to contact page
 	.to('.technologies-container', { xPercent: -100, duration: 23 }, 116)

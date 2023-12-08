@@ -236,8 +236,33 @@ img {
 	height: 30%;
 }
 
-.technologies-desc {
-	pointer-events: none;
+.mask {
+	position: fixed;
+	opacity: 0.1;
+	z-index: 1;
+}
+#top {
+	top: -50vh;
+	left: 0;
+	width: 100vw;
+	height: 50vh;
+	background-color: greenyellow;
+}
+
+#left {
+	top: 0;
+	left: -20vw;
+	width: 20vw;
+	height: 100vh;
+	background-color: greenyellow;
+}
+
+#right {
+	top: 0;
+	left: 100vw;
+	width: 20vw;
+	height: 100vh;
+	background-color: greenyellow;
 }
 
 .contact-container {

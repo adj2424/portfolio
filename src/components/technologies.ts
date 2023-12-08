@@ -5,11 +5,19 @@ export default class Technologies {
 	scale = 1;
 	constructor() {}
 	async init() {
+		// Check if browser is mobile
+		if (typeof screen.orientation !== 'undefined') {
+			// non mobile browsers to remove masking
+			const masks = Array.from(document.querySelectorAll('.mask'));
+			masks.map(mask => {
+				mask.remove();
+			});
+		}
+
 		const bigNumber = 10000;
 		const thickness = 80;
 		const canvas = document.getElementById('canvas')! as HTMLCanvasElement;
 		this.setPillScale();
-
 		let engine = Engine.create();
 		let render = Render.create({
 			canvas: canvas,
@@ -90,7 +98,7 @@ export default class Technologies {
 		img.src = url;
 		await img.decode();
 		const pill = Bodies.rectangle(x, y, img.width * scale, img.height * scale, {
-			restitution: 0.6,
+			restitution: 0.7,
 			chamfer: { radius: (img.height / 2) * 0.9 * scale },
 			render: {
 				sprite: {

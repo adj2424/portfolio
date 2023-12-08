@@ -7,11 +7,13 @@
 }
 
 .technologies-desc {
+	user-select: none;
+	pointer-events: none;
 	width: 100%;
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	height: 80%;
+	height: 100%;
 }
 
 .technologies-wrapper {
@@ -28,8 +30,8 @@
 
 #canvas {
 	position: absolute;
-	top: 0;
+	top: 50vh;
 	left: 0;
-	overflow: hidden;
+	// overflow: hidden;
 	z-index: -1;
 }
