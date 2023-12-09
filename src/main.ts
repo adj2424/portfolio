@@ -218,7 +218,7 @@ timeline
 	.to('#right', { xPercent: -100, duration: 5 }, 80)
 
 	.to('.secondary', { opacity: 0, duration: 7 }, 83)
-	.to('#canvas', { yPercent: -50, duration: 12 }, 86.5)
+	.to('#matter-canvas', { yPercent: -50, duration: 12 }, 86.5)
 
 	// move mask away
 	.to('#top', { yPercent: -100, duration: 20 }, 122)
