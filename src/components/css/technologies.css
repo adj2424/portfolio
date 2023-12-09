@@ -28,10 +28,9 @@
 	margin: calc(var(--fs-xxl) * -0.14);
 }
 
-#canvas {
+#matter-canvas {
 	position: absolute;
 	top: 50vh;
 	left: 0;
-	// overflow: hidden;
 	z-index: -1;
 }

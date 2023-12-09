@@ -11,11 +11,11 @@ export default class Technologies {
 				mask.remove();
 			});
 		}
-
 		const bigNumber = 10000;
 		const thickness = 80;
-		const canvas = document.getElementById('canvas')! as HTMLCanvasElement;
+		const canvas = document.getElementById('matter-canvas')! as HTMLCanvasElement;
 		this.setPillScale();
+
 		let engine = Engine.create();
 		let render = Render.create({
 			canvas: canvas,
