@@ -9,7 +9,11 @@ export default class Cursor {
 	hover = false;
 	x = 0;
 	y = 0;
-	constructor() {
+	constructor(isMobile: boolean) {
+		if (isMobile) {
+			document.querySelector('.cursor-container')!.remove();
+			return;
+		}
 		const cursor = document.querySelector('.cursor-container') as HTMLElement;
 		const cursorCircle = document.querySelector('.cursor-circle') as HTMLElement;
 		const cursorDot = document.querySelector('.cursor-dot') as HTMLElement;
@@ -60,16 +64,9 @@ export default class Cursor {
 		];
 
 		const elements: HTMLElement[] = [
+			...(Array.from(document.querySelectorAll('.header-right div')) as HTMLElement[]),
 			document.getElementById('header-name')!,
-			document.getElementById('header-abt')!,
-			document.getElementById('header-proj')!,
-			document.getElementById('header-tech')!,
-			document.getElementById('header-contact')!,
-			document.getElementById('socials-email')!,
-			document.getElementById('socials-instagram')!,
-			document.getElementById('socials-threads')!,
-			document.getElementById('socials-linkedin')!,
-			document.getElementById('socials-github')!,
+			...(Array.from(document.querySelectorAll('a')) as HTMLElement[]),
 			...projectElements
 		];
 

@@ -4,10 +4,8 @@ import { Engine, Render, Runner, Bodies, Composite, Mouse, MouseConstraint, Body
 export default class Technologies {
 	scale = 1;
 	constructor() {}
-	async init() {
-		// Check if browser is mobile
-		if (typeof screen.orientation !== 'undefined') {
-			// non mobile browsers to remove masking
+	async init(isMobile: boolean) {
+		if (!isMobile) {
 			const masks = Array.from(document.querySelectorAll('.mask'));
 			masks.map(mask => {
 				mask.remove();
@@ -48,8 +46,11 @@ export default class Technologies {
 			this.createPill(0.8 * Math.random() * window.innerWidth, 100, '/pills/gcp.png', this.scale),
 			this.createPill(0.8 * Math.random() * window.innerWidth, 100, '/pills/git.png', this.scale),
 			this.createPill(0.8 * Math.random() * window.innerWidth, 100, '/pills/gsap.png', this.scale),
+			this.createPill(0.8 * Math.random() * window.innerWidth, 100, '/pills/hardhat.png', this.scale),
 			this.createPill(0.8 * Math.random() * window.innerWidth, 100, '/pills/java.png', this.scale),
 			this.createPill(0.8 * Math.random() * window.innerWidth, 100, '/pills/javascript.png', this.scale),
+			this.createPill(0.8 * Math.random() * window.innerWidth, 100, '/pills/next.png', this.scale),
+			this.createPill(0.8 * Math.random() * window.innerWidth, 100, '/pills/node.png', this.scale),
 			this.createPill(0.8 * Math.random() * window.innerWidth, 100, '/pills/react.png', this.scale),
 			this.createPill(0.8 * Math.random() * window.innerWidth, 100, '/pills/solidity.png', this.scale),
 			this.createPill(0.8 * Math.random() * window.innerWidth, 100, '/pills/tailwind.png', this.scale),
@@ -98,7 +99,7 @@ export default class Technologies {
 		img.src = url;
 		await img.decode();
 		const pill = Bodies.rectangle(x, y, img.width * scale, img.height * scale, {
-			restitution: 0.7,
+			restitution: 0.8,
 			chamfer: { radius: (img.height / 2) * 0.9 * scale },
 			render: {
 				sprite: {
@@ -113,21 +114,21 @@ export default class Technologies {
 	setPillScale = () => {
 		this.scale = 1;
 		if (window.innerWidth > 2000) {
-			this.scale = 1;
+			this.scale = 0.8;
 		} else if (window.innerWidth > 1600) {
-			this.scale = 0.7;
-		} else if (window.innerWidth > 1200) {
-			this.scale = 0.65;
+			this.scale = 0.68;
+		} else if (window.innerWidth > 1250) {
+			this.scale = 0.63;
 		} else if (window.innerWidth > 1050) {
-			this.scale = 0.6;
+			this.scale = 0.59;
 		} else if (window.innerWidth > 800) {
-			this.scale = 0.525;
+			this.scale = 0.52;
 		} else if (window.innerWidth > 600) {
-			this.scale = 0.45;
+			this.scale = 0.44;
 		} else if (window.innerWidth > 450) {
-			this.scale = 0.37;
+			this.scale = 0.4;
 		} else {
-			this.scale = 0.35;
+			this.scale = 0.38;
 		}
 	};
 }

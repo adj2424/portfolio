@@ -1,13 +1,15 @@
 import './style.css';
-import './components/css/technologies.css';
+import './components/css/works.css';
+
 import { gsap } from 'gsap';
-import { ScrollTrigger, ScrollToPlugin, TextPlugin } from 'gsap/all';
+import { ScrollTrigger, ScrollToPlugin } from 'gsap/all';
 import SplitType from 'split-type';
 import Cursor from './components/cursor.ts';
 import Technologies from './components/technologies.ts';
+import Contact from './components/contact.ts';
 import { darkColor } from './colors.ts';
 
-gsap.registerPlugin(ScrollTrigger, ScrollToPlugin, TextPlugin);
+gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
 let count = 100;
 let loadPercent = 0;
@@ -69,20 +71,22 @@ document.querySelector('.loader-container')?.remove();
 /**
  * Initialize meshes
  */
+let isMobile = false;
 
-new Cursor();
-new Technologies().init();
+new Cursor(isMobile);
+new Technologies().init(isMobile);
+new Contact(isMobile);
 
 document.getElementById('header-name')!.addEventListener('click', () => {
 	scrollToPosition(0);
 });
-document.getElementById('header-abt')!.addEventListener('click', () => {
+document.getElementById('header-about')!.addEventListener('click', () => {
 	scrollToPosition(0.11);
 });
-document.getElementById('header-proj')!.addEventListener('click', () => {
+document.getElementById('header-works')!.addEventListener('click', () => {
 	scrollToPosition(0.41);
 });
-document.getElementById('header-tech')!.addEventListener('click', () => {
+document.getElementById('header-technologies')!.addEventListener('click', () => {
 	scrollToPosition(0.75);
 });
 document.getElementById('header-contact')!.addEventListener('click', () => {
@@ -93,22 +97,22 @@ const scrollToPosition = (percent: number) => {
 	let scrollContentHeight = document.querySelector('.page')!.scrollHeight;
 	gsap.to(window, { duration: 3.5, ease: 'power2.out', scrollTo: scrollContentHeight * percent });
 };
-
-document.getElementById('contact')!.addEventListener('mouseover', () => {
-	gsap.to('#contact', {
-		duration: 0.8,
-		text: {
-			value: 'LETS GET IN TOUCH'
-		}
-	});
-});
-document.getElementById('contact')!.addEventListener('mouseout', () => {
-	gsap.to('#contact', {
-		duration: 0.8,
-		text: {
-			value: 'INTERESTED IN WORKING?'
-		}
-	});
+const resize = () => {
+	const headerLeft = document.getElementsByClassName('header-left')[0] as HTMLElement;
+	const headerRight = document.getElementsByClassName('header-right')[0] as HTMLElement;
+	if (isMobile || window.innerWidth < 600) {
+		headerLeft.style.visibility = 'hidden';
+		headerRight.style.width = '100%';
+		headerRight.style.marginRight = '0';
+		headerRight.style.minWidth = window.innerWidth < 450 ? '100%' : '450px';
+	} else {
+		headerLeft.style.visibility = 'visible';
+		headerRight.style.width = '30%';
+	}
+};
+resize();
+window.addEventListener('resize', () => {
+	resize();
 });
 
 const aboutHello = new SplitType('.about-hello');
@@ -198,9 +202,9 @@ timeline
 	.to('.about-container', { xPercent: -150, duration: 5 }, 28)
 
 	// move works text then shrink then move again
-	.to('.projects-container', { yPercent: -58, duration: 16 }, 22)
+	.to('.works-container', { yPercent: -58, duration: 16 }, 22)
 	.to('#works div', { fontSize: (window.innerWidth - 14) * 0.18, duration: 8 }, 40)
-	.to('.projects-container', { yPercent: -200, duration: 48 }, 50)
+	.to('.works-container', { yPercent: -200, duration: 48 }, 50)
 
 	// transition to technologies
 	.to('.technologies-container', { yPercent: -100, duration: 26 }, 62)
@@ -216,15 +220,20 @@ timeline
 	.to('.secondary', { opacity: 0, duration: 7 }, 83)
 	.to('#canvas', { yPercent: -50, duration: 12 }, 86.5)
 
+	// move mask away
+	.to('#top', { yPercent: -100, duration: 20 }, 122)
+	.to('#left', { xPercent: -100, duration: 10 }, 130)
+	.to('#right', { xPercent: 100, duration: 10 }, 120)
+
 	// transition to contact page
 	.to('.technologies-container', { xPercent: -100, duration: 23 }, 116)
 	.to('.main', { x: 0, duration: 23 }, 116)
 	.to('.contact-container', { xPercent: -100, duration: 21 }, 116)
 	.to('.contact-container', { color: darkColor.hexString, duration: 2 }, 116)
 	.to('#header-contact', { color: darkColor.hexString, duration: 3 }, 116)
-	.to('#header-tech', { color: darkColor.hexString, duration: 3 }, 116.67)
-	.to('#header-proj', { color: darkColor.hexString, duration: 3 }, 117.33)
-	.to('#header-abt', { color: darkColor.hexString, duration: 3 }, 118)
+	.to('#header-technologies', { color: darkColor.hexString, duration: 3 }, 116.67)
+	.to('#header-works', { color: darkColor.hexString, duration: 3 }, 117.33)
+	.to('#header-about', { color: darkColor.hexString, duration: 3 }, 118)
 	.to('#header-name', { color: darkColor.hexString, duration: 4 }, 129.5)
 
 	// to make start time a percentage out of 140 from total duration
