@@ -5,6 +5,7 @@ import { gsap } from 'gsap';
 import { ScrollTrigger, ScrollToPlugin } from 'gsap/all';
 import SplitType from 'split-type';
 import Cursor from './components/cursor.ts';
+import Hero from './components/hero.ts';
 import Technologies from './components/technologies.ts';
 import Contact from './components/contact.ts';
 import { darkColor } from './colors.ts';
@@ -74,6 +75,7 @@ document.querySelector('.loader-container')?.remove();
 let isMobile = false;
 
 new Cursor(isMobile);
+new Hero();
 new Technologies().init(isMobile);
 new Contact(isMobile);
 
@@ -135,42 +137,42 @@ function createLineWrapper(lines: NodeListOf<Element>) {
  * scroll animation by toggle
  */
 // about
-gsap.fromTo(
-	aboutHello.chars,
-	{
-		yPercent: 300
-	},
-	{
-		scrollTrigger: {
-			trigger: '.about-container',
-			start: '210% center',
-			end: '300% 0%',
-			//markers: true,
-			toggleActions: 'play reverse play reverse'
-		},
-		yPercent: 0,
-		stagger: 0.1,
-		duration: 0.4
-	}
-);
-gsap.fromTo(
-	aboutText.lines,
-	{
-		yPercent: 100
-	},
-	{
-		scrollTrigger: {
-			trigger: '.about-container',
-			start: '210% center',
-			end: '300% 0%',
-			//markers: true,
-			toggleActions: 'play reverse play reverse'
-		},
-		yPercent: 0,
-		stagger: 0.1,
-		duration: 0.2
-	}
-);
+// gsap.fromTo(
+// 	aboutHello.chars,
+// 	{
+// 		yPercent: 300
+// 	},
+// 	{
+// 		scrollTrigger: {
+// 			trigger: '.about-container',
+// 			start: '210% center',
+// 			end: '300% 0%',
+// 			//markers: true,
+// 			toggleActions: 'play reverse play reverse'
+// 		},
+// 		yPercent: 0,
+// 		stagger: 0.1,
+// 		duration: 0.4
+// 	}
+// );
+// gsap.fromTo(
+// 	aboutText.lines,
+// 	{
+// 		yPercent: 100
+// 	},
+// 	{
+// 		scrollTrigger: {
+// 			trigger: '.about-container',
+// 			start: '210% center',
+// 			end: '300% 0%',
+// 			//markers: true,
+// 			toggleActions: 'play reverse play reverse'
+// 		},
+// 		yPercent: 0,
+// 		stagger: 0.1,
+// 		duration: 0.2
+// 	}
+// );
 
 /**
  * https://tympanus.net/codrops/2022/12/13/how-to-code-an-on-scroll-folding-3d-cardboard-box-animation-with-three-js-and-gsap/
@@ -199,7 +201,7 @@ timeline
 	// )
 
 	// move about text out of screen
-	.to('.about-container', { xPercent: -150, duration: 5 }, 28)
+	.to('.hero-container', { yPercent: -100, duration: 18 }, 18)
 
 	// move works text then shrink then move again
 	.to('.works-container', { yPercent: -58, duration: 16 }, 22)

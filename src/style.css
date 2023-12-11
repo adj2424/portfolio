@@ -3,9 +3,9 @@
 	--fs-xl: 75px;
 	--fs-l: 30px;
 	--fs-m: 20px;
-	--fs-s: 15px;
+	--fs-s: 16px;
 
-	--accent-clr: #b31312;
+	--accent-clr: #b31312; //aac8a7;
 	--dark-clr: #0a0908;
 	--light-clr: #f8f8ff; //#e8e8e4;
 }
@@ -16,7 +16,7 @@
 		--fs-xl: 65px;
 		--fs-l: 26px;
 		--fs-m: 18.5px;
-		--fs-s: 14px;
+		--fs-s: 15.5px;
 	}
 }
 
@@ -26,7 +26,7 @@
 		--fs-xl: 50px;
 		--fs-l: 23px;
 		--fs-m: 17.5px;
-		--fs-s: 14px;
+		--fs-s: 15px;
 	}
 }
 
@@ -36,7 +36,7 @@
 		--fs-xl: 45px;
 		--fs-l: 23px;
 		--fs-m: 16px;
-		--fs-s: 14px;
+		--fs-s: 14.5px;
 	}
 }
 
@@ -71,8 +71,8 @@
 }
 
 body {
-	font-family: 'Hanken Grotesk', sans-serif;
-	font-weight: 500;
+	font-family: 'Inter', sans-serif;
+	font-weight: 400;
 	color: var(--light-clr);
 	cursor: none;
 	background-color: var(--dark-clr);
@@ -165,18 +165,13 @@ body {
 	transition: all 0.4s ease;
 }
 
-.shortcut-container {
-	font-size: var(--fs-m);
-	display: flex;
-	gap: 6%;
-}
-
 .about-container {
 	position: fixed;
 	top: 20%;
 	bottom: 20%;
 	margin-left: 10%;
 	margin-right: 45%;
+	background-color: aqua;
 }
 
 .about-hello {
@@ -193,11 +188,6 @@ body {
 
 .line-wrapper {
 	overflow: hidden;
-}
-
-img {
-	width: 30%;
-	height: 30%;
 }
 
 .mask {

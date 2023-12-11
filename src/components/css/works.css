@@ -50,7 +50,7 @@
 	display: flex;
 	text-align: right;
 	flex-direction: column;
-	font-size: var(--fs-m);
+	font-size: var(--fs-s);
 }
 .arrow {
 	position: fixed;
