@@ -117,8 +117,8 @@ window.addEventListener('resize', () => {
 	resize();
 });
 
-const aboutHello = new SplitType('.about-hello');
-const aboutText = new SplitType('.about-text', { types: 'lines' });
+// const aboutHello = new SplitType('.about-hello');
+// const aboutText = new SplitType('.about-text', { types: 'lines' });
 const aboutLines = document.querySelectorAll('.about-text .line');
 
 createLineWrapper(aboutLines);

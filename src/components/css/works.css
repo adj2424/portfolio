@@ -1,3 +1,17 @@
+@media (min-width: 901px) {
+	:root {
+		--arrow-size: 5%;
+		--item-hover-width: 86.5%;
+	}
+}
+
+@media (max-width: 900px) {
+	:root {
+		--arrow-size: 50px;
+		--item-hover-width: calc(90% - 50px);
+	}
+}
+
 .works-container {
 	position: fixed;
 	top: 100%;
@@ -24,7 +38,7 @@
 
 .project-item {
 	display: grid;
-	grid-template-columns: 1fr 4fr 2fr 0fr;
+	grid-template-columns: 1fr 4fr 2fr 0.1fr;
 	align-items: center;
 	height: 10rem;
 	width: 94%;
@@ -34,7 +48,7 @@
 
 .project-item:hover {
 	margin-left: 3%;
-	width: 86%;
+	width: var(--item-hover-width);
 	transition: all 0.5s ease;
 }
 
@@ -55,7 +69,7 @@
 .arrow {
 	position: fixed;
 	right: 5.5%;
-	width: 5%;
-	max-width: 10rem;
+	width: var(--arrow-size);
 	z-index: -1;
+	fill: var(--accent-clr);
 }
