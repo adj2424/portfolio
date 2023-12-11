@@ -97,7 +97,13 @@ document.getElementById('header-contact')!.addEventListener('click', () => {
 
 const scrollToPosition = (percent: number) => {
 	let scrollContentHeight = document.querySelector('.page')!.scrollHeight;
-	gsap.to(window, { duration: 3.5, ease: 'power2.out', scrollTo: scrollContentHeight * percent });
+	const current = window.scrollY / scrollContentHeight;
+	const duration = 4.5 * Math.sqrt(Math.abs(current - percent));
+	gsap.to(window, {
+		duration: duration,
+		ease: 'power2.out',
+		scrollTo: scrollContentHeight * percent
+	});
 };
 const resize = () => {
 	const headerLeft = document.getElementsByClassName('header-left')[0] as HTMLElement;

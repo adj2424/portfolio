@@ -36,7 +36,7 @@ export default class Cursor {
 			if (this.hover) {
 				cursorCircle.style.width = '17px';
 				cursorCircle.style.height = '17px';
-				cursorCircle.style.opacity = '.7';
+				cursorCircle.style.opacity = '.8';
 				cursorDot.style.width = '20px';
 				cursorDot.style.height = '20px';
 			}

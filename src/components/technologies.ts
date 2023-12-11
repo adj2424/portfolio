@@ -41,7 +41,7 @@ export default class Technologies {
 		const pills = await Promise.all([
 			this.createPill(0.8 * Math.random() * window.innerWidth, 100, '/pills/angular.png', this.scale),
 			this.createPill(0.8 * Math.random() * window.innerWidth, 100, '/pills/aws.png', this.scale),
-			this.createPill(0.8 * Math.random() * window.innerWidth, 100, '/pills/test2.png', this.scale),
+			this.createPill(0.8 * Math.random() * window.innerWidth, 100, '/pills/drag.png', this.scale),
 			this.createPill(0.8 * Math.random() * window.innerWidth, 100, '/pills/gcp.png', this.scale),
 			this.createPill(0.8 * Math.random() * window.innerWidth, 100, '/pills/git.png', this.scale),
 			this.createPill(0.8 * Math.random() * window.innerWidth, 100, '/pills/gsap.png', this.scale),
@@ -53,7 +53,7 @@ export default class Technologies {
 			this.createPill(0.8 * Math.random() * window.innerWidth, 100, '/pills/react.png', this.scale),
 			this.createPill(0.8 * Math.random() * window.innerWidth, 100, '/pills/solidity.png', this.scale),
 			this.createPill(0.8 * Math.random() * window.innerWidth, 100, '/pills/tailwind.png', this.scale),
-			this.createPill(0.8 * Math.random() * window.innerWidth, 100, '/pills/test1.png', this.scale),
+			this.createPill(0.8 * Math.random() * window.innerWidth, 100, '/pills/technologies.png', this.scale),
 			this.createPill(0.8 * Math.random() * window.innerWidth, 100, '/pills/three.png', this.scale),
 			this.createPill(0.8 * Math.random() * window.innerWidth, 100, '/pills/typescript.png', this.scale)
 		]);

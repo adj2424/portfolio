@@ -65,6 +65,7 @@
 }
 
 .bottom-header div {
+	outline: red solid 1px;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -78,8 +79,16 @@
 }
 
 .bottom-middle {
+	display: flex;
+	flex-direction: column;
+	outline: red solid 1px;
 	font-weight: 500;
 	color: var(--accent-clr);
+}
+
+.bottom-middle svg {
+	width: var(--fs-l);
+	fill: var(--accent-clr);
 }
 
 .bottom-right {

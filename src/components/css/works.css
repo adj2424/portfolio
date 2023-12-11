@@ -38,7 +38,7 @@
 
 .project-item {
 	display: grid;
-	grid-template-columns: 1fr 4fr 2fr 0.1fr;
+	grid-template-columns: 1fr 3.5fr 2.5fr 0.1fr;
 	align-items: center;
 	height: 10rem;
 	width: 94%;
@@ -60,6 +60,7 @@
 .project-name {
 	font-size: var(--fs-xl);
 }
+
 .project-technologies-container {
 	display: flex;
 	text-align: right;
