@@ -58,14 +58,12 @@
 .bottom-header {
 	display: flex;
 	position: absolute;
-	bottom: 9%;
+	bottom: 8%;
 	width: calc(100vw - 14px);
 	justify-content: space-between;
-	//justify-content: space-evenly;
 }
 
 .bottom-header div {
-	outline: red solid 1px;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -81,12 +79,20 @@
 .bottom-middle {
 	display: flex;
 	flex-direction: column;
-	outline: red solid 1px;
 	font-weight: 500;
 	color: var(--accent-clr);
+	align-items: center;
 }
 
-.bottom-middle svg {
+.bottom-header-row {
+	display: flex;
+	position: absolute;
+	justify-content: center;
+	width: calc(100vw - 14px);
+	bottom: 5%;
+}
+
+#scroll {
 	width: var(--fs-l);
 	fill: var(--accent-clr);
 }
