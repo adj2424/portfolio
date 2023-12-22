@@ -78,16 +78,12 @@ export default class Cursor {
 				this.hover = false;
 			});
 		});
-		const url = this.worksInfo;
 		projectElements.map((e, i) => {
 			const img = document.getElementById('display')! as HTMLImageElement;
-			e.addEventListener('click', () => {
-				window.open(url[i % url.length].site);
-			});
 			// shows the image when hovering over project name
 			if (e.className === 'project-name') {
 				e.addEventListener('mouseover', () => {
-					img.src = url[i % url.length].src;
+					img.src = this.worksInfo[i % this.worksInfo.length].src;
 					img.style.opacity = '1';
 				});
 				e.addEventListener('mouseout', () => {

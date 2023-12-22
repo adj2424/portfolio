@@ -1,11 +1,10 @@
 import './style.css';
-import './components/css/works.css';
-
 import { gsap } from 'gsap';
 import { ScrollTrigger, ScrollToPlugin } from 'gsap/all';
 // import SplitType from 'split-type';
 import Cursor from './components/cursor.ts';
 import Hero from './components/hero.ts';
+import Works from './components/works.ts';
 import Technologies from './components/technologies.ts';
 import Contact from './components/contact.ts';
 import { darkColor } from './colors.ts';
@@ -76,6 +75,7 @@ let isMobile = window.innerWidth < 550;
 
 new Cursor(isMobile);
 new Hero();
+new Works();
 new Technologies().init(isMobile);
 new Contact(isMobile);
 
