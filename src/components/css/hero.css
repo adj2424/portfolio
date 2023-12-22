@@ -31,7 +31,7 @@
 }
 
 .word {
-	font-size: clamp(200px, 22vw, 28vw);
+	font-size: clamp(120px, 22vw, 28vw);
 	font-weight: 400;
 	padding-left: clamp(30px, 8vw, 8vw);
 	padding-right: clamp(30px, 8vw, 8vw);
