@@ -98,8 +98,8 @@ body {
 	width: 100%;
 	height: 100%;
 	z-index: 3;
-	color: var(--light-clr);
-	background-color: var(--dark-clr);
+	color: var(--dark-clr);
+	background-color: var(--light-clr);
 }
 
 #load-name {
@@ -110,11 +110,12 @@ body {
 }
 
 #loading {
+	font-kerning: none;
+	font: 200px 'Fira Sans', sans-serif;
 	position: absolute;
-	bottom: -2%;
+	bottom: 2%;
 	margin-right: 1%;
 	right: 82%;
-	font-size: var(--fs-xxl);
 	transition: right 0.5s ease-out;
 	overflow: hidden;
 }
@@ -130,11 +131,13 @@ body {
 	position: fixed;
 	display: flex;
 	align-items: center;
+	justify-content: center;
 	font-size: var(--fs-l);
 	top: 2vh;
-	margin-left: 0.5%;
+	margin-left: 5%;
 	height: clamp(25px, 2.5vw, 50px);
 	z-index: 2;
+	transition: all 0.4s ease;
 }
 
 .header-right {
@@ -147,7 +150,6 @@ body {
 	top: 2vh;
 	right: 0;
 	margin-right: 3%;
-	width: 28%;
 	min-width: 450px;
 	height: clamp(25px, 2.5vw, 50px);
 	z-index: 2;
@@ -156,13 +158,6 @@ body {
 .header-right div {
 	padding-left: 5px;
 	padding-right: 5px;
-}
-
-#header-name {
-	position: fixed;
-	left: 5%;
-	font-size: var(--fs-l);
-	transition: all 0.4s ease;
 }
 
 .about-container {
