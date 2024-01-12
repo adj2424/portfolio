@@ -81,13 +81,7 @@ function load(count: number) {
 		return;
 	}
 	const d = Math.random();
-	if (d > 0.66) {
-		count += 3;
-	} else if (d > 0.33) {
-		count += 2;
-	} else {
-		count += 1;
-	}
+	count += d > 0.95 ? Math.ceil(Math.sqrt(d) * 25) : 1;
 	if (count > 100) {
 		count = 100;
 	}

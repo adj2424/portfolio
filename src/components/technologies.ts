@@ -39,23 +39,23 @@ export default class Technologies {
 		});
 
 		const pills = await Promise.all([
-			this.createPill(0.8 * Math.random() * window.innerWidth, 100, '/pills/angular.png', this.scale),
-			this.createPill(0.8 * Math.random() * window.innerWidth, 100, '/pills/aws.png', this.scale),
-			this.createPill(0.8 * Math.random() * window.innerWidth, 100, '/pills/drag.png', this.scale),
-			this.createPill(0.8 * Math.random() * window.innerWidth, 100, '/pills/gcp.png', this.scale),
-			this.createPill(0.8 * Math.random() * window.innerWidth, 100, '/pills/git.png', this.scale),
-			this.createPill(0.8 * Math.random() * window.innerWidth, 100, '/pills/gsap.png', this.scale),
-			this.createPill(0.8 * Math.random() * window.innerWidth, 100, '/pills/hardhat.png', this.scale),
-			this.createPill(0.8 * Math.random() * window.innerWidth, 100, '/pills/java.png', this.scale),
-			this.createPill(0.8 * Math.random() * window.innerWidth, 100, '/pills/javascript.png', this.scale),
-			this.createPill(0.8 * Math.random() * window.innerWidth, 100, '/pills/next.png', this.scale),
-			this.createPill(0.8 * Math.random() * window.innerWidth, 100, '/pills/node.png', this.scale),
-			this.createPill(0.8 * Math.random() * window.innerWidth, 100, '/pills/react.png', this.scale),
-			this.createPill(0.8 * Math.random() * window.innerWidth, 100, '/pills/solidity.png', this.scale),
-			this.createPill(0.8 * Math.random() * window.innerWidth, 100, '/pills/tailwind.png', this.scale),
-			this.createPill(0.8 * Math.random() * window.innerWidth, 100, '/pills/technologies.png', this.scale),
-			this.createPill(0.8 * Math.random() * window.innerWidth, 100, '/pills/three.png', this.scale),
-			this.createPill(0.8 * Math.random() * window.innerWidth, 100, '/pills/typescript.png', this.scale)
+			this.createPill(Math.random() * window.innerWidth, 500, '/pills/angular.png', this.scale),
+			this.createPill(Math.random() * window.innerWidth, 500, '/pills/aws.png', this.scale),
+			this.createPill(window.innerWidth / 2 + (Math.random() - 0.5) * 300, 200, '/pills/drag.png', this.scale),
+			this.createPill(Math.random() * window.innerWidth, 500, '/pills/gcp.png', this.scale),
+			this.createPill(Math.random() * window.innerWidth, 500, '/pills/git.png', this.scale),
+			this.createPill(Math.random() * window.innerWidth, 500, '/pills/gsap.png', this.scale),
+			this.createPill(Math.random() * window.innerWidth, 500, '/pills/hardhat.png', this.scale),
+			this.createPill(Math.random() * window.innerWidth, 500, '/pills/java.png', this.scale),
+			this.createPill(Math.random() * window.innerWidth, 500, '/pills/javascript.png', this.scale),
+			this.createPill(Math.random() * window.innerWidth, 500, '/pills/next.png', this.scale),
+			this.createPill(Math.random() * window.innerWidth, 500, '/pills/node.png', this.scale),
+			this.createPill(Math.random() * window.innerWidth, 500, '/pills/react.png', this.scale),
+			this.createPill(Math.random() * window.innerWidth, 500, '/pills/solidity.png', this.scale),
+			this.createPill(Math.random() * window.innerWidth, 500, '/pills/tailwind.png', this.scale),
+			this.createPill(window.innerWidth / 2 + (Math.random() - 0.5) * 300, 180, '/pills/technologies.png', this.scale),
+			this.createPill(Math.random() * window.innerWidth, 500, '/pills/three.png', this.scale),
+			this.createPill(Math.random() * window.innerWidth, 500, '/pills/typescript.png', this.scale)
 		]);
 
 		const ground = Bodies.rectangle(bigNumber / 2, window.innerHeight + thickness / 2.2, bigNumber, thickness, {

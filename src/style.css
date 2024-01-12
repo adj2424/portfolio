@@ -111,7 +111,7 @@ body {
 
 #loading {
 	font-kerning: none;
-	font: 200px 'Fira Sans', sans-serif;
+	font: var(--fs-xxl) 'Fira Sans', sans-serif;
 	position: absolute;
 	bottom: 2%;
 	margin-right: 1%;
