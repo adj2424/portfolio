@@ -1,6 +1,7 @@
 .cursor-container {
 	display: flex;
 	flex-direction: row-reverse;
+	top: -20%;
 	position: fixed;
 	pointer-events: none;
 	z-index: 9999;
@@ -20,8 +21,6 @@
 
 .cursor-dot {
 	position: fixed;
-	height: 4px;
-	width: 4px;
 	background-color: var(--accent-clr);
 	border-radius: 50%;
 	transition: opacity 0.5s ease, width 0.5s ease-out, height 0.5s ease-out;
