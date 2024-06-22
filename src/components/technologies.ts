@@ -50,6 +50,7 @@ export default class Technologies {
 			this.createPill(Math.random() * window.innerWidth, 500, '/pills/javascript.png', this.scale),
 			this.createPill(Math.random() * window.innerWidth, 500, '/pills/next.png', this.scale),
 			this.createPill(Math.random() * window.innerWidth, 500, '/pills/node.png', this.scale),
+			this.createPill(Math.random() * window.innerWidth, 500, '/pills/python.png', this.scale),
 			this.createPill(Math.random() * window.innerWidth, 500, '/pills/react.png', this.scale),
 			this.createPill(Math.random() * window.innerWidth, 500, '/pills/solidity.png', this.scale),
 			this.createPill(Math.random() * window.innerWidth, 500, '/pills/tailwind.png', this.scale),
