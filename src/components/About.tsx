@@ -11,25 +11,26 @@ export const About = () => {
   // https://www.youtube.com/watch?v=l0aI8Ecumy8
   useGSAP(
     () => {
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: '.slider',
-          start: 'top top',
-          end: '750% top',
-          markers: true,
-          pin: true,
-          scrub: 1
-        }
-      });
-      // .to(
-      // 	param,
-      // 	{
-      // 		x: 15,
-      // 		duration: 15 // end time is start time + duration
-      // 	},
-      // 	0 // start time
-      // )
-      tl.to('.hello', { fontSize: '15rem', duration: 10 }, 5)
+      gsap
+        .timeline({
+          scrollTrigger: {
+            trigger: '.slider',
+            start: 'top top',
+            end: '750% top',
+            // markers: true,
+            pin: true,
+            scrub: 1
+          }
+        })
+        // .to(
+        // 	param,
+        // 	{
+        // 		x: 15,
+        // 		duration: 15 // end time is start time + duration
+        // 	},
+        // 	0 // start time
+        // )
+        .to('.hello', { fontSize: '15rem', duration: 10 }, 5)
         .to('.slider', { xPercent: -78.26, duration: 65 }, 15) // xPercent is 100 + 260/460 from width of div
         .to('.works', { fontSize: '15rem', duration: 10 }, 85)
 

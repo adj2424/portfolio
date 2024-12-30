@@ -1,5 +1,7 @@
 import { Hero } from './components/Hero';
 import { About } from './components/About';
+import { Works } from './components/Works';
+import { Technologies } from './components/Technologies';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useEffect } from 'react';
@@ -32,7 +34,9 @@ function App() {
     <div className="page bg-dark font-inter font-[400] text-light">
       <Hero></Hero>
       <About></About>
-      <div className="h-screen w-full">random text</div>
+      <Works></Works>
+      <Technologies></Technologies>
+      <div className="w-full h-screen bg-red-950">bruh</div>
     </div>
   );
 }
