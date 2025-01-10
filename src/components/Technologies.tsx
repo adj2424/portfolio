@@ -10,13 +10,23 @@ export const Technologies = () => {
 
   useGSAP(
     () => {
+      gsap.to('.test', {
+        yPercent: -200,
+        scrollTrigger: {
+          trigger: '.tech',
+          start: '90% top',
+          end: '500% top',
+          markers: true,
+          scrub: 1
+        }
+      });
       gsap
         .timeline({
           scrollTrigger: {
             trigger: '.tech',
             start: 'top top',
             end: 'bottom top',
-            markers: true,
+            // markers: true,
             pin: true,
             scrub: 1
           }
@@ -33,8 +43,8 @@ export const Technologies = () => {
         <div className="tech flex w-full h-screen text-[40rem] items-center justify-center overflow-hidden">
           TECHNOLOGIES
         </div>
-        <div className="flex flex-col w-full items-center text-[5rem] leading-none">
-          <div>TECHNOLOGIES</div>
+        <div className="h-screen w-full bg-green-800">buffer</div>
+        <div className="test fixed top-[100%] flex flex-col w-full items-center text-[5rem] leading-none">
           <div>REACT</div>
           <div>ANGULAR</div>
           <div>TAILWIND CSS</div>
