@@ -1,5 +1,5 @@
 import gsap from 'gsap';
-import { useEffect, useRef, useState } from 'react';
+import { useRef } from 'react';
 import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -18,33 +18,31 @@ export const Technologies = () => {
     () => {
       const heightInPixels = remToPixels(5);
       const marginY = (window.innerHeight - heightInPixels) / 2;
-      const buffer = remToPixels(50);
-      techRef.current!.style.paddingTop = `${marginY}px`;
-      techRef.current!.style.paddingBottom = `${marginY}px`;
-      gsap.timeline({
-        scrollTrigger: {
-          trigger: techRef.current,
-          start: 'top top',
-          end: `${window.innerHeight + buffer} ${(window.innerHeight + heightInPixels) / 2}`,
-          markers: true,
-          pin: true,
-          scrub: 1
-        }
-      });
-      // .to(techRef.current, { fontSize: '5rem', duration: 85 }, 5);
-      // .to({}, {}, 100);
+      gsap
+        .timeline({
+          scrollTrigger: {
+            trigger: techRef.current,
+            start: 'top top',
+            end: `130% top`,
+            markers: true,
+            pin: true,
+            scrub: 1
+          }
+        })
+        .to(techRef.current, { fontSize: '5rem', duration: 55 }, 5)
+        .to('.remaining', { y: -marginY, duration: 55 }, 45)
+        .to({}, {}, 100);
     },
     { scope: container }
   );
 
   return (
     <>
-      <div ref={container} className="flex flex-col items-center justify-center">
-        <div className="flex flex-col w-full items-center text-[5rem] leading-none overflow-hidden">
-          <div ref={techRef} className="text-[5rem] overflow-hidden">
-            TECHNOLOGIES
-          </div>
-          <div className="h-[50rem] w-full bg-slate-900"></div>
+      <div ref={container}>
+        <div ref={techRef} className="flex w-full h-screen items-center justify-center text-[40rem] overflow-hidden">
+          TECHNOLOGIES
+        </div>
+        <div className="remaining flex flex-col items-center justify-center text-[5rem] leading-none">
           <div>REACT</div>
           <div>ANGULAR</div>
           <div>TAILWIND CSS</div>
