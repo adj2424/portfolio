@@ -1,5 +1,5 @@
 import gsap from 'gsap';
-import { useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -7,44 +7,44 @@ gsap.registerPlugin(ScrollTrigger);
 
 export const Technologies = () => {
   const container = useRef(null);
+  const techRef = useRef<HTMLDivElement>(null);
+
+  const remToPixels = (rem: number) => {
+    const rootFontSize = parseFloat(getComputedStyle(document.documentElement).fontSize);
+    return rem * rootFontSize;
+  };
 
   useGSAP(
     () => {
-      gsap.to('.test', {
-        yPercent: -200,
+      const heightInPixels = remToPixels(5);
+      const marginY = (window.innerHeight - heightInPixels) / 2;
+      const buffer = remToPixels(50);
+      techRef.current!.style.paddingTop = `${marginY}px`;
+      techRef.current!.style.paddingBottom = `${marginY}px`;
+      gsap.timeline({
         scrollTrigger: {
-          trigger: '.tech',
-          start: '90% top',
-          end: '500% top',
+          trigger: techRef.current,
+          start: 'top top',
+          end: `${window.innerHeight + buffer} ${(window.innerHeight + heightInPixels) / 2}`,
           markers: true,
+          pin: true,
           scrub: 1
         }
       });
-      gsap
-        .timeline({
-          scrollTrigger: {
-            trigger: '.tech',
-            start: 'top top',
-            end: 'bottom top',
-            // markers: true,
-            pin: true,
-            scrub: 1
-          }
-        })
-        .to('.tech', { fontSize: '5rem', duration: 85 }, 5)
-        .to({}, {}, 100);
+      // .to(techRef.current, { fontSize: '5rem', duration: 85 }, 5);
+      // .to({}, {}, 100);
     },
     { scope: container }
   );
 
   return (
     <>
-      <div ref={container}>
-        <div className="tech flex w-full h-screen text-[40rem] items-center justify-center overflow-hidden">
-          TECHNOLOGIES
-        </div>
-        <div className="h-screen w-full bg-green-800">buffer</div>
-        <div className="test fixed top-[100%] flex flex-col w-full items-center text-[5rem] leading-none">
+      <div ref={container} className="flex flex-col items-center justify-center">
+        <div className="flex flex-col w-full items-center text-[5rem] leading-none overflow-hidden">
+          <div ref={techRef} className="text-[5rem] overflow-hidden">
+            TECHNOLOGIES
+          </div>
+          <div className="h-[50rem] w-full bg-slate-900"></div>
           <div>REACT</div>
           <div>ANGULAR</div>
           <div>TAILWIND CSS</div>
