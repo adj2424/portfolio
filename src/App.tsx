@@ -13,7 +13,7 @@ gsap.registerPlugin(ScrollTrigger);
 function App() {
   const test = useRef<HTMLDivElement>(null);
   useEffect(() => {
-    test.current!.style.marginTop = `-${(window.innerHeight - remToPixels(5)) / 2}px`;
+    // test.current!.style.marginTop = `-${(window.innerHeight - remToPixels(5)) / 2}px`;
 
     const lenis = new Lenis({
       duration: 1.2,
