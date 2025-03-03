@@ -58,6 +58,7 @@ export const Technologies = () => {
           <div>GO</div>
           <div>SOLIDITY</div>
           <div>HARDHAT</div>
+          <div>NOSQL</div>
           <div>AMAZON WEB SERVICES</div>
           <div>GOOGLE CLOUD PLATFORM</div>
           <div>TERRAFORM</div>
