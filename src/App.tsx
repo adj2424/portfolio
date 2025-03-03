@@ -34,10 +34,10 @@ function App() {
     requestAnimationFrame(raf);
   }, []);
 
-  const remToPixels = (rem: number) => {
-    const rootFontSize = parseFloat(getComputedStyle(document.documentElement).fontSize);
-    return rem * rootFontSize;
-  };
+  // const remToPixels = (rem: number) => {
+  //   const rootFontSize = parseFloat(getComputedStyle(document.documentElement).fontSize);
+  //   return rem * rootFontSize;
+  // };
 
   return (
     <div className="page bg-dark font-inter font-[400] text-light">
