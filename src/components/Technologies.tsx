@@ -43,27 +43,27 @@ export const Technologies = () => {
           TECHNOLOGIES
         </div>
         <div className="remaining flex flex-col items-center justify-center text-[5rem] leading-none">
-          <div>REACT</div>
-          <div>ANGULAR</div>
-          <div>TAILWIND CSS</div>
-          <div>JAVASCRIPT</div>
-          <div>TYPESCRIPT</div>
-          <div>EXPRESS.JS</div>
-          <div>NEXT.JS</div>
-          <div>THREE.JS</div>
-          <div>REACT THREE FIBER</div>
-          <div>GSAP</div>
-          <div>PYTHON</div>
-          <div>JAVA</div>
-          <div>GO</div>
-          <div>SOLIDITY</div>
-          <div>HARDHAT</div>
-          <div>NOSQL</div>
-          <div>AMAZON WEB SERVICES</div>
-          <div>GOOGLE CLOUD PLATFORM</div>
-          <div>TERRAFORM</div>
-          <div>DOCKER</div>
-          <div>GIT</div>
+          <div className="hover:text-accent transition-all duration-500">REACT</div>
+          <div className="hover:text-accent transition-all duration-500">ANGULAR</div>
+          <div className="hover:text-accent transition-all duration-500">TAILWIND CSS</div>
+          <div className="hover:text-accent transition-all duration-500">JAVASCRIPT</div>
+          <div className="hover:text-accent transition-all duration-500">TYPESCRIPT</div>
+          <div className="hover:text-accent transition-all duration-500">EXPRESS.JS</div>
+          <div className="hover:text-accent transition-all duration-500">NEXT.JS</div>
+          <div className="hover:text-accent transition-all duration-500">THREE.JS</div>
+          <div className="hover:text-accent transition-all duration-500">REACT THREE FIBER</div>
+          <div className="hover:text-accent transition-all duration-500">GSAP</div>
+          <div className="hover:text-accent transition-all duration-500">PYTHON</div>
+          <div className="hover:text-accent transition-all duration-500">JAVA</div>
+          <div className="hover:text-accent transition-all duration-500">GO</div>
+          <div className="hover:text-accent transition-all duration-500">SOLIDITY</div>
+          <div className="hover:text-accent transition-all duration-500">HARDHAT</div>
+          <div className="hover:text-accent transition-all duration-500">NOSQL</div>
+          <div className="hover:text-accent transition-all duration-500">AMAZON WEB SERVICES</div>
+          <div className="hover:text-accent transition-all duration-500">GOOGLE CLOUD PLATFORM</div>
+          <div className="hover:text-accent transition-all duration-500">TERRAFORM</div>
+          <div className="hover:text-accent transition-all duration-500">DOCKER</div>
+          <div className="hover:text-accent transition-all duration-500">GIT</div>
         </div>
       </div>
     </>

@@ -1,3 +1,4 @@
+import { Header } from './components/Header';
 import { Hero } from './components/Hero';
 import { About } from './components/About';
 import { Works } from './components/Works';
@@ -5,13 +6,13 @@ import { Technologies } from './components/Technologies';
 import { Contact } from './components/Contact';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { useEffect, useRef } from 'react';
+import { useEffect } from 'react';
 import Lenis from 'lenis';
 
 gsap.registerPlugin(ScrollTrigger);
 
 function App() {
-  const test = useRef<HTMLDivElement>(null);
+  // const test = useRef<HTMLDivElement>(null);
   useEffect(() => {
     // test.current!.style.marginTop = `-${(window.innerHeight - remToPixels(5)) / 2}px`;
 
@@ -41,13 +42,12 @@ function App() {
 
   return (
     <div className="page bg-dark font-inter font-[400] text-light">
+      <Header></Header>
       <Hero></Hero>
       <About></About>
       <Works></Works>
       <Technologies></Technologies>
-      <div ref={test}>
-        <Contact></Contact>
-      </div>
+      <Contact></Contact>
     </div>
   );
 }
