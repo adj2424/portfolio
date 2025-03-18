@@ -17,7 +17,7 @@ export const About = () => {
             trigger: '.slider',
             start: 'top top',
             end: '750% top',
-            // markers: true,
+            markers: true,
             pin: true,
             scrub: 1
           }

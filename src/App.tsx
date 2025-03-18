@@ -1,3 +1,4 @@
+import { Cursor } from './components/Cursor';
 import { Header } from './components/Header';
 import { Hero } from './components/Hero';
 import { About } from './components/About';
@@ -6,13 +7,13 @@ import { Technologies } from './components/Technologies';
 import { Contact } from './components/Contact';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import Lenis from 'lenis';
 
 gsap.registerPlugin(ScrollTrigger);
 
 function App() {
-  // const test = useRef<HTMLDivElement>(null);
+  const [onHover, setHover] = useState(false);
   useEffect(() => {
     // test.current!.style.marginTop = `-${(window.innerHeight - remToPixels(5)) / 2}px`;
 
@@ -42,12 +43,13 @@ function App() {
 
   return (
     <div className="page bg-dark font-inter font-[400] text-light">
-      <Header></Header>
+      <Cursor onHover={onHover}></Cursor>
+      <Header setHover={setHover}></Header>
       <Hero></Hero>
       <About></About>
-      <Works></Works>
+      <Works setHover={setHover}></Works>
       <Technologies></Technologies>
-      <Contact></Contact>
+      <Contact setHover={setHover}></Contact>
     </div>
   );
 }

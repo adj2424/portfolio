@@ -3,7 +3,11 @@ import { TextPlugin } from 'gsap/all';
 
 gsap.registerPlugin(TextPlugin);
 
-export const Contact = () => {
+interface ContactProps {
+  setHover: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+export const Contact = ({ setHover }: ContactProps) => {
   const handleMouseEnter = () => {
     gsap.to('.interested-text', {
       duration: 0.8,
@@ -37,15 +41,27 @@ export const Contact = () => {
           <div className="absolute bottom-[1rem] w-[90vw] text-[1.3rem] leading-[1.8rem]">
             <div className="flex justify-between">
               <div className="w-[30rem]">ALAN JIANG</div>
-              <div className="flex justify-center w-[30rem]">ADJ2424@GMAIL.COM</div>
+              <div
+                className="flex justify-center w-[30rem]"
+                onMouseEnter={() => setHover(true)}
+                onMouseLeave={() => setHover(false)}
+              >
+                ADJ2424@GMAIL.COM
+              </div>
               <div className="flex justify-end w-[30rem]">DESIGNED & CODED BY ME</div>
             </div>
             <div className="flex justify-between">
               <div className="w-[30rem]">SOFTWARE ENGINEER</div>
               <div className="flex justify-around w-[26rem]">
-                <div>LINKEDIN</div>
-                <div>INSTAGRAM</div>
-                <div>GITHUB</div>
+                <div onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)}>
+                  LINKEDIN
+                </div>
+                <div onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)}>
+                  INSTAGRAM
+                </div>
+                <div onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)}>
+                  GITHUB
+                </div>
               </div>
               <div className="flex justify-end w-[30rem]">© ALAN JIANG 2023</div>
             </div>

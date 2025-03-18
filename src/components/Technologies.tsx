@@ -24,7 +24,7 @@ export const Technologies = () => {
             trigger: techRef.current,
             start: 'top top',
             end: `130% top`,
-            markers: true,
+            // markers: true,
             pin: true,
             scrub: 1
           }

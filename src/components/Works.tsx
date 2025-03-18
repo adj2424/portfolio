@@ -1,9 +1,17 @@
-export const Works = () => {
+interface WorksProps {
+  setHover: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+export const Works = ({ setHover }: WorksProps) => {
   return (
     <>
       <div className="flex flex-col items-center w-full text-light ">
         <div className="w-[90%] h-[2px] bg-light opacity-25"></div>
-        <div className="grid grid-cols-[.75fr_3.5fr_2.5fr_0fr] w-[90%] h-[10rem] items-center hover:grid-cols-[.75fr_3fr_2fr_.3fr] hover:w-[85%] transition-all duration-500">
+        <div
+          className="grid grid-cols-[.75fr_3.5fr_2.5fr_0fr] w-[90%] h-[10rem] items-center hover:grid-cols-[.75fr_3fr_2fr_.3fr] hover:w-[86.5%] transition-all duration-500"
+          onMouseEnter={() => setHover(true)}
+          onMouseLeave={() => setHover(false)}
+        >
           <div className="ml-[2vw]">01/</div>
           <div className="text-[5rem]">NFT MINTER</div>
           <div className="flex flex-col h-[100%] justify-center mr-[2vw] leading-snug bg-dark text-right z-[1]">
@@ -20,7 +28,11 @@ export const Works = () => {
           </div>
         </div>
         <div className="w-[90%] h-[2px] bg-light opacity-25"></div>
-        <div className="grid grid-cols-[.75fr_3.5fr_2.5fr_0fr] w-[90%] h-[10rem] items-center hover:grid-cols-[.75fr_3fr_2fr_.3fr] hover:w-[85%] transition-all duration-500">
+        <div
+          className="grid grid-cols-[.75fr_3.5fr_2.5fr_0fr] w-[90%] h-[10rem] items-center hover:grid-cols-[.75fr_3fr_2fr_.3fr] hover:w-[86.5%] transition-all duration-500"
+          onMouseEnter={() => setHover(true)}
+          onMouseLeave={() => setHover(false)}
+        >
           <div className="ml-[2vw]">02/</div>
           <div className="text-[5rem]">AI TRADING BOT</div>
           <div className="flex flex-col h-[100%] justify-center mr-[2vw] leading-snug bg-dark text-right z-[1]">
@@ -39,7 +51,11 @@ export const Works = () => {
           </div>
         </div>
         <div className="w-[90%] h-[2px] bg-light opacity-25"></div>
-        <div className="grid grid-cols-[.75fr_3.5fr_2.5fr_0fr] w-[90%] h-[10rem] items-center hover:grid-cols-[.75fr_3fr_2fr_.3fr] hover:w-[85%] transition-all duration-500">
+        <div
+          className="grid grid-cols-[.75fr_3.5fr_2.5fr_0fr] w-[90%] h-[10rem] items-center hover:grid-cols-[.75fr_3fr_2fr_.3fr] hover:w-[86.5%] transition-all duration-500"
+          onMouseEnter={() => setHover(true)}
+          onMouseLeave={() => setHover(false)}
+        >
           <div className="ml-[2vw]">03/</div>
           <div className="text-[5rem]">MUSIC PORTFOLIO</div>
           <div className="flex flex-col h-[100%] justify-center mr-[2vw] leading-snug bg-dark text-right z-[1]">
@@ -56,7 +72,11 @@ export const Works = () => {
           </div>
         </div>
         <div className="w-[90%] h-[2px] bg-light opacity-25"></div>
-        <div className="grid grid-cols-[.75fr_3.5fr_2.5fr_0fr] w-[90%] h-[10rem] items-center hover:grid-cols-[.75fr_3fr_2fr_.3fr] hover:w-[85%] transition-all duration-500">
+        <div
+          className="grid grid-cols-[.75fr_3.5fr_2.5fr_0fr] w-[90%] h-[10rem] items-center hover:grid-cols-[.75fr_3fr_2fr_.3fr] hover:w-[86.5%] transition-all duration-500"
+          onMouseEnter={() => setHover(true)}
+          onMouseLeave={() => setHover(false)}
+        >
           <div className="ml-[2vw]">04/</div>
           <div className="text-[5rem]">POWOW</div>
           <div className="flex flex-col h-[100%] justify-center mr-[2vw] leading-snug bg-dark text-right z-[1]">
@@ -75,7 +95,11 @@ export const Works = () => {
           </div>
         </div>
         <div className="w-[90%] h-[2px] bg-light opacity-25"></div>
-        <div className="grid grid-cols-[.75fr_3.5fr_2.5fr_0fr] w-[90%] h-[10rem] items-center hover:grid-cols-[.75fr_3fr_2fr_.3fr] hover:w-[85%] transition-all duration-500">
+        <div
+          className="grid grid-cols-[.75fr_3.5fr_2.5fr_0fr] w-[90%] h-[10rem] items-center hover:grid-cols-[.75fr_3fr_2fr_.3fr] hover:w-[86.5%] transition-all duration-500"
+          onMouseEnter={() => setHover(true)}
+          onMouseLeave={() => setHover(false)}
+        >
           <div className="ml-[2vw]">05/</div>
           <div className="text-[5rem]">NYLA</div>
           <div className="flex flex-col h-[100%] justify-center mr-[2vw] leading-snug bg-dark text-right z-[1]">
