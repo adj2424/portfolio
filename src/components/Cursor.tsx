@@ -5,6 +5,7 @@ interface CursorProps {
 }
 
 export const Cursor = ({ onHover }: CursorProps) => {
+  const scale = useRef(1);
   const cursorRef = useRef<HTMLDivElement>(null);
   const outerCircleRef = useRef<HTMLDivElement>(null);
   const innerCircleRef = useRef<HTMLDivElement>(null);
@@ -19,8 +20,23 @@ export const Cursor = ({ onHover }: CursorProps) => {
       cursor.style.top = e.clientY - width / 2 + 'px';
       cursor.style.left = e.clientX - width / 2 + 'px';
     };
+    const handleMouseDown = () => {
+      scale.current *= 0.6;
+      cursor.style.transform = `scale(${scale.current})`;
+    };
+    const handleMouseUp = () => {
+      scale.current /= 0.6;
+      cursor.style.transform = `scale(${scale.current})`;
+    };
+
     document.addEventListener('mousemove', handleMouseMove);
-    return () => document.removeEventListener('mousemove', handleMouseMove);
+    document.addEventListener('mousedown', handleMouseDown);
+    document.addEventListener('mouseup', handleMouseUp);
+    return () => {
+      document.removeEventListener('mousemove', handleMouseMove);
+      document.removeEventListener('mousedown', handleMouseDown);
+      document.removeEventListener('mouseup', handleMouseUp);
+    };
   }, []);
 
   useEffect(() => {
@@ -32,12 +48,14 @@ export const Cursor = ({ onHover }: CursorProps) => {
     }
 
     if (onHover) {
-      cursor.style.transform = 'scale(0.45)';
+      scale.current = 0.45;
+      cursor.style.transform = `scale(${scale.current})`;
       outerCircle.style.opacity = '.75';
       innerCircle.style.width = 49 + 'px';
       innerCircle.style.height = 49 + 'px';
     } else {
-      cursor.style.transform = 'scale(1)';
+      scale.current = 1;
+      cursor.style.transform = `scale(${scale.current})`;
       outerCircle.style.opacity = '1';
       innerCircle.style.width = 0 + 'px';
       innerCircle.style.height = 0 + 'px';
