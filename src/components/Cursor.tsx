@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 interface CursorProps {
   onHover: boolean;
@@ -9,6 +9,7 @@ export const Cursor = ({ onHover }: CursorProps) => {
   const cursorRef = useRef<HTMLDivElement>(null);
   const outerCircleRef = useRef<HTMLDivElement>(null);
   const innerCircleRef = useRef<HTMLDivElement>(null);
+  const [isMouseDown, setIsMouseDown] = useState(false);
 
   useEffect(() => {
     const cursor = cursorRef.current;
@@ -21,10 +22,12 @@ export const Cursor = ({ onHover }: CursorProps) => {
       cursor.style.left = e.clientX - width / 2 + 'px';
     };
     const handleMouseDown = () => {
+      setIsMouseDown(true);
       scale.current *= 0.6;
       cursor.style.transform = `scale(${scale.current})`;
     };
     const handleMouseUp = () => {
+      setIsMouseDown(false);
       scale.current /= 0.6;
       cursor.style.transform = `scale(${scale.current})`;
     };
@@ -49,18 +52,26 @@ export const Cursor = ({ onHover }: CursorProps) => {
 
     if (onHover) {
       scale.current = 0.45;
+      if (isMouseDown) {
+        scale.current = 0.45 * 0.6;
+      }
       cursor.style.transform = `scale(${scale.current})`;
       outerCircle.style.opacity = '.75';
       innerCircle.style.width = 49 + 'px';
       innerCircle.style.height = 49 + 'px';
-    } else {
+    }
+    //
+    else {
       scale.current = 1;
+      if (isMouseDown) {
+        scale.current = 1 * 0.6;
+      }
       cursor.style.transform = `scale(${scale.current})`;
       outerCircle.style.opacity = '1';
       innerCircle.style.width = 0 + 'px';
       innerCircle.style.height = 0 + 'px';
     }
-  }, [onHover]);
+  }, [isMouseDown, onHover]);
 
   return (
     <>

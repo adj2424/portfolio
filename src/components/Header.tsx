@@ -6,7 +6,7 @@ export const Header = ({ setHover }: HeaderProps) => {
   return (
     <>
       <div className="fixed flex w-screen justify-center text-[1.3rem] z-[3] mt-[1.5rem] mix-blend-difference">
-        <div className="flex w-[90%] justify-between align-baseline">
+        <div className="flex w-[90%] justify-between align-baseline user-select-none select-none">
           <div onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)}>
             ALAN JIANG
           </div>
