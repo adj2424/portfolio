@@ -14,6 +14,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 function App() {
   const [onHover, setHover] = useState(false);
+  const [onWorksHover, setOnWorksHover] = useState({ isWorksTitleHover: false, worksImgSrc: '' });
   useEffect(() => {
     // test.current!.style.marginTop = `-${(window.innerHeight - remToPixels(5)) / 2}px`;
 
@@ -43,11 +44,11 @@ function App() {
 
   return (
     <div className="page bg-dark font-inter font-[400] text-light">
-      <Cursor onHover={onHover}></Cursor>
+      <Cursor onHover={onHover} onWorksHover={onWorksHover}></Cursor>
       <Header setHover={setHover}></Header>
       <Hero></Hero>
       <About></About>
-      <Works setHover={setHover}></Works>
+      <Works setHover={setHover} setOnWorksHover={setOnWorksHover}></Works>
       <Technologies></Technologies>
       <Contact setHover={setHover}></Contact>
     </div>

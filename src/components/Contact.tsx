@@ -41,27 +41,42 @@ export const Contact = ({ setHover }: ContactProps) => {
           <div className="absolute bottom-[1rem] w-[90vw] text-[1.3rem] leading-[1.8rem]">
             <div className="flex justify-between">
               <div className="w-[30rem]">ALAN JIANG</div>
-              <div
-                className="flex justify-center w-[30rem]"
+              <a
+                href="mailto:adj2424@gmail.com"
                 onMouseEnter={() => setHover(true)}
                 onMouseLeave={() => setHover(false)}
               >
                 ADJ2424@GMAIL.COM
-              </div>
+              </a>
               <div className="flex justify-end w-[30rem]">DESIGNED & CODED BY ME</div>
             </div>
             <div className="flex justify-between">
               <div className="w-[30rem]">SOFTWARE ENGINEER</div>
               <div className="flex justify-around w-[26rem]">
-                <div onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)}>
+                <a
+                  href="https://www.linkedin.com/in/alanjiang24/"
+                  target="_blank"
+                  onMouseEnter={() => setHover(true)}
+                  onMouseLeave={() => setHover(false)}
+                >
                   LINKEDIN
-                </div>
-                <div onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)}>
+                </a>
+                <a
+                  href="https://www.instagram.com/alanjiang24/"
+                  target="_blank"
+                  onMouseEnter={() => setHover(true)}
+                  onMouseLeave={() => setHover(false)}
+                >
                   INSTAGRAM
-                </div>
-                <div onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)}>
+                </a>
+                <a
+                  href="https://github.com/adj2424"
+                  target="_blank"
+                  onMouseEnter={() => setHover(true)}
+                  onMouseLeave={() => setHover(false)}
+                >
                   GITHUB
-                </div>
+                </a>
               </div>
               <div className="flex justify-end w-[30rem]">© ALAN JIANG 2023</div>
             </div>
