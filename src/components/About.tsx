@@ -19,7 +19,7 @@ export const About = () => {
             end: '750% top',
             markers: true,
             pin: true,
-            scrub: 1
+            scrub: 0.5
           }
         })
         // .to(
@@ -30,9 +30,9 @@ export const About = () => {
         // 	},
         // 	0 // start time
         // )
-        .to('.hello', { fontSize: '15rem', duration: 10 }, 5)
-        .to('.slider', { xPercent: -78.26, duration: 65 }, 15) // xPercent is 100 + 260/460 from width of div
-        .to('.works', { fontSize: '15rem', duration: 10 }, 85)
+        .to('.hello', { fontSize: '15rem', duration: 9 }, 4)
+        .to('.slider', { xPercent: (-(100 + 330) / 530) * 100, duration: 74 }, 14) // xPercent is -(w-screen + slide width)/total width * 100
+        .to('.works', { fontSize: '15rem', duration: 9 }, 88)
 
         // to make start time a percentage out of 100 from total duration
         // start time + duration cannot be greater than 100 or it will change timeline
@@ -44,23 +44,29 @@ export const About = () => {
   return (
     <>
       <div ref={container} className="relative overflow-hidden">
-        <div className="slider flex mt-[10rem] w-[460vw]">
+        <div className="slider flex mt-[10rem] w-[530vw]">
           <div className="hello flex w-screen h-screen justify-center items-center text-[40rem]">HELLO</div>
-          <div className="relative flex w-[260vw] text-[2.5rem] leading-tight">
-            <div className="absolute w-[70rem] top-[50%]">
-              01/ I'M ALAN JIANG, A 24 YEAR OLD FULL STACK DEVELOPER WHO GRADUATED FROM VIRGINIA TECH. I LOVE SOLVING
-              PROBLEMS AND BUILDING NEW THINGS.
+          <div className="relative flex items-center w-[330vw] text-[2.5rem] leading-tight justify-between pr-[50vw] ">
+            <div className="flex w-[70vw] items-center">
+              <div className="mr-[5vw]">01/</div>
+              <div>
+                I'M ALAN JIANG, A 24 YEAR OLD FULL STACK DEVELOPER WHO GRADUATED FROM VIRGINIA TECH. I LOVE SOLVING
+                PROBLEMS AND BUILDING NEW THINGS.
+              </div>
             </div>
-            {/* <div className="absolute bg-blue-400 w-[70rem] top-[30%]">
-              I'm Alan Jiang, a 24 year old software engineer passionate about solving problems and building things.
-            </div> */}
-            <div className="absolute w-[60rem] top-[13rem] left-[100rem]">
-              02/ FROM CREATING DYNAMIC WEB EXPERIENCES TO DEVELOPING CLOUD NATIVE MICROSERVICES, I AIM TO PROVIDE MY
-              SERVICES TO ANY DISCIPLINE.
+            <div className="flex w-[70vw] items-center">
+              <div className="mr-[5vw]">02/</div>
+              <div>
+                FROM CREATING DYNAMIC WEB EXPERIENCES TO DEVELOPING CLOUD NATIVE MICROSERVICES, I AIM TO PROVIDE MY
+                SERVICES TO ANY DISCIPLINE.
+              </div>
             </div>
-            <div className="absolute w-[60rem] top-[20rem] left-[200rem]">
-              03/ I HAVE EXPANDED MY TECHNICAL EXPERTISE WITH MY YEARS OF EXPERIENCE WORKING WITH SAS, PERATON, CAPTECH,
-              LPL FINANCIAL, CAPITAL ONE, AND MORE.
+            <div className="flex w-[70vw] items-center">
+              <div className="mr-[5vw]">03/</div>
+              <div>
+                I HAVE EXPANDED MY TECHNICAL EXPERTISE WITH MY YEARS OF EXPERIENCE WORKING WITH SAS, PERATON, CAPTECH,
+                LPL FINANCIAL, CAPITAL ONE, AND MORE.
+              </div>
             </div>
           </div>
           <div className="works relative flex w-screen h-screen justify-center items-center text-[40rem]">WORKS</div>
@@ -69,3 +75,4 @@ export const About = () => {
     </>
   );
 };
+

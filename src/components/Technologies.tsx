@@ -24,13 +24,13 @@ export const Technologies = () => {
             trigger: techRef.current,
             start: 'top top',
             end: `130% top`,
-            // markers: true,
+            markers: true,
             pin: true,
             scrub: 1
           }
         })
-        .to(techRef.current, { fontSize: '5rem', duration: 55 }, 5)
-        .to('.remaining', { y: -marginY, duration: 55 }, 45)
+        .to(techRef.current, { fontSize: '5rem', duration: 40 }, 10)
+        .to('.remaining', { y: -marginY, duration: 50 }, 48)
         .to({}, {}, 100);
     },
     { scope: container }
@@ -69,3 +69,4 @@ export const Technologies = () => {
     </>
   );
 };
+
