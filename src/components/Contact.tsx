@@ -27,7 +27,7 @@ export const Contact = ({ setHover }: ContactProps) => {
 
   return (
     <>
-      <div className="relative w-full h-screen bg-light text-dark">
+      <div id="contact" className="relative w-full h-screen bg-light text-dark">
         <div className="flex h-[90vh] text-[12rem] items-center justify-center text-center">
           <div
             className="interested-text w-[80%] leading-[14rem]"
@@ -86,3 +86,4 @@ export const Contact = ({ setHover }: ContactProps) => {
     </>
   );
 };
+

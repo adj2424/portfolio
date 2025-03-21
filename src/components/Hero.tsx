@@ -21,7 +21,11 @@ export const Hero = () => {
 
   return (
     <>
-      <div ref={container} className="relative w-full h-screen flex items-center justify-center overflow-x-hidden">
+      <div
+        ref={container}
+        id="hero"
+        className="relative w-full h-screen flex items-center justify-center overflow-x-hidden"
+      >
         <img className="w-[26rem] z-[1]" src="/pfp.jpg" />
         <div className="absolute flex text-[27rem] left-0 leading-[1] whitespace-nowrap">
           <div ref={items[0]} className="flex pr-[18rem] whitespace-nowrap">
@@ -53,3 +57,4 @@ export const Hero = () => {
     </>
   );
 };
+

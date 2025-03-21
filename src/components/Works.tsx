@@ -26,7 +26,7 @@ export const Works = ({ setHover, setOnWorksHover }: WorksProps) => {
 
   return (
     <>
-      <div className="flex flex-col items-center w-full text-light ">
+      <div id="works" className="flex flex-col items-center w-full text-light ">
         <div className="w-[90%] h-[2px] bg-light opacity-25"></div>
         <div
           className="grid grid-cols-[.75fr_3.5fr_2.5fr_0fr] w-[90%] h-[10rem] items-center hover:grid-cols-[.75fr_3fr_2fr_.3fr] hover:w-[86.5%] transition-all duration-500"
@@ -197,3 +197,4 @@ export const Works = ({ setHover, setOnWorksHover }: WorksProps) => {
     </>
   );
 };
+

@@ -38,7 +38,7 @@ export const Technologies = () => {
 
   return (
     <>
-      <div ref={container}>
+      <div ref={container} id="technologies">
         <div ref={techRef} className="flex w-full h-screen items-center justify-center text-[40rem] overflow-hidden">
           TECHNOLOGIES
         </div>
