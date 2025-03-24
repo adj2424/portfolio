@@ -8,8 +8,11 @@ interface HeaderProps {
 export const Header = ({ setHover, lenis }: HeaderProps) => {
   const handleScrollTo = (cssSelector: string, percentOffset: number) => {
     const offset = percentOffset * lenis.limit;
+    const distanceFromSelector = Math.abs(document.querySelector(cssSelector)!.getBoundingClientRect().top);
+    const selectorPercent = distanceFromSelector / lenis.limit;
+    const duration = 5 * Math.sqrt(selectorPercent);
     lenis.scrollTo(cssSelector, {
-      duration: 5,
+      duration: duration,
       easing: t => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2),
       offset: offset
     });
