@@ -64,6 +64,7 @@ export const Cursor = ({ onHover, onWorksHover }: CursorProps) => {
       }
       outerCircle.style.transform = `scale(${scale.current})`;
       outerCircle.style.opacity = '.75';
+      // size of outer circle - 1
       innerCircle.style.width = 49 + 'px';
       innerCircle.style.height = 49 + 'px';
     }
@@ -87,11 +88,7 @@ export const Cursor = ({ onHover, onWorksHover }: CursorProps) => {
       return;
     }
     image.src = onWorksHover.worksImgSrc;
-    if (onWorksHover.isWorksTitleHover) {
-      image.style.opacity = '1';
-    } else {
-      image.style.opacity = '0';
-    }
+    image.style.opacity = onWorksHover.isWorksTitleHover ? '1' : '0';
   }, [onWorksHover]);
 
   return (
@@ -110,3 +107,4 @@ export const Cursor = ({ onHover, onWorksHover }: CursorProps) => {
     </>
   );
 };
+

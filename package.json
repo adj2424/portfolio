@@ -13,11 +13,13 @@
     "@gsap/react": "^2.1.1",
     "gsap": "^3.12.5",
     "lenis": "^1.1.18",
+    "matter-js": "^0.20.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.17.0",
+    "@types/matter-js": "^0.19.8",
     "@types/react": "^18.3.17",
     "@types/react-dom": "^18.3.5",
     "@vitejs/plugin-react-swc": "^3.5.0",
