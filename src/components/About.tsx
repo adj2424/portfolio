@@ -14,6 +14,8 @@ export const About = () => {
   const thickness = 500;
   const [oneCalled, twoCalled, threeCalled] = [useRef(false), useRef(false), useRef(false)];
 
+  const scale = 0.8;
+
   const createBall = (color: string) => {
     if (!engineRef.current) {
       return;
@@ -25,6 +27,26 @@ export const About = () => {
       }
     });
     Composite.add(engineRef.current.world, newBall);
+  };
+
+  const createPill = async (url: string, scale: number) => {
+    const engine = engineRef.current;
+    if (!engine) return;
+    const img = new Image();
+    img.src = url;
+    await img.decode();
+    const pill = Bodies.rectangle(Math.random() * window.innerWidth, -100, img.width * scale, img.height * scale, {
+      restitution: 0.8,
+      chamfer: { radius: (img.height / 2) * 0.9 * scale },
+      render: {
+        sprite: {
+          texture: url,
+          xScale: scale,
+          yScale: scale
+        }
+      }
+    });
+    Composite.add(engine.world, pill);
   };
 
   // init matter js
@@ -52,27 +74,21 @@ export const About = () => {
       }
     });
 
-    const ceiling = Bodies.rectangle(
-      window.innerWidth / 2,
-      -thickness / 2.1 - window.innerHeight / 2,
-      bigNumber,
-      thickness,
-      {
-        isStatic: true,
-        render: {
-          fillStyle: 'blue'
-        }
-      }
-    );
-
-    const floor = Bodies.rectangle(window.innerWidth / 2, window.innerHeight + thickness / 2.1, bigNumber, thickness, {
+    const ceiling = Bodies.rectangle(window.innerWidth / 2, -thickness / 2 - window.innerHeight, bigNumber, thickness, {
       isStatic: true,
       render: {
         fillStyle: 'blue'
       }
     });
 
-    const left = Bodies.rectangle(-thickness / 2.1, 0, thickness, bigNumber, {
+    const floor = Bodies.rectangle(window.innerWidth / 2, window.innerHeight + thickness / 2.01, bigNumber, thickness, {
+      isStatic: true,
+      render: {
+        fillStyle: 'blue'
+      }
+    });
+
+    const left = Bodies.rectangle(-thickness / 2.01, 0, thickness, bigNumber, {
       isStatic: true,
       render: {
         fillStyle: 'blue'
@@ -80,7 +96,7 @@ export const About = () => {
       }
     });
 
-    const right = Bodies.rectangle(window.innerWidth + thickness / 2.1, 0, thickness, bigNumber, {
+    const right = Bodies.rectangle(window.innerWidth + thickness / 2.01, 0, thickness, bigNumber, {
       isStatic: true,
       render: {
         fillStyle: 'blue'
@@ -100,6 +116,11 @@ export const About = () => {
         fillStyle: 'blue'
       }
     });
+
+    createPill('/pills/hi.png', scale);
+    createPill('/pills/keepscrolling.png', scale);
+
+    // const pills = await Promise.all([createPill('/public/pills/alanjiang.png', 1)]);
     Composite.add(engineRef.current.world, [ceiling, floor, ball, ball2, left, right, mouseConstraint]);
     Render.run(render);
     Runner.run(Runner.create(), engineRef.current);
@@ -151,24 +172,29 @@ export const About = () => {
         .to(canvasRef.current, { yPercent: -40, duration: 9 }, 2)
         .add(() => {
           if (!oneCalled.current) {
-            createBall('green');
+            createPill('/pills/alanjiang.png', scale);
+            createPill('/pills/softwareengineer.png', scale);
+            createPill('/pills/virginiatech.png', scale);
           }
           oneCalled.current = true;
-          console.log('01 im called');
+          console.log('01 called');
         }, 16)
         .add(() => {
           if (!twoCalled.current) {
-            createBall('red');
+            createPill('/pills/backend.png', scale);
+            createPill('/pills/cloud.png', scale);
+            createPill('/pills/frontend.png', scale);
+            createPill('/pills/solutionsarchitect.png', scale);
           }
           twoCalled.current = true;
-          console.log('02 im called');
+          console.log('02 called');
         }, 30)
         .add(() => {
           if (!threeCalled.current) {
             createBall('purple');
           }
           threeCalled.current = true;
-          console.log('03 im called');
+          console.log('03 called');
         }, 45)
         .add(() => {
           oneCalled.current = twoCalled.current = threeCalled.current = false;
