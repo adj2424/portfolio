@@ -7,7 +7,7 @@ export default {
         inter: ['Inter', 'serif']
       },
       colors: {
-        accent: '#b31312',
+        accent: '#B8C0FF', //B8C0FF b31312
         light: '#f8f8ff',
         dark: '#0a0908'
       }

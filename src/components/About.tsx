@@ -1,130 +1,13 @@
 import gsap from 'gsap';
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { Engine, Render, Runner, Bodies, MouseConstraint, Mouse, Composite } from 'matter-js';
+import { Matter } from './Matter';
 
 gsap.registerPlugin(ScrollTrigger);
 
 export const About = () => {
   const container = useRef(null);
-  const canvasRef = useRef(null);
-  const engineRef = useRef<Engine>();
-  const bigNumber = 10000;
-  const thickness = 500;
-  const [oneCalled, twoCalled, threeCalled] = [useRef(false), useRef(false), useRef(false)];
-
-  const scale = 0.8;
-
-  const createBall = (color: string) => {
-    if (!engineRef.current) {
-      return;
-    }
-    const newBall = Bodies.circle(100 * Math.random() + 400, 0, 20, {
-      restitution: 0.6,
-      render: {
-        fillStyle: color
-      }
-    });
-    Composite.add(engineRef.current.world, newBall);
-  };
-
-  const createPill = async (url: string, scale: number) => {
-    const engine = engineRef.current;
-    if (!engine) return;
-    const img = new Image();
-    img.src = url;
-    await img.decode();
-    const pill = Bodies.rectangle(Math.random() * window.innerWidth, -100, img.width * scale, img.height * scale, {
-      restitution: 0.8,
-      chamfer: { radius: (img.height / 2) * 0.9 * scale },
-      render: {
-        sprite: {
-          texture: url,
-          xScale: scale,
-          yScale: scale
-        }
-      }
-    });
-    Composite.add(engine.world, pill);
-  };
-
-  // init matter js
-  useEffect(() => {
-    engineRef.current = Engine.create();
-    const render = Render.create({
-      canvas: canvasRef.current!,
-      engine: engineRef.current,
-      options: {
-        width: window.innerWidth,
-        height: window.innerHeight,
-        background: 'transparent',
-        wireframes: false
-        //background: 'rgba(255, 0, 0, 0.5)'
-      }
-    });
-
-    const mouseConstraint = MouseConstraint.create(engineRef.current, {
-      mouse: Mouse.create(render.canvas),
-      constraint: {
-        stiffness: 0.2,
-        render: {
-          visible: false
-        }
-      }
-    });
-
-    const ceiling = Bodies.rectangle(window.innerWidth / 2, -thickness / 2 - window.innerHeight, bigNumber, thickness, {
-      isStatic: true,
-      render: {
-        fillStyle: 'blue'
-      }
-    });
-
-    const floor = Bodies.rectangle(window.innerWidth / 2, window.innerHeight + thickness / 2.01, bigNumber, thickness, {
-      isStatic: true,
-      render: {
-        fillStyle: 'blue'
-      }
-    });
-
-    const left = Bodies.rectangle(-thickness / 2.01, 0, thickness, bigNumber, {
-      isStatic: true,
-      render: {
-        fillStyle: 'blue'
-        //fillStyle: 'transparent'
-      }
-    });
-
-    const right = Bodies.rectangle(window.innerWidth + thickness / 2.01, 0, thickness, bigNumber, {
-      isStatic: true,
-      render: {
-        fillStyle: 'blue'
-        //fillStyle: 'transparent'
-      }
-    });
-
-    const ball = Bodies.circle(600, 0, 20, {
-      restitution: 0.6,
-      render: {
-        fillStyle: 'yellow'
-      }
-    });
-    const ball2 = Bodies.circle(600, 0, 20, {
-      restitution: 0.6,
-      render: {
-        fillStyle: 'blue'
-      }
-    });
-
-    createPill('/pills/hi.png', scale);
-    createPill('/pills/keepscrolling.png', scale);
-
-    // const pills = await Promise.all([createPill('/public/pills/alanjiang.png', 1)]);
-    Composite.add(engineRef.current.world, [ceiling, floor, ball, ball2, left, right, mouseConstraint]);
-    Render.run(render);
-    Runner.run(Runner.create(), engineRef.current);
-  }, []);
 
   // https://www.youtube.com/watch?v=l0aI8Ecumy8
   useGSAP(
@@ -156,52 +39,6 @@ export const About = () => {
         // to make start time a percentage out of 100 from total duration
         // start time + duration cannot be greater than 100 or it will change timeline
         .to({}, {}, 100);
-
-      // timeline for matter canvas and pinning
-      gsap
-        .timeline({
-          scrollTrigger: {
-            trigger: '.test',
-            start: 'top top',
-            end: '535% top',
-            markers: true,
-            pin: true,
-            scrub: 0.5
-          }
-        })
-        .to(canvasRef.current, { yPercent: -40, duration: 9 }, 2)
-        .add(() => {
-          if (!oneCalled.current) {
-            createPill('/pills/alanjiang.png', scale);
-            createPill('/pills/softwareengineer.png', scale);
-            createPill('/pills/virginiatech.png', scale);
-          }
-          oneCalled.current = true;
-          console.log('01 called');
-        }, 16)
-        .add(() => {
-          if (!twoCalled.current) {
-            createPill('/pills/backend.png', scale);
-            createPill('/pills/cloud.png', scale);
-            createPill('/pills/frontend.png', scale);
-            createPill('/pills/solutionsarchitect.png', scale);
-          }
-          twoCalled.current = true;
-          console.log('02 called');
-        }, 30)
-        .add(() => {
-          if (!threeCalled.current) {
-            createBall('purple');
-          }
-          threeCalled.current = true;
-          console.log('03 called');
-        }, 45)
-        .add(() => {
-          oneCalled.current = twoCalled.current = threeCalled.current = false;
-          console.log('reset called');
-        }, 98)
-        .to(canvasRef.current, { yPercent: 10, duration: 8 }, 90)
-        .to({}, {}, 100);
     },
     { scope: container }
   );
@@ -209,11 +46,11 @@ export const About = () => {
   return (
     <>
       <div ref={container} className="relative overflow-hidden mt-[10rem]">
-        <div className="test absolute z-[1]">
-          <canvas ref={canvasRef} className="w-full h-screen mt-[40vh]"></canvas>
+        <div>
+          <Matter></Matter>
         </div>
         <div className="slider flex w-[530vw] select-none pointer-events-none">
-          <div className="hello flex w-screen h-screen justify-center items-center text-[40rem]">HELLO</div>
+          <div className="hello flex w-screen h-screen justify-center items-center text-[40rem]">ABOUT</div>
           <div className="relative flex items-center w-[330vw] text-[2.5rem] leading-tight justify-between pr-[50vw] ">
             <div className="flex w-[70vw] items-center">
               <div className="mr-[5vw]">01/</div>
@@ -243,4 +80,3 @@ export const About = () => {
     </>
   );
 };
-
