@@ -45,7 +45,7 @@ export const About = () => {
 
   return (
     <>
-      <div ref={container} className="relative overflow-hidden mt-[10rem]">
+      <div id="about" ref={container} className="relative overflow-hidden mt-[10rem]">
         <div>
           <Matter></Matter>
         </div>

@@ -7,7 +7,7 @@ export const Matter = () => {
   const engineRef = useRef<Engine>();
   const bigNumber = 10000;
   const thickness = 500;
-  const scale = 0.9;
+  const scale = 0.85;
   const [aboutCalled, oneCalled, twoCalled, threeCalled, fourCalled, fiveCalled, sixCalled] = [
     useRef(false),
     useRef(false),
@@ -121,7 +121,7 @@ export const Matter = () => {
           loadStaggerPills(['/pills/hello.png', '/pills/keepscrolling.png', '/pills/circle.png'], scale);
         }
         aboutCalled.current = true;
-      }, 5)
+      }, 3)
       .add(() => {
         if (!oneCalled.current) {
           loadStaggerPills(['/pills/alanjiang.png', '/pills/swe.png', '/pills/age.png'], scale);

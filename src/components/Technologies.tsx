@@ -1,18 +1,25 @@
 import gsap from 'gsap';
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-
+import { Technology } from './Technology';
 gsap.registerPlugin(ScrollTrigger);
 
 export const Technologies = () => {
-  const container = useRef(null);
+  const container = useRef<HTMLDivElement>(null);
   const techRef = useRef<HTMLDivElement>(null);
+  const remainingRef = useRef<HTMLDivElement>(null);
 
   const remToPixels = (rem: number) => {
     const rootFontSize = parseFloat(getComputedStyle(document.documentElement).fontSize);
     return rem * rootFontSize;
   };
+
+  useEffect(() => {
+    const height = container.current!.getBoundingClientRect().height;
+    const marginY = (window.innerHeight - remToPixels(5)) / 2;
+    container.current!.style.height = `${height - marginY}px`;
+  }, []);
 
   useGSAP(
     () => {
@@ -23,14 +30,14 @@ export const Technologies = () => {
           scrollTrigger: {
             trigger: techRef.current,
             start: 'top top',
-            end: `130% top`,
+            end: '130% top',
             markers: true,
             pin: true,
             scrub: 1
           }
         })
         .to(techRef.current, { fontSize: '5rem', duration: 40 }, 10)
-        .to('.remaining', { y: -marginY, duration: 50 }, 48)
+        .to(remainingRef.current, { y: -marginY, duration: 50 }, 48)
         .to({}, {}, 100);
     },
     { scope: container }
@@ -38,35 +45,34 @@ export const Technologies = () => {
 
   return (
     <>
-      <div ref={container} id="technologies">
+      <div ref={container} id="technologies" className="remaining mb-[2rem]">
         <div ref={techRef} className="flex w-full h-screen items-center justify-center text-[40rem] overflow-hidden">
           TECHNOLOGIES
         </div>
-        <div className="remaining flex flex-col items-center justify-center text-[5rem] leading-none">
-          <div className="hover:text-accent transition-all duration-500">REACT</div>
-          <div className="hover:text-accent transition-all duration-500">ANGULAR</div>
-          <div className="hover:text-accent transition-all duration-500">TAILWIND CSS</div>
-          <div className="hover:text-accent transition-all duration-500">JAVASCRIPT</div>
-          <div className="hover:text-accent transition-all duration-500">TYPESCRIPT</div>
-          <div className="hover:text-accent transition-all duration-500">EXPRESS.JS</div>
-          <div className="hover:text-accent transition-all duration-500">NEXT.JS</div>
-          <div className="hover:text-accent transition-all duration-500">THREE.JS</div>
-          <div className="hover:text-accent transition-all duration-500">REACT THREE FIBER</div>
-          <div className="hover:text-accent transition-all duration-500">GSAP</div>
-          <div className="hover:text-accent transition-all duration-500">PYTHON</div>
-          <div className="hover:text-accent transition-all duration-500">JAVA</div>
-          <div className="hover:text-accent transition-all duration-500">GO</div>
-          <div className="hover:text-accent transition-all duration-500">SOLIDITY</div>
-          <div className="hover:text-accent transition-all duration-500">HARDHAT</div>
-          <div className="hover:text-accent transition-all duration-500">NOSQL</div>
-          <div className="hover:text-accent transition-all duration-500">AMAZON WEB SERVICES</div>
-          <div className="hover:text-accent transition-all duration-500">GOOGLE CLOUD PLATFORM</div>
-          <div className="hover:text-accent transition-all duration-500">TERRAFORM</div>
-          <div className="hover:text-accent transition-all duration-500">DOCKER</div>
-          <div className="hover:text-accent transition-all duration-500">GIT</div>
+        <div ref={remainingRef} className="flex flex-col items-center justify-center text-[5rem] leading-none w-full">
+          <Technology name="REACT" />
+          <Technology name="ANGULAR" />
+          <Technology name="TAILWIND CSS" />
+          <Technology name="JAVASCRIPT" />
+          <Technology name="TYPESCRIPT" />
+          <Technology name="EXPRESS.JS" />
+          <Technology name="NEXT.JS" />
+          <Technology name="THREE.JS" />
+          <Technology name="REACT THREE FIBER" />
+          <Technology name="GSAP" />
+          <Technology name="PYTHON" />
+          <Technology name="JAVA" />
+          <Technology name="GO" />
+          <Technology name="SOLIDITY" />
+          <Technology name="HARDHAT" />
+          <Technology name="NOSQL" />
+          <Technology name="AMAZON WEB SERVICES" />
+          <Technology name="GOOGLE CLOUD PLATFORM" />
+          <Technology name="TERRAFORM" />
+          <Technology name="DOCKER" />
+          <Technology name="GIT" />
         </div>
       </div>
     </>
   );
 };
-

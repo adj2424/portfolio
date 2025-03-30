@@ -33,7 +33,15 @@ export const Header = ({ setHover, lenis }: HeaderProps) => {
               className="mr-[3rem]"
               onMouseEnter={() => setHover(true)}
               onMouseLeave={() => setHover(false)}
-              onClick={() => handleScrollTo('#works', -0.077)}
+              onClick={() => handleScrollTo('#about', 0.065)}
+            >
+              ABOUT
+            </div>
+            <div
+              className="mr-[3rem]"
+              onMouseEnter={() => setHover(true)}
+              onMouseLeave={() => setHover(false)}
+              onClick={() => handleScrollTo('#works', -0.075)}
             >
               WORKS
             </div>
@@ -48,7 +56,7 @@ export const Header = ({ setHover, lenis }: HeaderProps) => {
             <div
               onMouseEnter={() => setHover(true)}
               onMouseLeave={() => setHover(false)}
-              onClick={() => handleScrollTo('#contact', 0)}
+              onClick={() => handleScrollTo('#contact', 0.09)}
             >
               CONTACT
             </div>
@@ -58,4 +66,3 @@ export const Header = ({ setHover, lenis }: HeaderProps) => {
     </>
   );
 };
-

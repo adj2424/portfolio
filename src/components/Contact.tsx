@@ -1,43 +1,85 @@
+import Lenis from 'lenis';
 import gsap from 'gsap';
+import { useGSAP } from '@gsap/react';
 import { TextPlugin } from 'gsap/all';
+import { useEffect, useRef, useState } from 'react';
 
 gsap.registerPlugin(TextPlugin);
 
 interface ContactProps {
   setHover: React.Dispatch<React.SetStateAction<boolean>>;
+  lenis: Lenis;
 }
 
-export const Contact = ({ setHover }: ContactProps) => {
-  const handleMouseEnter = () => {
-    gsap.to('.interested-text', {
-      duration: 0.8,
+export const Contact = ({ setHover, lenis }: ContactProps) => {
+  const container = useRef<HTMLDivElement>(null);
+  const contactRef = useRef<HTMLDivElement>(null);
+  const [isInterested, setIsInterested] = useState(true);
+  const [isInRange, setIsInRange] = useState(false);
+
+  useEffect(() => {
+    if (!isInRange) {
+      gsap.to(contactRef.current, {
+        duration: 0.7,
+        text: {
+          value: 'INTERESTED?'
+        }
+      });
+      return;
+    }
+    gsap.to(contactRef.current, {
+      duration: 0.7,
       text: {
-        value: 'LETS GET IN TOUCH'
+        value: isInterested ? 'INTERESTED?' : 'LETS GET IN TOUCH'
       }
     });
-  };
-  const handleMouseLeave = () => {
-    gsap.to('.interested-text', {
-      duration: 0.8,
-      text: {
-        value: 'INTERESTED IN WORKING?'
-      }
-    });
-  };
+  }, [isInterested, isInRange]);
+
+  useGSAP(
+    () => {
+      gsap
+        .timeline({
+          scrollTrigger: {
+            trigger: container.current,
+            start: 'top top',
+            end: '150% top',
+            markers: true,
+            pin: true,
+            scrub: 0.5
+          }
+        })
+        .add(() => {
+          if (lenis.direction === 1) {
+            setIsInRange(true);
+          } else {
+            setIsInRange(false);
+          }
+        }, 55)
+        .to(contactRef.current, { fontSize: '12rem', duration: 65 }, 10)
+        .fromTo(contactRef.current, { width: '300%', duration: 65 }, { width: '80%', duration: 65 }, 10)
+        .to('.left', { xPercent: 100, duration: 80 }, 10)
+        .to('.right', { xPercent: -100, duration: 80 }, 10)
+        .to({}, {}, 100);
+    },
+    { scope: container }
+  );
 
   return (
     <>
-      <div id="contact" className="relative w-full h-screen bg-light text-dark">
-        <div className="flex h-[90vh] text-[12rem] items-center justify-center text-center">
+      <div id="contact" ref={container} className="relative overflow-hidden">
+        <div className="left absolute left-[-51%] h-screen w-[51%] bg-light"></div>
+        <div className="right absolute right-[-51%] h-screen w-[51%] bg-light"></div>
+        <div className="relative flex h-screen items-center justify-center">
           <div
-            className="interested-text w-[80%] leading-[14rem]"
-            onMouseLeave={() => handleMouseLeave()}
-            onMouseEnter={() => handleMouseEnter()}
+            ref={contactRef}
+            className="text-[40rem] w-[300%] leading-none mix-blend-difference text-center"
+            onMouseLeave={() => setIsInterested(true)}
+            onMouseEnter={() => setIsInterested(false)}
           >
-            INTERESTED IN WORKING?
+            INTERESTED?
           </div>
         </div>
-        <div className="flex justify-center">
+        <div className="flex justify-center text-dark">
           <div className="absolute bottom-[1rem] w-[90vw] text-[1.3rem] leading-[1.8rem]">
             <div className="flex justify-between">
               <div className="w-[30rem]">ALAN JIANG</div>
@@ -86,4 +128,3 @@ export const Contact = ({ setHover }: ContactProps) => {
     </>
   );
 };
-

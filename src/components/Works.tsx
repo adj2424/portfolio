@@ -192,9 +192,8 @@ export const Works = ({ setHover, setOnWorksHover }: WorksProps) => {
             </svg>
           </div>
         </div>
-        <div className="w-[90%] h-[2px] bg-light opacity-25 mb-[15rem]"></div>
+        <div className="w-[90%] h-[2px] bg-light opacity-25 mb-[3rem]"></div>
       </div>
     </>
   );
 };
-
