@@ -21,7 +21,7 @@ export const About = () => {
             end: '750% top',
             markers: true,
             pin: true,
-            scrub: 0.5
+            scrub: 1
           }
         })
         // .to(
@@ -32,10 +32,9 @@ export const About = () => {
         // 	},
         // 	0 // start time
         // )
-        .to('.hello', { fontSize: '15rem', duration: 9 }, 4)
+        .to('.about', { fontSize: '15rem', duration: 9 }, 4)
         .to('.slider', { xPercent: (-(100 + 330) / 530) * 100, duration: 74 }, 14) // xPercent is -(w-screen + slide width)/total width * 100
         .to('.works', { fontSize: '15rem', duration: 9 }, 88)
-
         // to make start time a percentage out of 100 from total duration
         // start time + duration cannot be greater than 100 or it will change timeline
         .to({}, {}, 100);
@@ -46,11 +45,9 @@ export const About = () => {
   return (
     <>
       <div id="about" ref={container} className="relative overflow-hidden mt-[10rem]">
-        <div>
-          <Matter></Matter>
-        </div>
+        <Matter></Matter>
         <div className="slider flex w-[530vw] select-none pointer-events-none">
-          <div className="hello flex w-screen h-screen justify-center items-center text-[40rem]">ABOUT</div>
+          <div className="about flex w-screen h-screen justify-center items-center text-[40rem]">ABOUT</div>
           <div className="relative flex items-center w-[330vw] text-[2.5rem] leading-tight justify-between pr-[50vw] ">
             <div className="flex w-[70vw] items-center">
               <div className="mr-[5vw]">01/</div>

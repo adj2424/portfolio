@@ -1,8 +1,10 @@
 import gsap from 'gsap';
+import { useGSAP } from '@gsap/react';
 import { useEffect, useRef } from 'react';
 import { Engine, Render, Runner, Bodies, MouseConstraint, Mouse, Composite } from 'matter-js';
 
 export const Matter = () => {
+  const container = useRef(null);
   const canvasRef = useRef(null);
   const engineRef = useRef<Engine>();
   const bigNumber = 10000;
@@ -101,75 +103,80 @@ export const Matter = () => {
     Composite.add(engineRef.current.world, [ceiling, floor, left, right, mouseConstraint]);
     Render.run(render);
     Runner.run(Runner.create(), engineRef.current);
+
+    return () => {
+      Render.stop(render);
+      Engine.clear(engineRef.current!);
+      render.canvas.remove();
+    };
   }, []);
 
-  useEffect(() => {
-    gsap
-      .timeline({
-        scrollTrigger: {
-          trigger: '.test',
-          start: 'top top',
-          end: '535% top',
-          markers: true,
-          pin: true,
-          scrub: 0.5
-        }
-      })
-      .to(canvasRef.current, { yPercent: -40, duration: 6 }, 2)
-      .add(() => {
-        if (!aboutCalled.current) {
-          loadStaggerPills(['/pills/hello.png', '/pills/keepscrolling.png', '/pills/circle.png'], scale);
-        }
-        aboutCalled.current = true;
-      }, 3)
-      .add(() => {
-        if (!oneCalled.current) {
-          loadStaggerPills(['/pills/alanjiang.png', '/pills/swe.png', '/pills/age.png'], scale);
-        }
-        oneCalled.current = true;
-      }, 16)
-      .add(() => {
-        if (!twoCalled.current) {
-          loadStaggerPills(['/pills/virginiatech.png', '/pills/yoe.png', '/pills/circle.png'], scale);
-        }
-        twoCalled.current = true;
-      }, 21)
-      .add(() => {
-        if (!threeCalled.current) {
-          loadStaggerPills(['/pills/backend.png', '/pills/frontend.png'], scale);
-        }
-        threeCalled.current = true;
-      }, 28)
-      .add(() => {
-        if (!fourCalled.current) {
-          loadStaggerPills(['/pills/circle.png', '/pills/cloud.png', '/pills/solutionsarchitect.png'], scale);
-        }
-        fourCalled.current = true;
-      }, 33)
-      .add(() => {
-        if (!fiveCalled.current) {
-          loadStaggerPills(['/pills/freshideas.png', '/pills/passionate.png'], scale);
-        }
-        fiveCalled.current = true;
-      }, 40)
-      .add(() => {
-        if (!sixCalled.current) {
-          loadStaggerPills(['/pills/memorableexperiences.png', '/pills/circle.png', '/pills/developer.png'], scale);
-        }
-        sixCalled.current = true;
-      }, 43)
-      // .add(() => {
-      //   oneCalled.current = twoCalled.current = threeCalled.current = false;
-      //   console.log('reset called');
-      // }, 98)
-      .to(canvasRef.current, { yPercent: 0, duration: 10 }, 88.5)
-      .to(canvasRef.current, { yPercent: 70, duration: 1 }, 99)
-      .to({}, {}, 100);
-  }, []);
+  useGSAP(
+    () => {
+      gsap
+        .timeline({
+          scrollTrigger: {
+            trigger: container.current,
+            start: 'top top',
+            end: '535% top',
+            markers: true,
+            pin: true,
+            scrub: 1
+          }
+        })
+        .to(canvasRef.current, { yPercent: -40, duration: 6 }, 2)
+        .add(() => {
+          if (!aboutCalled.current) {
+            loadStaggerPills(['/pills/hello.png', '/pills/keepscrolling.png', '/pills/circle.png'], scale);
+          }
+          aboutCalled.current = true;
+        }, 3)
+        .add(() => {
+          if (!oneCalled.current) {
+            loadStaggerPills(['/pills/alanjiang.png', '/pills/swe.png', '/pills/age.png'], scale);
+          }
+          oneCalled.current = true;
+        }, 16)
+        .add(() => {
+          if (!twoCalled.current) {
+            loadStaggerPills(['/pills/virginiatech.png', '/pills/yoe.png', '/pills/circle.png'], scale);
+          }
+          twoCalled.current = true;
+        }, 21)
+        .add(() => {
+          if (!threeCalled.current) {
+            loadStaggerPills(['/pills/backend.png', '/pills/frontend.png'], scale);
+          }
+          threeCalled.current = true;
+        }, 28)
+        .add(() => {
+          if (!fourCalled.current) {
+            loadStaggerPills(['/pills/circle.png', '/pills/cloud.png', '/pills/solutionsarchitect.png'], scale);
+          }
+          fourCalled.current = true;
+        }, 33)
+        .add(() => {
+          if (!fiveCalled.current) {
+            loadStaggerPills(['/pills/freshideas.png', '/pills/passionate.png', '/pills/circle.png'], scale);
+          }
+          fiveCalled.current = true;
+        }, 39)
+        .add(() => {
+          if (!sixCalled.current) {
+            loadStaggerPills(['/pills/memorableexperiences.png', '/pills/developer.png'], scale);
+          }
+          sixCalled.current = true;
+        }, 42)
+        .to(canvasRef.current, { yPercent: 0, duration: 10 }, 88.5)
+        .to(canvasRef.current, { yPercent: 70, duration: 1 }, 99)
+        .to({}, {}, 100);
+    },
+    { scope: container }
+  );
 
   return (
     <>
-      <div className="test absolute z-[1]">
+      <div ref={container} className="absolute z-[1]">
         <canvas ref={canvasRef} className="w-full h-screen mt-[40vh]"></canvas>
       </div>
     </>

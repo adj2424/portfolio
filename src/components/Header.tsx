@@ -1,11 +1,11 @@
-import Lenis from 'lenis';
-
+import gsap from 'gsap';
+import { useLenisContext } from './Lenis';
 interface HeaderProps {
   setHover: React.Dispatch<React.SetStateAction<boolean>>;
-  lenis: Lenis;
 }
 
-export const Header = ({ setHover, lenis }: HeaderProps) => {
+export const Header = ({ setHover }: HeaderProps) => {
+  const lenis = useLenisContext();
   const handleScrollTo = (cssSelector: string, percentOffset: number) => {
     const offset = percentOffset * lenis.limit;
     const distanceFromSelector = Math.abs(document.querySelector(cssSelector)!.getBoundingClientRect().top);
@@ -17,48 +17,76 @@ export const Header = ({ setHover, lenis }: HeaderProps) => {
       offset: offset
     });
   };
+
+  const handleMouseEnter = (e: string) => {
+    gsap.to(e, { yPercent: -50, ease: 'power3.inOut', duration: 0.6 });
+    setHover(true);
+  };
+
+  const handleMouseLeave = (e: string) => {
+    setHover(false);
+    gsap.to(e, { yPercent: 0, ease: 'power3.inOut', duration: 0.6 });
+  };
+
   return (
     <>
       <div className="fixed flex w-screen justify-center text-[1.3rem] z-[3] mt-[1.5rem] mix-blend-difference">
         <div className="flex w-[90%] justify-between align-baseline user-select-none select-none">
-          <div
-            onMouseEnter={() => setHover(true)}
-            onMouseLeave={() => setHover(false)}
-            onClick={() => handleScrollTo('#hero', 0)}
-          >
-            ALAN JIANG
+          <div className="h-[1.95rem] mr-[3rem] overflow-hidden">
+            <div
+              className="hero-header flex flex-col"
+              onMouseEnter={() => handleMouseEnter('.hero-header')}
+              onMouseLeave={() => handleMouseLeave('.hero-header')}
+              onClick={() => handleScrollTo('#hero', 0)}
+            >
+              <div>ALAN JIANG</div>
+              <div>ALAN JIANG</div>
+            </div>
           </div>
           <div className="flex">
-            <div
-              className="mr-[3rem]"
-              onMouseEnter={() => setHover(true)}
-              onMouseLeave={() => setHover(false)}
-              onClick={() => handleScrollTo('#about', 0.065)}
-            >
-              ABOUT
+            <div className="h-[1.95rem] mr-[3rem] overflow-hidden">
+              <div
+                className="about-header flex flex-col"
+                onMouseEnter={() => handleMouseEnter('.about-header')}
+                onMouseLeave={() => handleMouseLeave('.about-header')}
+                onClick={() => handleScrollTo('#about', 0.065)}
+              >
+                <div>ABOUT</div>
+                <div>ABOUT</div>
+              </div>
             </div>
-            <div
-              className="mr-[3rem]"
-              onMouseEnter={() => setHover(true)}
-              onMouseLeave={() => setHover(false)}
-              onClick={() => handleScrollTo('#works', -0.075)}
-            >
-              WORKS
+            <div className="h-[1.95rem] mr-[3rem] overflow-hidden">
+              <div
+                className="works-header flex flex-col"
+                onMouseEnter={() => handleMouseEnter('.works-header')}
+                onMouseLeave={() => handleMouseLeave('.works-header')}
+                onClick={() => handleScrollTo('#works', -0.075)}
+              >
+                <div>WORKS</div>
+                <div>WORKS</div>
+              </div>
             </div>
-            <div
-              className="mr-[3rem]"
-              onMouseEnter={() => setHover(true)}
-              onMouseLeave={() => setHover(false)}
-              onClick={() => handleScrollTo('#technologies', 0.055)}
-            >
-              TECHNOLOGIES
+            <div className="h-[1.95rem] mr-[3rem] overflow-hidden">
+              <div
+                className="technologies-header flex flex-col"
+                onMouseEnter={() => handleMouseEnter('.technologies-header')}
+                onMouseLeave={() => handleMouseLeave('.technologies-header')}
+                onClick={() => handleScrollTo('#technologies', 0.055)}
+              >
+                <div>TECHNOLOGIES</div>
+                <div>TECHNOLOGIES</div>
+              </div>
             </div>
-            <div
-              onMouseEnter={() => setHover(true)}
-              onMouseLeave={() => setHover(false)}
-              onClick={() => handleScrollTo('#contact', 0.09)}
-            >
-              CONTACT
+            <div className="h-[1.95rem] mr-[3rem] overflow-hidden">
+              <div
+                className="contact-header flex flex-col"
+                onMouseEnter={() => handleMouseEnter('.contact-header')}
+                onMouseLeave={() => handleMouseLeave('.contact-header')}
+                onClick={() => handleScrollTo('#contact', 0.09)}
+              >
+                <div>CONTACT</div>
+                <div>CONTACT</div>
+              </div>
             </div>
           </div>
         </div>

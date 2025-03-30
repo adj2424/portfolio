@@ -10,9 +10,9 @@ export const Technology = ({ name }: TechnologyProps) => {
 
   useEffect(() => {
     if (hover) {
-      gsap.timeline().to(techRef.current, { yPercent: -50, ease: 'power3.inOut', duration: 0.6 });
+      gsap.to(techRef.current, { yPercent: -50, ease: 'power3.inOut', duration: 0.6 });
     } else {
-      gsap.timeline().to(techRef.current, { yPercent: 0, ease: 'power3.inOut', duration: 0.6 });
+      gsap.to(techRef.current, { yPercent: 0, ease: 'power3.inOut', duration: 0.6 });
     }
   }, [hover]);
 
