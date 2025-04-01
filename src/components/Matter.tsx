@@ -9,7 +9,8 @@ export const Matter = () => {
   const engineRef = useRef<Engine>();
   const bigNumber = 10000;
   const thickness = 500;
-  const scale = 0.85;
+  const scale = 0.000223214 * window.innerWidth + 0.4215;
+
   const [aboutCalled, oneCalled, twoCalled, threeCalled, fourCalled, fiveCalled, sixCalled] = [
     useRef(false),
     useRef(false),
@@ -49,6 +50,7 @@ export const Matter = () => {
 
   // init matter js
   useEffect(() => {
+    console.log(window.innerWidth);
     engineRef.current = Engine.create();
     const render = Render.create({
       canvas: canvasRef.current!,
@@ -95,7 +97,7 @@ export const Matter = () => {
     const right = Bodies.rectangle(window.innerWidth + thickness / 2.02, 0, thickness, bigNumber, {
       isStatic: true,
       render: {
-        fillStyle: 'transparent'
+        fillStyle: 'blue' //'transparent'
       }
     });
     createPill('/pills/about.png', scale, window.innerHeight - 100);
@@ -118,13 +120,13 @@ export const Matter = () => {
           scrollTrigger: {
             trigger: container.current,
             start: 'top top',
-            end: '535% top',
+            end: '505% top',
             markers: true,
             pin: true,
             scrub: 1
           }
         })
-        .to(canvasRef.current, { yPercent: -40, duration: 6 }, 2)
+        .to(canvasRef.current, { yPercent: -50, duration: 6 }, 2)
         .add(() => {
           if (!aboutCalled.current) {
             loadStaggerPills(['/pills/hello.png', '/pills/keepscrolling.png', '/pills/circle.png'], scale);
@@ -167,7 +169,7 @@ export const Matter = () => {
           }
           sixCalled.current = true;
         }, 42)
-        .to(canvasRef.current, { yPercent: 0, duration: 10 }, 88.5)
+        .to(canvasRef.current, { yPercent: 10, duration: 10 }, 88.5)
         .to(canvasRef.current, { yPercent: 70, duration: 1 }, 99)
         .to({}, {}, 100);
     },
@@ -177,7 +179,7 @@ export const Matter = () => {
   return (
     <>
       <div ref={container} className="absolute z-[1]">
-        <canvas ref={canvasRef} className="w-full h-screen mt-[40vh]"></canvas>
+        <canvas ref={canvasRef} className="w-full h-screen mt-[50vh]"></canvas>
       </div>
     </>
   );

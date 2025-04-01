@@ -11,6 +11,11 @@ export const About = () => {
   const ctx = useMyContext();
   const [showMatter, setShowMatter] = useState(true);
 
+  const getFontSize = () => {
+    const e = document.querySelector('.text-2xl') as HTMLElement;
+    return getComputedStyle(e).fontSize;
+  };
+
   useEffect(() => {
     setShowMatter(!ctx.isMobile);
   }, []);
@@ -38,9 +43,9 @@ export const About = () => {
         // 	},
         // 	0 // start time
         // )
-        .to('.about', { fontSize: '15rem', duration: 9 }, 4)
+        .to('.about', { fontSize: getFontSize(), duration: 9 }, 4)
         .to('.slider', { xPercent: (-(100 + 330) / 530) * 100, duration: 74 }, 14) // xPercent is -(w-screen + slide width)/total width * 100
-        .to('.works', { fontSize: '15rem', duration: 9 }, 88)
+        .to('.works', { fontSize: getFontSize(), duration: 9 }, 88)
         // to make start time a percentage out of 100 from total duration
         // start time + duration cannot be greater than 100 or it will change timeline
         .to({}, {}, 100);

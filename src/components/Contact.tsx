@@ -17,6 +17,15 @@ export const Contact = ({ setHover }: ContactProps) => {
   const [isInterested, setIsInterested] = useState(true);
   const [isInRange, setIsInRange] = useState(false);
 
+  const getFontSize = () => {
+    const e = document.querySelector('.text-2xl') as HTMLElement;
+    let ret = parseFloat(getComputedStyle(e).fontSize) * 0.8;
+    if (ctx.isTablet) {
+      ret = parseFloat(getComputedStyle(e).fontSize) * 0.6;
+    }
+    return `${ret}px`;
+  };
+
   const handleMouseEnter = (e: string) => {
     gsap.to(e, { yPercent: -50, ease: 'power3.inOut', duration: 0.6 });
     setHover(true);
@@ -85,7 +94,7 @@ export const Contact = ({ setHover }: ContactProps) => {
             setIsInRange(false);
           }
         }, 55)
-        .to(contactRef.current, { fontSize: '13rem', duration: 65 }, 10)
+        .to(contactRef.current, { fontSize: getFontSize(), duration: 65 }, 10)
         .fromTo(contactRef.current, { width: '300%', duration: 65 }, { width: '80%', duration: 65 }, 10)
         .to('.left', { xPercent: 100, duration: 80 }, 10)
         .to('.right', { xPercent: -100, duration: 80 }, 10)
@@ -99,7 +108,7 @@ export const Contact = ({ setHover }: ContactProps) => {
       <div id="contact" ref={container} className="relative overflow-hidden">
         <div className="left absolute left-[-51%] h-screen w-[51%] bg-light"></div>
         <div className="right absolute right-[-51%] h-screen w-[51%] bg-light"></div>
-        <div className="relative flex h-screen items-center justify-center">
+        <div className="relative flex h-screen items-center justify-center mix-blend-difference">
           <div
             ref={contactRef}
             className="text-4xl w-[300%] leading-none mix-blend-difference text-center"

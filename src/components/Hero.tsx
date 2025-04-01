@@ -27,7 +27,7 @@ export const Hero = () => {
         className="relative w-full h-screen flex items-center justify-center overflow-x-hidden"
       >
         <img className="w-[26rem] z-[1]" src="/pfp.jpg" />
-        <div className="absolute flex text-3xl left-0 leading-[1] whitespace-nowrap">
+        <div className="absolute flex text-2xl left-0 leading-[1] whitespace-nowrap">
           <div ref={items[0]} className="flex pr-[18rem] whitespace-nowrap">
             <div className="pr-[15rem]">ALAN</div>
             <div>JIANG</div>

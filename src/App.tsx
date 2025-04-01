@@ -37,7 +37,7 @@ function App() {
       requestAnimationFrame(raf);
     };
     requestAnimationFrame(raf);
-    setValue({ lenis: lenis, isTablet: window.innerWidth < 750, isMobile: window.innerWidth < 550 });
+    setValue({ lenis: lenis, isTablet: window.innerWidth < 800, isMobile: window.innerWidth < 550 });
 
     window.addEventListener('resize', handleResize);
     return () => {
@@ -54,7 +54,7 @@ function App() {
   return (
     <Context.Provider value={value}>
       <div className="page bg-dark font-inter font-[400] text-light">
-        <Cursor onHover={onHover} onWorksHover={onWorksHover}></Cursor>
+        {!value.isMobile && <Cursor onHover={onHover} onWorksHover={onWorksHover}></Cursor>}
         <Header setHover={setHover}></Header>
         <Hero></Hero>
         <About></About>

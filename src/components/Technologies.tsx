@@ -11,9 +11,9 @@ export const Technologies = () => {
   const remainingRef = useRef<HTMLDivElement>(null);
   const [containerHeight, setContainerHeight] = useState(0);
 
-  const remToPixels = (rem: number) => {
-    const rootFontSize = parseFloat(getComputedStyle(document.documentElement).fontSize);
-    return rem * rootFontSize;
+  const getFontSize = () => {
+    const e = document.querySelector('.text-xl') as HTMLElement;
+    return parseFloat(getComputedStyle(e).fontSize);
   };
 
   useEffect(() => {
@@ -21,7 +21,7 @@ export const Technologies = () => {
     requestAnimationFrame(() => {
       if (container.current) {
         const height = container.current.getBoundingClientRect().height;
-        const marginY = (window.innerHeight - remToPixels(5)) / 2;
+        const marginY = (window.innerHeight - getFontSize()) / 2;
         setContainerHeight(height - marginY);
       }
     });
@@ -36,8 +36,7 @@ export const Technologies = () => {
 
   useGSAP(
     () => {
-      const heightInPixels = remToPixels(5);
-      const marginY = (window.innerHeight - heightInPixels) / 2;
+      const marginY = (window.innerHeight - getFontSize()) / 2;
       gsap
         .timeline({
           scrollTrigger: {
@@ -49,7 +48,7 @@ export const Technologies = () => {
             scrub: 1
           }
         })
-        .to(techRef.current, { fontSize: '5rem', duration: 40 }, 10)
+        .to(techRef.current, { fontSize: `${getFontSize()}px`, duration: 40 }, 10)
         .to(remainingRef.current, { y: -marginY, duration: 50 }, 48)
         .to({}, {}, 100);
     },
