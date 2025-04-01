@@ -1,5 +1,5 @@
 import gsap from 'gsap';
-import { useEffect, useRef, useState } from 'react';
+import { useRef } from 'react';
 import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Technology } from './Technology';
@@ -9,34 +9,23 @@ export const Technologies = () => {
   const container = useRef<HTMLDivElement>(null);
   const techRef = useRef<HTMLDivElement>(null);
   const remainingRef = useRef<HTMLDivElement>(null);
-  const [containerHeight, setContainerHeight] = useState(0);
 
   const getFontSize = () => {
     const e = document.querySelector('.text-xl') as HTMLElement;
     return parseFloat(getComputedStyle(e).fontSize);
   };
 
-  useEffect(() => {
-    // wait for everything??? idk
-    requestAnimationFrame(() => {
-      if (container.current) {
-        const height = container.current.getBoundingClientRect().height;
-        const marginY = (window.innerHeight - getFontSize()) / 2;
-        setContainerHeight(height - marginY);
-      }
-    });
-  }, []);
-
-  useEffect(() => {
-    // changing height because technologies div is getting pulled up in gsap but height is not changing so we must change it
-    if (container.current && containerHeight > 0) {
-      container.current.style.height = `${containerHeight}px`;
-    }
-  }, [containerHeight]);
-
   useGSAP(
     () => {
+      requestAnimationFrame(() => {
+        if (!container.current) return;
+        const height = container.current.getBoundingClientRect().height;
+        const marginY = (window.innerHeight - getFontSize()) / 2;
+        container.current.style.height = `${height - marginY}px`;
+      });
+
       const marginY = (window.innerHeight - getFontSize()) / 2;
+
       gsap
         .timeline({
           scrollTrigger: {

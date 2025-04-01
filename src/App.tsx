@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Lenis from 'lenis';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -20,8 +20,20 @@ function App() {
     isTablet: boolean;
     isMobile: boolean;
   }>({ lenis: null, isTablet: false, isMobile: false });
+  const testRef = useRef<HTMLDivElement>(null);
+
+  const getFontSize = () => {
+    const e = document.querySelector('.text-xl') as HTMLElement;
+    return parseFloat(getComputedStyle(e).fontSize);
+  };
 
   useEffect(() => {
+    // use requestAnimationFrame to delay execution until the DOM is painted
+    // requestAnimationFrame(() => {
+    //   if (!testRef.current) return;
+    //   testRef.current.style.marginTop = `-${(window.innerHeight - getFontSize()) / 2}px`;
+    // });
+
     const handleResize = () => {
       setValue(prev => ({ ...prev, isTablet: window.innerWidth < 800, isMobile: window.innerWidth < 550 }));
     };
@@ -60,7 +72,9 @@ function App() {
         <About></About>
         <Works setHover={setHover} setOnWorksHover={setOnWorksHover}></Works>
         <Technologies></Technologies>
-        <Contact setHover={setHover}></Contact>
+        <div ref={testRef}>
+          <Contact setHover={setHover}></Contact>
+        </div>
       </div>
     </Context.Provider>
   );

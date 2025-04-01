@@ -50,7 +50,6 @@ export const Matter = () => {
 
   // init matter js
   useEffect(() => {
-    console.log(window.innerWidth);
     engineRef.current = Engine.create();
     const render = Render.create({
       canvas: canvasRef.current!,
@@ -97,7 +96,7 @@ export const Matter = () => {
     const right = Bodies.rectangle(window.innerWidth + thickness / 2.02, 0, thickness, bigNumber, {
       isStatic: true,
       render: {
-        fillStyle: 'blue' //'transparent'
+        fillStyle: 'transparent'
       }
     });
     createPill('/pills/about.png', scale, window.innerHeight - 100);
