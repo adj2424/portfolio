@@ -10,6 +10,15 @@ export default {
         accent: '#B8C0FF', //B8C0FF b31312
         light: '#f8f8ff',
         dark: '#0a0908'
+      },
+      fontSize: {
+        sm: '1rem',
+        md: '1.3rem',
+        lg: '2.5rem',
+        xl: '5rem',
+        '2xl': '15rem',
+        '3xl': '28rem',
+        '4xl': '40rem'
       }
     }
   },

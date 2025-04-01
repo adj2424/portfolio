@@ -1,13 +1,19 @@
 import gsap from 'gsap';
-import { useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Matter } from './Matter';
-
+import { useMyContext } from './Context';
 gsap.registerPlugin(ScrollTrigger);
 
 export const About = () => {
   const container = useRef(null);
+  const ctx = useMyContext();
+  const [showMatter, setShowMatter] = useState(true);
+
+  useEffect(() => {
+    setShowMatter(!ctx.isMobile);
+  }, []);
 
   // https://www.youtube.com/watch?v=l0aI8Ecumy8
   useGSAP(
@@ -45,10 +51,10 @@ export const About = () => {
   return (
     <>
       <div id="about" ref={container} className="relative overflow-hidden mt-[10rem]">
-        <Matter></Matter>
+        {showMatter && <Matter />}
         <div className="slider flex w-[530vw] select-none pointer-events-none">
-          <div className="about flex w-screen h-screen justify-center items-center text-[40rem]">ABOUT</div>
-          <div className="relative flex items-center w-[330vw] text-[2.5rem] leading-tight justify-between pr-[50vw] ">
+          <div className="about flex w-screen h-screen justify-center items-center text-4xl">ABOUT</div>
+          <div className="relative flex items-center w-[330vw] text-lg leading-tight justify-between pr-[50vw] ">
             <div className="flex w-[70vw] items-center">
               <div className="mr-[5vw]">01/</div>
               <div>
@@ -71,7 +77,7 @@ export const About = () => {
               </div>
             </div>
           </div>
-          <div className="works relative flex w-screen h-screen justify-center items-center text-[40rem]">WORKS</div>
+          <div className="works relative flex w-screen h-screen justify-center items-center text-4xl">WORKS</div>
         </div>
       </div>
     </>

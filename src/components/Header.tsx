@@ -1,16 +1,17 @@
 import gsap from 'gsap';
-import { useLenisContext } from './Lenis';
+import { useMyContext } from './Context';
 interface HeaderProps {
   setHover: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const Header = ({ setHover }: HeaderProps) => {
-  const lenis = useLenisContext();
+  const ctx = useMyContext();
+  const lenis = ctx.lenis!;
   const handleScrollTo = (cssSelector: string, percentOffset: number) => {
     const offset = percentOffset * lenis.limit;
     const distanceFromSelector = Math.abs(document.querySelector(cssSelector)!.getBoundingClientRect().top);
     const selectorPercent = distanceFromSelector / lenis.limit;
-    const duration = 5 * Math.sqrt(selectorPercent);
+    const duration = 4 * Math.sqrt(selectorPercent);
     lenis.scrollTo(cssSelector, {
       duration: duration,
       easing: t => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2),
@@ -30,9 +31,9 @@ export const Header = ({ setHover }: HeaderProps) => {
 
   return (
     <>
-      <div className="fixed flex w-screen justify-center text-[1.3rem] z-[3] mt-[1.5rem] mix-blend-difference">
-        <div className="flex w-[90%] justify-between align-baseline user-select-none select-none">
-          <div className="h-[1.95rem] mr-[3rem] overflow-hidden">
+      <div className="fixed flex w-full justify-center text-md z-[3] mt-[24px] mix-blend-difference">
+        <div className="flex w-[92%] justify-between align-baseline user-select-none select-none">
+          <div className="h-[calc(1em*1.5)] overflow-hidden">
             <div
               className="hero-header flex flex-col"
               onMouseEnter={() => handleMouseEnter('.hero-header')}
@@ -44,7 +45,7 @@ export const Header = ({ setHover }: HeaderProps) => {
             </div>
           </div>
           <div className="flex">
-            <div className="h-[1.95rem] mr-[3rem] overflow-hidden">
+            <div className="h-[calc(1em*1.5)] mr-[3rem] overflow-hidden">
               <div
                 className="about-header flex flex-col"
                 onMouseEnter={() => handleMouseEnter('.about-header')}
@@ -55,7 +56,7 @@ export const Header = ({ setHover }: HeaderProps) => {
                 <div>ABOUT</div>
               </div>
             </div>
-            <div className="h-[1.95rem] mr-[3rem] overflow-hidden">
+            <div className="h-[calc(1em*1.5)] mr-[3rem] overflow-hidden">
               <div
                 className="works-header flex flex-col"
                 onMouseEnter={() => handleMouseEnter('.works-header')}
@@ -66,7 +67,7 @@ export const Header = ({ setHover }: HeaderProps) => {
                 <div>WORKS</div>
               </div>
             </div>
-            <div className="h-[1.95rem] mr-[3rem] overflow-hidden">
+            <div className="h-[calc(1em*1.5)] mr-[3rem] overflow-hidden">
               <div
                 className="technologies-header flex flex-col"
                 onMouseEnter={() => handleMouseEnter('.technologies-header')}
@@ -77,7 +78,7 @@ export const Header = ({ setHover }: HeaderProps) => {
                 <div>TECHNOLOGIES</div>
               </div>
             </div>
-            <div className="h-[1.95rem] mr-[3rem] overflow-hidden">
+            <div className="h-[calc(1em*1.5)] overflow-hidden">
               <div
                 className="contact-header flex flex-col"
                 onMouseEnter={() => handleMouseEnter('.contact-header')}

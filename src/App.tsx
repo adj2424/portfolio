@@ -9,15 +9,23 @@ import { About } from './components/About';
 import { Works } from './components/Works';
 import { Technologies } from './components/Technologies';
 import { Contact } from './components/Contact';
-import { LenisContext } from './components/Lenis';
+import { Context } from './components/Context';
 gsap.registerPlugin(ScrollTrigger);
 
 function App() {
   const [onHover, setHover] = useState(false);
   const [onWorksHover, setOnWorksHover] = useState({ isWorksTitleHover: false, worksImgSrc: '' });
-  const [lenis, setLenis] = useState<Lenis | null>(null);
+  const [value, setValue] = useState<{
+    lenis: Lenis | null;
+    isTablet: boolean;
+    isMobile: boolean;
+  }>({ lenis: null, isTablet: false, isMobile: false });
 
   useEffect(() => {
+    const handleResize = () => {
+      setValue(prev => ({ ...prev, isTablet: window.innerWidth < 800, isMobile: window.innerWidth < 550 }));
+    };
+
     const lenis = new Lenis({
       duration: 1.2,
       easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // https://www.desmos.com/calculator/brs54l4xou
@@ -29,19 +37,22 @@ function App() {
       requestAnimationFrame(raf);
     };
     requestAnimationFrame(raf);
-    setLenis(lenis);
+    setValue({ lenis: lenis, isTablet: window.innerWidth < 750, isMobile: window.innerWidth < 550 });
+
+    window.addEventListener('resize', handleResize);
     return () => {
       lenis.destroy();
+      window.removeEventListener('resize', handleResize);
     };
   }, []);
 
   // lenis is not initialized in time for the components so we return null until it is initialized
-  if (!lenis) {
+  if (!value.lenis) {
     return null;
   }
 
   return (
-    <LenisContext.Provider value={lenis}>
+    <Context.Provider value={value}>
       <div className="page bg-dark font-inter font-[400] text-light">
         <Cursor onHover={onHover} onWorksHover={onWorksHover}></Cursor>
         <Header setHover={setHover}></Header>
@@ -51,7 +62,7 @@ function App() {
         <Technologies></Technologies>
         <Contact setHover={setHover}></Contact>
       </div>
-    </LenisContext.Provider>
+    </Context.Provider>
   );
 }
 

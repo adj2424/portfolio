@@ -27,7 +27,7 @@ export const Hero = () => {
         className="relative w-full h-screen flex items-center justify-center overflow-x-hidden"
       >
         <img className="w-[26rem] z-[1]" src="/pfp.jpg" />
-        <div className="absolute flex text-[27rem] left-0 leading-[1] whitespace-nowrap">
+        <div className="absolute flex text-3xl left-0 leading-[1] whitespace-nowrap">
           <div ref={items[0]} className="flex pr-[18rem] whitespace-nowrap">
             <div className="pr-[15rem]">ALAN</div>
             <div>JIANG</div>
@@ -37,11 +37,11 @@ export const Hero = () => {
             <div>JIANG</div>
           </div>
         </div>
-        <div className="flex absolute w-[90%] bottom-[2rem] justify-between text-[1.3rem]">
+        <div className="flex absolute w-[92%] bottom-[24px] justify-between text-md">
           <div>SOFTWARE ENGINEER</div>
           <div className="flex flex-col items-center fill-accent text-accent">
-            <div>SCROLL</div>
-            <div className="w-[2rem] h-[2rem] m-[0.5rem]">
+            <div className="mx-[3rem]">SCROLL</div>
+            <div className="w-[2rem] h-[2rem] mt-[8px]">
               <svg id="scroll" viewBox="0 0 20 11">
                 <g transform="translate(-180.000000, -6684.000000)">
                   <g transform="translate(56.000000, 160.000000)">
@@ -51,10 +51,9 @@ export const Hero = () => {
               </svg>
             </div>
           </div>
-          <div>FULL STACK DEVELOPER</div>
+          <div className="text-right">FULL STACK DEVELOPER</div>
         </div>
       </div>
     </>
   );
 };
-

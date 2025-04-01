@@ -104,11 +104,11 @@ export const Matter = () => {
     Render.run(render);
     Runner.run(Runner.create(), engineRef.current);
 
-    return () => {
-      Render.stop(render);
-      Engine.clear(engineRef.current!);
-      render.canvas.remove();
-    };
+    // return () => {
+    //   Render.stop(render);
+    //   Engine.clear(engineRef.current!);
+    //   render.canvas.remove();
+    // };
   }, []);
 
   useGSAP(

@@ -59,10 +59,10 @@ export const Technologies = () => {
   return (
     <>
       <div ref={container} id="technologies" className="remaining mb-[2rem]">
-        <div ref={techRef} className="flex w-full h-screen items-center justify-center text-[40rem] overflow-hidden">
+        <div ref={techRef} className="flex w-full h-screen items-center justify-center text-4xl overflow-hidden">
           TECHNOLOGIES
         </div>
-        <div ref={remainingRef} className="flex flex-col items-center justify-center text-[5rem] leading-none w-full">
+        <div ref={remainingRef} className="flex flex-col items-center justify-center w-full">
           <Technology name="REACT" />
           <Technology name="ANGULAR" />
           <Technology name="TAILWIND CSS" />

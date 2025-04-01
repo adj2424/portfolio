@@ -2,7 +2,7 @@ import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { TextPlugin } from 'gsap/all';
 import { useEffect, useRef, useState } from 'react';
-import { useLenisContext } from './Lenis';
+import { useMyContext } from './Context';
 gsap.registerPlugin(TextPlugin);
 
 interface ContactProps {
@@ -12,7 +12,8 @@ interface ContactProps {
 export const Contact = ({ setHover }: ContactProps) => {
   const container = useRef<HTMLDivElement>(null);
   const contactRef = useRef<HTMLDivElement>(null);
-  const lenis = useLenisContext();
+  const ctx = useMyContext();
+  const lenis = ctx.lenis!;
   const [isInterested, setIsInterested] = useState(true);
   const [isInRange, setIsInRange] = useState(false);
 
@@ -25,6 +26,26 @@ export const Contact = ({ setHover }: ContactProps) => {
     setHover(false);
     gsap.to(e, { yPercent: 0, ease: 'power3.inOut', duration: 0.6 });
   };
+
+  useEffect(() => {
+    if (ctx.isTablet) {
+      document.querySelectorAll('.left-contact').forEach((e: Element) => {
+        (e as HTMLElement).style.textAlign = 'center';
+      });
+      document.querySelectorAll('.right-contact').forEach((e: Element) => {
+        (e as HTMLElement).style.textAlign = 'center';
+      });
+    }
+    //
+    else {
+      document.querySelectorAll('.left-contact').forEach((e: Element) => {
+        (e as HTMLElement).style.textAlign = 'left';
+      });
+      document.querySelectorAll('.right-contact').forEach((e: Element) => {
+        (e as HTMLElement).style.textAlign = 'right';
+      });
+    }
+  }, [ctx]);
 
   useEffect(() => {
     if (!isInRange) {
@@ -64,7 +85,7 @@ export const Contact = ({ setHover }: ContactProps) => {
             setIsInRange(false);
           }
         }, 55)
-        .to(contactRef.current, { fontSize: '12rem', duration: 65 }, 10)
+        .to(contactRef.current, { fontSize: '13rem', duration: 65 }, 10)
         .fromTo(contactRef.current, { width: '300%', duration: 65 }, { width: '80%', duration: 65 }, 10)
         .to('.left', { xPercent: 100, duration: 80 }, 10)
         .to('.right', { xPercent: -100, duration: 80 }, 10)
@@ -81,7 +102,7 @@ export const Contact = ({ setHover }: ContactProps) => {
         <div className="relative flex h-screen items-center justify-center">
           <div
             ref={contactRef}
-            className="text-[40rem] w-[300%] leading-none mix-blend-difference text-center"
+            className="text-4xl w-[300%] leading-none mix-blend-difference text-center"
             onMouseLeave={() => setIsInterested(true)}
             onMouseEnter={() => setIsInterested(false)}
           >
@@ -89,10 +110,16 @@ export const Contact = ({ setHover }: ContactProps) => {
           </div>
         </div>
         <div className="flex justify-center text-dark">
-          <div className="absolute bottom-[1rem] w-[90vw] text-[1.3rem] leading-[1.8rem]">
-            <div className="flex justify-between">
-              <div className="w-[30rem]">ALAN JIANG</div>
-              <div className="h-[1.95rem] overflow-hidden">
+          <div className="absolute flex flex-col bottom-[24px] w-full text-md">
+            <div className="flex flex-wrap w-full justify-center items-center">
+              {/* 30.66% is from 33% * 92% because we match header which is 92% and then divide by 3 for each column */}
+              <div style={{ width: 'clamp(225px, 30%, 33.33%)' }} className="left-contact">
+                ALAN JIANG
+              </div>
+              <div
+                style={{ width: 'clamp(325px, 30%, 33.33%)' }}
+                className="h-[calc(1em*1.5)] overflow-hidden text-center"
+              >
                 <div
                   className="email-footer flex flex-col"
                   onMouseEnter={() => handleMouseEnter('.email-footer')}
@@ -106,12 +133,16 @@ export const Contact = ({ setHover }: ContactProps) => {
                   </a>
                 </div>
               </div>
-              <div className="flex justify-end w-[30rem]">DESIGNED & CODED BY ME</div>
+              <div style={{ width: 'clamp(225px, 30%, 33.33%)' }} className="right-contact">
+                DESIGNED & CODED BY ME
+              </div>
             </div>
-            <div className="flex justify-between">
-              <div className="w-[30rem]">SOFTWARE ENGINEER</div>
-              <div className="flex justify-around w-[26rem]">
-                <div className="h-[1.95rem] overflow-hidden">
+            <div className="flex flex-wrap w-full justify-center items-center">
+              <div style={{ width: 'clamp(225px, 30%, 33.33%)' }} className="left-contact">
+                SOFTWARE ENGINEER
+              </div>
+              <div style={{ width: 'clamp(325px, 30%, 33.33%)' }} className="flex justify-around ">
+                <div className="h-[calc(1em*1.5)] overflow-hidden">
                   <div
                     className="linkedin-footer flex flex-col"
                     onMouseEnter={() => handleMouseEnter('.linkedin-footer')}
@@ -125,7 +156,7 @@ export const Contact = ({ setHover }: ContactProps) => {
                     </a>
                   </div>
                 </div>
-                <div className="h-[1.95rem] overflow-hidden">
+                <div className="h-[calc(1em*1.5)] overflow-hidden">
                   <div
                     className="instagram-footer flex flex-col"
                     onMouseEnter={() => handleMouseEnter('.instagram-footer')}
@@ -139,7 +170,7 @@ export const Contact = ({ setHover }: ContactProps) => {
                     </a>
                   </div>
                 </div>
-                <div className="h-[1.95rem] overflow-hidden">
+                <div className="h-[calc(1em*1.5)] overflow-hidden">
                   <div
                     className="github-footer flex flex-col"
                     onMouseEnter={() => handleMouseEnter('.github-footer')}
@@ -154,7 +185,9 @@ export const Contact = ({ setHover }: ContactProps) => {
                   </div>
                 </div>
               </div>
-              <div className="flex justify-end w-[30rem]">© ALAN JIANG 2023</div>
+              <div style={{ width: 'clamp(225px, 30%, 33.33%)' }} className="right-contact">
+                © ALAN JIANG 2023
+              </div>
             </div>
           </div>
         </div>
