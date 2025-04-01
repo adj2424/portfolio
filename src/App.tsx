@@ -22,10 +22,10 @@ function App() {
   }>({ lenis: null, isTablet: false, isMobile: false });
   const testRef = useRef<HTMLDivElement>(null);
 
-  const getFontSize = () => {
-    const e = document.querySelector('.text-xl') as HTMLElement;
-    return parseFloat(getComputedStyle(e).fontSize);
-  };
+  // const getFontSize = () => {
+  //   const e = document.querySelector('.text-xl') as HTMLElement;
+  //   return parseFloat(getComputedStyle(e).fontSize);
+  // };
 
   useEffect(() => {
     // use requestAnimationFrame to delay execution until the DOM is painted
