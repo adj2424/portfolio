@@ -1,7 +1,3 @@
-import { useEffect, useRef, useState } from 'react';
-import Lenis from 'lenis';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Cursor } from './components/Cursor';
 import { Header } from './components/Header';
 import { Hero } from './components/Hero';
@@ -9,74 +5,19 @@ import { About } from './components/About';
 import { Works } from './components/Works';
 import { Technologies } from './components/Technologies';
 import { Contact } from './components/Contact';
-import { Context } from './components/Context';
-gsap.registerPlugin(ScrollTrigger);
 
 function App() {
-  const [onHover, setHover] = useState(false);
-  const [onWorksHover, setOnWorksHover] = useState({ isWorksTitleHover: false, worksImgSrc: '' });
-  const [value, setValue] = useState<{
-    lenis: Lenis | null;
-    isTablet: boolean;
-    isMobile: boolean;
-  }>({ lenis: null, isTablet: false, isMobile: false });
-  const testRef = useRef<HTMLDivElement>(null);
-
-  // const getFontSize = () => {
-  //   const e = document.querySelector('.text-xl') as HTMLElement;
-  //   return parseFloat(getComputedStyle(e).fontSize);
-  // };
-
-  useEffect(() => {
-    // use requestAnimationFrame to delay execution until the DOM is painted
-    // requestAnimationFrame(() => {
-    //   if (!testRef.current) return;
-    //   testRef.current.style.marginTop = `-${(window.innerHeight - getFontSize()) / 2}px`;
-    // });
-
-    const handleResize = () => {
-      setValue(prev => ({ ...prev, isTablet: window.innerWidth < 800, isMobile: window.innerWidth < 550 }));
-    };
-
-    const lenis = new Lenis({
-      duration: 1.2,
-      easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // https://www.desmos.com/calculator/brs54l4xou
-      touchMultiplier: 2,
-      infinite: false
-    });
-    const raf = (time: number) => {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
-    };
-    requestAnimationFrame(raf);
-    setValue({ lenis: lenis, isTablet: window.innerWidth < 800, isMobile: window.innerWidth < 550 });
-
-    window.addEventListener('resize', handleResize);
-    return () => {
-      lenis.destroy();
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []);
-
-  // lenis is not initialized in time for the components so we return null until it is initialized
-  if (!value.lenis) {
-    return null;
-  }
-
+  // use context provider instead of defining state in app because state change in app causes all components to re-render
   return (
-    <Context.Provider value={value}>
-      <div className="page bg-dark font-inter font-[400] text-light">
-        {!value.isMobile && <Cursor onHover={onHover} onWorksHover={onWorksHover}></Cursor>}
-        <Header setHover={setHover}></Header>
-        <Hero></Hero>
-        <About></About>
-        <Works setHover={setHover} setOnWorksHover={setOnWorksHover}></Works>
-        <Technologies></Technologies>
-        <div ref={testRef}>
-          <Contact setHover={setHover}></Contact>
-        </div>
-      </div>
-    </Context.Provider>
+    <div className="page bg-dark font-inter font-[400] text-light">
+      <Cursor></Cursor>
+      <Header></Header>
+      <Hero></Hero>
+      <About></About>
+      <Works></Works>
+      <Technologies></Technologies>
+      <Contact></Contact>
+    </div>
   );
 }
 

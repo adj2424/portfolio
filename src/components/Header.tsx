@@ -1,13 +1,11 @@
 import gsap from 'gsap';
 import { useMyContext } from './Context';
 import { useEffect } from 'react';
-interface HeaderProps {
-  setHover: React.Dispatch<React.SetStateAction<boolean>>;
-}
 
-export const Header = ({ setHover }: HeaderProps) => {
+export const Header = () => {
   const ctx = useMyContext();
   const lenis = ctx.lenis!;
+  const setOnHover = ctx.setOnHover;
   const handleScrollTo = (cssSelector: string, percentOffset: number) => {
     const offset = percentOffset * lenis.limit;
     const distanceFromSelector = Math.abs(document.querySelector(cssSelector)!.getBoundingClientRect().top);
@@ -22,11 +20,11 @@ export const Header = ({ setHover }: HeaderProps) => {
 
   const handleMouseEnter = (e: string) => {
     gsap.to(e, { yPercent: -50, ease: 'power3.inOut', duration: 0.6 });
-    setHover(true);
+    setOnHover(true);
   };
 
   const handleMouseLeave = (e: string) => {
-    setHover(false);
+    setOnHover(false);
     gsap.to(e, { yPercent: 0, ease: 'power3.inOut', duration: 0.6 });
   };
 

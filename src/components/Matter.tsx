@@ -26,7 +26,7 @@ export const Matter = () => {
     img.src = url;
     await img.decode();
     const pill = Bodies.rectangle(Math.random() * window.innerWidth, y ?? -200, img.width * scale, img.height * scale, {
-      restitution: 0.7,
+      restitution: 0.8,
       angle: (Math.random() - 0.5) * Math.PI * 0.5,
       chamfer: { radius: (img.height / 2) * 0.9 * scale },
       render: {

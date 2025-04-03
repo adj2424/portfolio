@@ -1,19 +1,15 @@
 import gsap from 'gsap';
-import { useGSAP } from '@gsap/react';
 import { TextPlugin } from 'gsap/all';
 import { useEffect, useRef, useState } from 'react';
 import { useMyContext } from './Context';
 gsap.registerPlugin(TextPlugin);
 
-interface ContactProps {
-  setHover: React.Dispatch<React.SetStateAction<boolean>>;
-}
-
-export const Contact = ({ setHover }: ContactProps) => {
+export const Contact = () => {
   const container = useRef<HTMLDivElement>(null);
-  const contactRef = useRef<HTMLDivElement>(null);
+  const textRef = useRef<HTMLDivElement>(null);
   const ctx = useMyContext();
   const lenis = ctx.lenis!;
+  const setOnHover = ctx.setOnHover;
   const [isInterested, setIsInterested] = useState(true);
   const [isInRange, setIsInRange] = useState(false);
 
@@ -28,11 +24,11 @@ export const Contact = ({ setHover }: ContactProps) => {
 
   const handleMouseEnter = (e: string) => {
     gsap.to(e, { yPercent: -50, ease: 'power3.inOut', duration: 0.6 });
-    setHover(true);
+    setOnHover(true);
   };
 
   const handleMouseLeave = (e: string) => {
-    setHover(false);
+    setOnHover(false);
     gsap.to(e, { yPercent: 0, ease: 'power3.inOut', duration: 0.6 });
   };
 
@@ -54,11 +50,11 @@ export const Contact = ({ setHover }: ContactProps) => {
         (e as HTMLElement).style.textAlign = 'right';
       });
     }
-  }, [ctx]);
+  }, [ctx.isTablet]);
 
   useEffect(() => {
     if (!isInRange) {
-      gsap.to(contactRef.current, {
+      gsap.to(textRef.current, {
         duration: 0.6,
         text: {
           value: 'INTERESTED?'
@@ -66,7 +62,7 @@ export const Contact = ({ setHover }: ContactProps) => {
       });
       return;
     }
-    gsap.to(contactRef.current, {
+    gsap.to(textRef.current, {
       duration: 0.6,
       text: {
         value: isInterested ? 'INTERESTED?' : 'LETS GET IN TOUCH'
@@ -74,8 +70,10 @@ export const Contact = ({ setHover }: ContactProps) => {
     });
   }, [isInterested, isInRange]);
 
-  useGSAP(
-    () => {
+  // we cannot use useGSAP here because we need to re init timeline on state change useGSAP was not working
+  // follow old way before useGSAP - https://www.youtube.com/watch?v=l0aI8Ecumy8&t=606s
+  useEffect(() => {
+    const gsapCtx = gsap.context(() => {
       gsap
         .timeline({
           scrollTrigger: {
@@ -88,30 +86,26 @@ export const Contact = ({ setHover }: ContactProps) => {
           }
         })
         .add(() => {
-          if (lenis.direction === 1) {
-            setIsInRange(true);
-          } else {
-            setIsInRange(false);
-          }
+          setIsInRange(lenis.direction === 1);
         }, 55)
-        .to(contactRef.current, { fontSize: getFontSize(), duration: 65 }, 10)
-        .fromTo(contactRef.current, { width: '300%', duration: 65 }, { width: '80%', duration: 65 }, 10)
+        .to(textRef.current, { fontSize: getFontSize(), duration: 65 }, 10)
+        .fromTo(textRef.current, { width: '400%', duration: 65 }, { width: '80%', duration: 65 }, 10)
         .to('.left', { xPercent: 100, duration: 80 }, 10)
         .to('.right', { xPercent: -100, duration: 80 }, 10)
         .to({}, {}, 100);
-    },
-    { scope: container }
-  );
+    });
+    return () => gsapCtx.revert();
+  }, [ctx.lenis]);
 
   return (
     <>
-      <div id="contact" ref={container} className="relative overflow-hidden">
+      <div id="contact" ref={container} className="overflow-hidden">
         <div className="left absolute left-[-51%] h-screen w-[51%] bg-light"></div>
         <div className="right absolute right-[-51%] h-screen w-[51%] bg-light"></div>
-        <div className="relative flex h-screen items-center justify-center mix-blend-difference">
+        <div className="flex h-screen items-center justify-center mix-blend-difference text-4xl">
           <div
-            ref={contactRef}
-            className="text-4xl w-[300%] leading-none mix-blend-difference text-center"
+            ref={textRef}
+            className="w-[400%] leading-none text-center mix-blend-difference"
             onMouseLeave={() => setIsInterested(true)}
             onMouseEnter={() => setIsInterested(false)}
           >

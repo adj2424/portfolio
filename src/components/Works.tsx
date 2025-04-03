@@ -1,10 +1,9 @@
 import gsap from 'gsap';
-interface WorksProps {
-  setHover: React.Dispatch<React.SetStateAction<boolean>>;
-  setOnWorksHover: React.Dispatch<React.SetStateAction<{ isWorksTitleHover: boolean; worksImgSrc: string }>>;
-}
+import { useMyContext } from './Context';
 
-export const Works = ({ setHover, setOnWorksHover }: WorksProps) => {
+export const Works = () => {
+  const ctx = useMyContext();
+  const { setOnHover, setOnWorksHover } = ctx;
   const worksInfo = [
     { site: 'https://nft-minter-polygon.vercel.app/', src: 'nft.png' },
     { site: 'https://algosus.vercel.app/', src: 'algosus.png' },
@@ -26,11 +25,11 @@ export const Works = ({ setHover, setOnWorksHover }: WorksProps) => {
     gsap.to(e, { x: 0, ease: 'power2.inOut', duration: 0.5 });
   };
   const handleOnMouseEnterOnText = () => {
-    setHover(true);
+    setOnHover(true);
     setOnWorksHover(prev => ({ ...prev, isWorksTitleHover: true }));
   };
   const handleOnMouseLeaveOnText = () => {
-    setHover(false);
+    setOnHover(false);
     setOnWorksHover(prev => ({ ...prev, isWorksTitleHover: false }));
   };
   const handleOpenWorksTab = (idx: number) => {
@@ -63,8 +62,8 @@ export const Works = ({ setHover, setOnWorksHover }: WorksProps) => {
         </div>
         <div
           className="absolute right-[6.5%] w-[6rem] h-[6rem] fill-accent"
-          onMouseEnter={() => setHover(true)}
-          onMouseLeave={() => setHover(false)}
+          onMouseEnter={() => setOnHover(true)}
+          onMouseLeave={() => setOnHover(false)}
           onClick={() => handleOpenWorksTab(worksNumber - 1)}
         >
           <svg viewBox="0 0 32 32">

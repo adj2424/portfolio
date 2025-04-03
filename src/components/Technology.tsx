@@ -22,8 +22,10 @@ export const Technology = ({ name }: TechnologyProps) => {
   useEffect(() => {
     if (ctx.isTablet) {
       rowRef.current!.style.justifyContent = 'center';
+      rowRef.current!.style.marginTop = '3px';
     } else {
       rowRef.current!.style.justifyContent = 'space-between';
+      rowRef.current!.style.marginTop = '0px';
     }
   }, [ctx]);
 

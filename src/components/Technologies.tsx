@@ -17,15 +17,7 @@ export const Technologies = () => {
 
   useGSAP(
     () => {
-      requestAnimationFrame(() => {
-        if (!container.current) return;
-        const height = container.current.getBoundingClientRect().height;
-        const marginY = (window.innerHeight - getFontSize()) / 2;
-        container.current.style.height = `${height - marginY}px`;
-      });
-
       const marginY = (window.innerHeight - getFontSize()) / 2;
-
       gsap
         .timeline({
           scrollTrigger: {
@@ -38,7 +30,14 @@ export const Technologies = () => {
           }
         })
         .to(techRef.current, { fontSize: `${getFontSize()}px`, duration: 40 }, 10)
-        .to(remainingRef.current, { y: -marginY, duration: 50 }, 48)
+        .fromTo(remainingRef.current, { marginTop: 0, duration: 50 }, { marginTop: -marginY, duration: 50 }, 48)
+        .add(() => {
+          console.log('changing height');
+          // if (!container.current) return;
+          // const height = container.current.getBoundingClientRect().height;
+          // const marginY = (window.innerHeight - getFontSize()) / 2;
+          // container.current.style.height = `${height - marginY}px`;
+        }, 100)
         .to({}, {}, 100);
     },
     { scope: container }
@@ -46,7 +45,7 @@ export const Technologies = () => {
 
   return (
     <>
-      <div ref={container} id="technologies" className="remaining mb-[2rem]">
+      <div ref={container} id="technologies" className="mb-[2rem]">
         <div ref={techRef} className="flex w-full h-screen items-center justify-center text-4xl overflow-hidden">
           TECHNOLOGIES
         </div>
