@@ -65,8 +65,8 @@ export const Technologies = () => {
           <Technology name="SOLIDITY" />
           <Technology name="HARDHAT" />
           <Technology name="NOSQL" />
-          <Technology name="AMAZON WEB SERVICES" />
-          <Technology name="GOOGLE CLOUD PLATFORM" />
+          <Technology name={ctx.isTablet ? 'AWS' : 'AMAZON WEB SERVICES'} />
+          <Technology name={ctx.isTablet ? 'GCP' : 'GOOGLE CLOUD PLATFORM'} />
           <Technology name="TERRAFORM" />
           <Technology name="DOCKER" />
           <Technology name="GIT" />
