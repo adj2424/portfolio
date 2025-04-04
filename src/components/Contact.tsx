@@ -2,11 +2,14 @@ import gsap from 'gsap';
 import { TextPlugin } from 'gsap/all';
 import { useEffect, useRef, useState } from 'react';
 import { useMyContext } from './Context';
+import { useGSAP } from '@gsap/react';
 gsap.registerPlugin(TextPlugin);
 
 export const Contact = () => {
   const container = useRef<HTMLDivElement>(null);
   const textRef = useRef<HTMLDivElement>(null);
+  const leftRef = useRef<HTMLDivElement>(null);
+  const rightRef = useRef<HTMLDivElement>(null);
   const ctx = useMyContext();
   const lenis = ctx.lenis!;
   const setOnHover = ctx.setOnHover;
@@ -22,15 +25,17 @@ export const Contact = () => {
     return `${ret}px`;
   };
 
-  const handleMouseEnter = (e: string) => {
+  const { contextSafe } = useGSAP({ scope: container });
+
+  const handleMouseEnter = contextSafe((e: string) => {
     gsap.to(e, { yPercent: -50, ease: 'power3.inOut', duration: 0.6 });
     setOnHover(true);
-  };
+  });
 
-  const handleMouseLeave = (e: string) => {
+  const handleMouseLeave = contextSafe((e: string) => {
     setOnHover(false);
     gsap.to(e, { yPercent: 0, ease: 'power3.inOut', duration: 0.6 });
-  };
+  });
 
   useEffect(() => {
     if (ctx.isTablet) {
@@ -80,7 +85,7 @@ export const Contact = () => {
             trigger: container.current,
             start: 'top top',
             end: '150% top',
-            markers: true,
+            // markers: true,
             pin: true,
             scrub: 1
           }
@@ -90,18 +95,18 @@ export const Contact = () => {
         }, 55)
         .to(textRef.current, { fontSize: getFontSize(), duration: 65 }, 10)
         .fromTo(textRef.current, { width: '400%', duration: 65 }, { width: '80%', duration: 65 }, 10)
-        .to('.left', { xPercent: 100, duration: 80 }, 10)
-        .to('.right', { xPercent: -100, duration: 80 }, 10)
+        .to(leftRef.current, { xPercent: 100, duration: 80 }, 10)
+        .to(rightRef.current, { xPercent: -100, duration: 80 }, 10)
         .to({}, {}, 100);
     });
     return () => gsapCtx.revert();
-  }, [ctx.lenis]);
+  }, [ctx.lenis, ctx.forceRender]);
 
   return (
     <>
       <div id="contact" ref={container} className="overflow-hidden">
-        <div className="left absolute left-[-51%] h-screen w-[51%] bg-light"></div>
-        <div className="right absolute right-[-51%] h-screen w-[51%] bg-light"></div>
+        <div ref={leftRef} className="absolute left-[-51%] h-screen w-[51%] bg-light"></div>
+        <div ref={rightRef} className="absolute right-[-51%] h-screen w-[51%] bg-light"></div>
         <div className="flex h-screen items-center justify-center mix-blend-difference text-4xl">
           <div
             ref={textRef}
@@ -144,7 +149,7 @@ export const Contact = () => {
               <div style={{ width: 'clamp(225px, 30%, 33.33%)' }} className="left-contact">
                 SOFTWARE ENGINEER
               </div>
-              <div style={{ width: 'clamp(325px, 30%, 33.33%)' }} className="flex justify-around ">
+              <div style={{ width: 'clamp(325px, 30%, 33.33%)' }} className="flex justify-around">
                 <div className="h-[calc(1em*1.5)] overflow-hidden">
                   <div
                     className="linkedin-footer flex flex-col"

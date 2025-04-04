@@ -1,11 +1,14 @@
 import gsap from 'gsap';
 import { useMyContext } from './Context';
-import { useEffect } from 'react';
-
+import { useEffect, useRef } from 'react';
+import { useGSAP } from '@gsap/react';
 export const Header = () => {
+  const container = useRef<HTMLDivElement>(null);
   const ctx = useMyContext();
   const lenis = ctx.lenis!;
   const setOnHover = ctx.setOnHover;
+  const { contextSafe } = useGSAP({ scope: container });
+
   const handleScrollTo = (cssSelector: string, percentOffset: number) => {
     const offset = percentOffset * lenis.limit;
     const distanceFromSelector = Math.abs(document.querySelector(cssSelector)!.getBoundingClientRect().top);
@@ -18,15 +21,15 @@ export const Header = () => {
     });
   };
 
-  const handleMouseEnter = (e: string) => {
+  const handleMouseEnter = contextSafe((e: string) => {
     gsap.to(e, { yPercent: -50, ease: 'power3.inOut', duration: 0.6 });
     setOnHover(true);
-  };
+  });
 
-  const handleMouseLeave = (e: string) => {
+  const handleMouseLeave = contextSafe((e: string) => {
     setOnHover(false);
     gsap.to(e, { yPercent: 0, ease: 'power3.inOut', duration: 0.6 });
-  };
+  });
 
   useEffect(() => {
     const headerRow = document.querySelector('.header-row') as HTMLElement;
@@ -39,7 +42,7 @@ export const Header = () => {
 
   return (
     <>
-      <div className="fixed flex w-full justify-center text-md z-[3] mt-[24px] mix-blend-difference">
+      <div ref={container} className="fixed flex w-full justify-center text-md z-[3] mt-[24px] mix-blend-difference">
         <div className="header-row flex w-[92%] justify-between align-baseline user-select-none select-none">
           <div className="h-[calc(1em*1.5)] overflow-hidden">
             <div

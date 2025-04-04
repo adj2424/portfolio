@@ -5,11 +5,11 @@ import { About } from './components/About';
 import { Works } from './components/Works';
 import { Technologies } from './components/Technologies';
 import { Contact } from './components/Contact';
+import { ContextProvider } from './components/Context';
 
-function App() {
-  // use context provider instead of defining state in app because state change in app causes all components to re-render
+const Page = () => {
   return (
-    <div className="page bg-dark font-inter font-[400] text-light">
+    <div className="font-inter font-[400] bg-dark text-light">
       <Cursor></Cursor>
       <Header></Header>
       <Hero></Hero>
@@ -18,6 +18,17 @@ function App() {
       <Technologies></Technologies>
       <Contact></Contact>
     </div>
+  );
+};
+
+function App() {
+  // use context provider instead of defining state in app because state change in app causes all components to re-render
+  return (
+    <>
+      <ContextProvider>
+        <Page />
+      </ContextProvider>
+    </>
   );
 }
 

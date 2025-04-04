@@ -17,8 +17,10 @@ export const About = () => {
   };
 
   useEffect(() => {
-    setShowMatter(!ctx.isMobile);
-  }, []);
+    if (ctx.isMobile) {
+      setShowMatter(false);
+    }
+  }, [ctx.isMobile]);
 
   // https://www.youtube.com/watch?v=l0aI8Ecumy8
   useGSAP(
@@ -30,7 +32,7 @@ export const About = () => {
             trigger: '.slider',
             start: 'top top',
             end: '750% top',
-            markers: true,
+            // markers: true,
             pin: true,
             scrub: 1
           }
@@ -59,7 +61,7 @@ export const About = () => {
         {showMatter && <Matter />}
         <div className="slider flex w-[530vw] select-none pointer-events-none">
           <div className="about flex w-screen h-screen justify-center items-center text-4xl">ABOUT</div>
-          <div className="relative flex items-center w-[330vw] text-lg leading-tight justify-between pr-[50vw] ">
+          <div className="relative flex items-center w-[330vw] text-lg leading-tight justify-between pr-[50vw]">
             <div className="flex w-[70vw] items-center">
               <div className="mr-[5vw]">01/</div>
               <div>

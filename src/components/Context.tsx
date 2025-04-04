@@ -9,6 +9,8 @@ interface Context {
   setOnHover: React.Dispatch<React.SetStateAction<boolean>>;
   onWorksHover: { isWorksTitleHover: boolean; worksImgSrc: string };
   setOnWorksHover: React.Dispatch<React.SetStateAction<{ isWorksTitleHover: boolean; worksImgSrc: string }>>;
+  forceRender: number;
+  setForceRender: React.Dispatch<React.SetStateAction<number>>;
 }
 
 const Context = createContext<Context | null>(null);
@@ -27,6 +29,7 @@ export const ContextProvider = ({ children }: { children: React.ReactNode }) => 
   const [isMobile, setIsMobile] = useState(false);
   const [onHover, setOnHover] = useState(false);
   const [onWorksHover, setOnWorksHover] = useState({ isWorksTitleHover: false, worksImgSrc: '' });
+  const [forceRender, setForceRender] = useState(0);
 
   useEffect(() => {
     const handleResize = () => {
@@ -58,7 +61,19 @@ export const ContextProvider = ({ children }: { children: React.ReactNode }) => 
 
   return (
     <>
-      <Context.Provider value={{ lenis, isTablet, isMobile, onHover, setOnHover, onWorksHover, setOnWorksHover }}>
+      <Context.Provider
+        value={{
+          lenis,
+          isTablet,
+          isMobile,
+          onHover,
+          setOnHover,
+          onWorksHover,
+          setOnWorksHover,
+          forceRender,
+          setForceRender
+        }}
+      >
         {children}
       </Context.Provider>
     </>

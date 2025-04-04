@@ -1,7 +1,9 @@
 import gsap from 'gsap';
 import { useMyContext } from './Context';
-
+import { useRef } from 'react';
+import { useGSAP } from '@gsap/react';
 export const Works = () => {
+  const container = useRef<HTMLDivElement>(null);
   const ctx = useMyContext();
   const { setOnHover, setOnWorksHover } = ctx;
   const worksInfo = [
@@ -12,26 +14,33 @@ export const Works = () => {
     { site: 'https://nyla-thiccums.vercel.app/', src: 'nyla.png' }
   ];
 
+  const { contextSafe } = useGSAP({ scope: container });
+
   const remToPixels = (rem: number) => {
     const rootFontSize = parseFloat(getComputedStyle(document.documentElement).fontSize);
     return rem * rootFontSize;
   };
-  const handleOnMouseOnWorks = (e: string, idx: number) => {
+
+  const handleOnMouseOnWorks = contextSafe((e: string, idx: number) => {
     const width = remToPixels(1) + 50;
     gsap.to(e, { x: -width, ease: 'power2.inOut', duration: 0.5 });
     setOnWorksHover(prev => ({ ...prev, worksImgSrc: worksInfo[idx].src }));
-  };
-  const handleOnMouseLeaveWorks = (e: string) => {
+  });
+
+  const handleOnMouseLeaveWorks = contextSafe((e: string) => {
     gsap.to(e, { x: 0, ease: 'power2.inOut', duration: 0.5 });
-  };
+  });
+
   const handleOnMouseEnterOnText = () => {
     setOnHover(true);
     setOnWorksHover(prev => ({ ...prev, isWorksTitleHover: true }));
   };
+
   const handleOnMouseLeaveOnText = () => {
     setOnHover(false);
     setOnWorksHover(prev => ({ ...prev, isWorksTitleHover: false }));
   };
+
   const handleOpenWorksTab = (idx: number) => {
     window.open(worksInfo[idx].site, '_blank');
   };
@@ -78,7 +87,7 @@ export const Works = () => {
 
   return (
     <>
-      <div id="works" className="flex flex-col items-center w-full text-light">
+      <div ref={container} id="works" className="flex flex-col items-center w-full text-light">
         <div className="w-[90%] h-[2px] bg-light opacity-25" />
         {item('nft-id', 1, 'NFT MINTER', ['Web3', 'Blockchain', 'Solidity'])}
         <div className="w-[90%] h-[2px] bg-light opacity-25" />

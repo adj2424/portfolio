@@ -101,7 +101,7 @@ export const Cursor = () => {
             ref={outerCircleRef}
             className="absolute flex items-center justify-center w-[50px] h-[50px] border-[2px] border-accent rounded-full transition-all duration-500 ease-in-out z-[3]"
           >
-            <div ref={innerCircleRef} className="bg-accent rounded-full transition-all duration-500 "></div>
+            <div ref={innerCircleRef} className="bg-accent rounded-full transition-all duration-500"></div>
           </div>
           <div style={{ width: 'clamp(210px, 27vw, 540px)' }}>
             <img ref={imageRef} className="absolute transition-all duration-500 ease-in-out z-[1]"></img>

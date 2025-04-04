@@ -3,12 +3,14 @@ import { useRef } from 'react';
 import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Technology } from './Technology';
+import { useMyContext } from './Context';
 gsap.registerPlugin(ScrollTrigger);
 
 export const Technologies = () => {
   const container = useRef<HTMLDivElement>(null);
   const techRef = useRef<HTMLDivElement>(null);
   const remainingRef = useRef<HTMLDivElement>(null);
+  const ctx = useMyContext();
 
   const getFontSize = () => {
     const e = document.querySelector('.text-xl') as HTMLElement;
@@ -24,7 +26,7 @@ export const Technologies = () => {
             trigger: techRef.current,
             start: 'top top',
             end: '130% top',
-            markers: true,
+            // markers: true,
             pin: true,
             scrub: 1
           }
@@ -32,11 +34,8 @@ export const Technologies = () => {
         .to(techRef.current, { fontSize: `${getFontSize()}px`, duration: 40 }, 10)
         .fromTo(remainingRef.current, { marginTop: 0, duration: 50 }, { marginTop: -marginY, duration: 50 }, 48)
         .add(() => {
-          console.log('changing height');
-          // if (!container.current) return;
-          // const height = container.current.getBoundingClientRect().height;
-          // const marginY = (window.innerHeight - getFontSize()) / 2;
-          // container.current.style.height = `${height - marginY}px`;
+          // update state to force rerender for contact gsap timeline to update the pin start and end
+          ctx.setForceRender(prev => prev + 1);
         }, 100)
         .to({}, {}, 100);
     },

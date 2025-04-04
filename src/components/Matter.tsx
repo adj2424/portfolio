@@ -1,9 +1,9 @@
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
-import { useEffect, useRef } from 'react';
+import { memo, useEffect, useRef } from 'react';
 import { Engine, Render, Runner, Bodies, MouseConstraint, Mouse, Composite } from 'matter-js';
 
-export const Matter = () => {
+export const Matter = memo(() => {
   const container = useRef(null);
   const canvasRef = useRef(null);
   const engineRef = useRef<Engine>();
@@ -51,6 +51,7 @@ export const Matter = () => {
   // init matter js
   useEffect(() => {
     engineRef.current = Engine.create();
+    engineRef.current.timing.timeScale = 1.5;
     const render = Render.create({
       canvas: canvasRef.current!,
       engine: engineRef.current,
@@ -59,6 +60,7 @@ export const Matter = () => {
         height: window.innerHeight,
         background: 'transparent',
         wireframes: false
+        // showDebug: true
       }
     });
 
@@ -120,7 +122,7 @@ export const Matter = () => {
             trigger: container.current,
             start: 'top top',
             end: '505% top',
-            markers: true,
+            // markers: true,
             pin: true,
             scrub: 1
           }
@@ -182,4 +184,4 @@ export const Matter = () => {
       </div>
     </>
   );
-};
+});
