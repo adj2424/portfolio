@@ -1,3 +1,4 @@
+import { useEffect, useRef } from 'react';
 import { Cursor } from './components/Cursor';
 import { Header } from './components/Header';
 import { Hero } from './components/Hero';
@@ -5,12 +6,25 @@ import { About } from './components/About';
 import { Works } from './components/Works';
 import { Technologies } from './components/Technologies';
 import { Contact } from './components/Contact';
-import { ContextProvider } from './components/Context';
+import { ContextProvider, useMyContext } from './components/Context';
 
 const Page = () => {
+  const pageRef = useRef<HTMLDivElement>(null);
+  const ctx = useMyContext();
+
+  useEffect(() => {
+    if (ctx.onHover) {
+      pageRef.current!.style.cursor = 'pointer';
+    }
+    //
+    else {
+      pageRef.current!.style.cursor = 'default';
+    }
+  }, [ctx.onHover]);
+
   return (
-    <div className="font-inter font-[400] bg-dark text-light">
-      <Cursor></Cursor>
+    <div ref={pageRef} className="font-inter font-[400] bg-dark text-light">
+      {!ctx.isMobile && <Cursor></Cursor>}
       <Header></Header>
       <Hero></Hero>
       <About></About>

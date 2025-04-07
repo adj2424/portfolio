@@ -6,6 +6,7 @@ export const Works = () => {
   const container = useRef<HTMLDivElement>(null);
   const ctx = useMyContext();
   const { setOnHover, setOnWorksHover } = ctx;
+  const { contextSafe } = useGSAP({ scope: container });
   const worksInfo = [
     { site: 'https://nft-minter-polygon.vercel.app/', src: 'nft.png' },
     { site: 'https://algosus.vercel.app/', src: 'algosus.png' },
@@ -13,8 +14,6 @@ export const Works = () => {
     { site: 'https://github.com/adj2424/video-chat-website', src: 'powow.png' },
     { site: 'https://nyla-thiccums.vercel.app/', src: 'nyla.png' }
   ];
-
-  const { contextSafe } = useGSAP({ scope: container });
 
   const remToPixels = (rem: number) => {
     const rootFontSize = parseFloat(getComputedStyle(document.documentElement).fontSize);

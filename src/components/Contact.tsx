@@ -15,6 +15,7 @@ export const Contact = () => {
   const setOnHover = ctx.setOnHover;
   const [isInterested, setIsInterested] = useState(true);
   const [isInRange, setIsInRange] = useState(false);
+  const { contextSafe } = useGSAP({ scope: container });
 
   const getFontSize = () => {
     const e = document.querySelector('.text-2xl') as HTMLElement;
@@ -24,8 +25,6 @@ export const Contact = () => {
     }
     return `${ret}px`;
   };
-
-  const { contextSafe } = useGSAP({ scope: container });
 
   const handleMouseEnter = contextSafe((e: string) => {
     gsap.to(e, { yPercent: -50, ease: 'power3.inOut', duration: 0.6 });
