@@ -102,7 +102,7 @@ export const Matter = memo(() => {
       }
     });
     createPill('/pills/about.png', scale, window.innerHeight - 100);
-    createPill('/pills/dragme.png', scale, window.innerHeight - 100);
+    createPill('/pills/dragMe.png', scale, window.innerHeight - 100);
     Composite.add(engineRef.current.world, [ceiling, floor, left, right, mouseConstraint]);
     Render.run(render);
     Runner.run(Runner.create(), engineRef.current);
@@ -130,46 +130,46 @@ export const Matter = memo(() => {
         .to(canvasRef.current, { yPercent: -50, duration: 6 }, 2)
         .add(() => {
           if (!aboutCalled.current) {
-            loadStaggerPills(['/pills/hello.png', '/pills/keepscrolling.png', '/pills/circle.png'], scale);
+            loadStaggerPills(['/pills/hello.png', '/pills/keepScrolling.png', '/pills/circle.png'], scale);
           }
           aboutCalled.current = true;
         }, 3)
         .add(() => {
           if (!oneCalled.current) {
-            loadStaggerPills(['/pills/alanjiang.png', '/pills/swe.png', '/pills/age.png'], scale);
+            loadStaggerPills(['/pills/alanJiang.png', '/pills/swe.png', '/pills/age.png'], scale);
           }
           oneCalled.current = true;
         }, 16)
         .add(() => {
           if (!twoCalled.current) {
-            loadStaggerPills(['/pills/virginiatech.png', '/pills/yoe.png', '/pills/circle.png'], scale);
+            loadStaggerPills(['/pills/virginiaTech.png', '/pills/circle.png', '/pills/yoe.png'], scale);
           }
           twoCalled.current = true;
         }, 21)
         .add(() => {
           if (!threeCalled.current) {
-            loadStaggerPills(['/pills/backend.png', '/pills/frontend.png'], scale);
+            loadStaggerPills(['/pills/backend.png', '/pills/circle.png', '/pills/frontend.png'], scale);
           }
           threeCalled.current = true;
         }, 28)
         .add(() => {
           if (!fourCalled.current) {
-            loadStaggerPills(['/pills/circle.png', '/pills/cloud.png', '/pills/solutionsarchitect.png'], scale);
+            loadStaggerPills(['/pills/circle.png', '/pills/cloud.png', '/pills/solutionsArchitect.png'], scale);
           }
           fourCalled.current = true;
         }, 33)
         .add(() => {
           if (!fiveCalled.current) {
-            loadStaggerPills(['/pills/freshideas.png', '/pills/passionate.png', '/pills/circle.png'], scale);
+            loadStaggerPills(['/pills/freshIdeas.png', '/pills/passionate.png', '/pills/circle.png'], scale);
           }
           fiveCalled.current = true;
-        }, 39)
+        }, 38)
         .add(() => {
           if (!sixCalled.current) {
-            loadStaggerPills(['/pills/memorableexperiences.png', '/pills/developer.png'], scale);
+            loadStaggerPills(['/pills/memorableExperiences.png', '/pills/developer.png'], scale);
           }
           sixCalled.current = true;
-        }, 42)
+        }, 41)
         .to(canvasRef.current, { yPercent: 10, duration: 10 }, 88.5)
         .to(canvasRef.current, { yPercent: 70, duration: 1 }, 99)
         .to({}, {}, 100);

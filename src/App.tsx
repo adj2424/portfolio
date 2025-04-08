@@ -6,7 +6,7 @@ import { About } from './components/About';
 import { Works } from './components/Works';
 import { Technologies } from './components/Technologies';
 import { Contact } from './components/Contact';
-import { ContextProvider, useMyContext } from './components/Context';
+import { ContextProvider, useMyContext } from './Context';
 
 const Page = () => {
   const pageRef = useRef<HTMLDivElement>(null);
@@ -24,13 +24,13 @@ const Page = () => {
 
   return (
     <div ref={pageRef} className="font-inter font-[400] bg-dark text-light">
-      {!ctx.isMobile && <Cursor></Cursor>}
-      <Header></Header>
-      <Hero></Hero>
-      <About></About>
-      <Works></Works>
-      <Technologies></Technologies>
-      <Contact></Contact>
+      {!ctx.isMobile && <Cursor />}
+      <Header />
+      <Hero />
+      <About />
+      <Works />
+      <Technologies />
+      <Contact />
     </div>
   );
 };

@@ -49,8 +49,7 @@ export const ContextProvider = ({ children }: { children: React.ReactNode }) => 
     };
     requestAnimationFrame(raf);
     setLenis(lenis);
-    setIsTablet(window.innerWidth < 800);
-    setIsMobile(window.innerWidth < 550);
+    handleResize();
 
     window.addEventListener('resize', handleResize);
     return () => {

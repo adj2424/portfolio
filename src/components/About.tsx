@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Matter } from './Matter';
-import { useMyContext } from './Context';
+import { useMyContext } from '../Context';
 gsap.registerPlugin(ScrollTrigger);
 
 export const About = () => {

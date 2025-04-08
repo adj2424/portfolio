@@ -1,5 +1,5 @@
 import gsap from 'gsap';
-import { useMyContext } from './Context';
+import { useMyContext } from '../Context';
 import { useRef } from 'react';
 import { useGSAP } from '@gsap/react';
 export const Works = () => {
@@ -47,12 +47,13 @@ export const Works = () => {
   const item = (id: string, worksNumber: number, worksName: string, worksTech: string[]) => {
     return (
       <div
-        className="grid grid-cols-[.75fr_3.5fr_2.5fr_0fr] w-[90%] h-[160px] hover:w-[85%] items-center transition-all duration-500"
+        className="grid grid-cols-[.5fr_3.5fr_2.5fr_0fr] w-[91%] h-[160px] hover:w-[85%] items-center transition-all duration-500"
         onMouseEnter={() => handleOnMouseOnWorks(`#${id}`, worksNumber - 1)}
         onMouseLeave={() => handleOnMouseLeaveWorks(`#${id}`)}
       >
-        <div className="ml-[2vw] text-md">{`0${worksNumber}/`}</div>
+        <div className="ml-[1.8vw] w-full text-md">{`0${worksNumber}/`}</div>
         <div
+          style={{ marginLeft: 'clamp(35px, 3vw, 3vw)' }}
           className="text-xl leading-none z-[2]"
           onMouseEnter={handleOnMouseEnterOnText}
           onMouseLeave={handleOnMouseLeaveOnText}
@@ -69,7 +70,7 @@ export const Works = () => {
           ))}
         </div>
         <div
-          className="absolute right-[6.5%] w-[6rem] h-[6rem] fill-accent"
+          className="absolute flex justify-center items-center right-[6.5%] w-[6rem] h-[6rem] fill-accent"
           onMouseEnter={() => setOnHover(true)}
           onMouseLeave={() => setOnHover(false)}
           onClick={() => handleOpenWorksTab(worksNumber - 1)}
@@ -87,17 +88,17 @@ export const Works = () => {
   return (
     <>
       <div ref={container} id="works" className="flex flex-col items-center w-full text-light">
-        <div className="w-[90%] h-[2px] bg-light opacity-25" />
+        <div className="w-[91%] h-[2px] bg-light opacity-25" />
         {item('nft-id', 1, 'NFT MINTER', ['Web3', 'Blockchain', 'Solidity'])}
-        <div className="w-[90%] h-[2px] bg-light opacity-25" />
+        <div className="w-[91%] h-[2px] bg-light opacity-25" />
         {item('algosus-id', 2, 'AI TRADING BOT', ['Alpaca', 'API', 'ChatGPT', 'Google Cloud Platform', 'TypeScript'])}
-        <div className="w-[90%] h-[2px] bg-light opacity-25" />
+        <div className="w-[91%] h-[2px] bg-light opacity-25" />
         {item('music-id', 3, 'MUSIC PORTFOLIO', ['Three.js', 'GSAP', 'TypeScript'])}
-        <div className="w-[90%] h-[2px] bg-light opacity-25" />
+        <div className="w-[91%] h-[2px] bg-light opacity-25" />
         {item('powow-id', 4, 'POWOW', ['MongoDB', 'Express.js', 'React', 'Node.js', 'Amazon Web Services'])}
-        <div className="w-[90%] h-[2px] bg-light opacity-25" />
+        <div className="w-[91%] h-[2px] bg-light opacity-25" />
         {item('nyla-id', 5, 'NYLA', ['React Three Fiber', 'Tailwind CSS', 'GSAP', 'TypeScript'])}
-        <div className="w-[90%] h-[2px] bg-light opacity-25 mb-[3rem]" />
+        <div className="w-[91%] h-[2px] bg-light opacity-25 mb-[3rem]" />
       </div>
     </>
   );

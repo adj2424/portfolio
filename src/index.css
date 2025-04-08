@@ -2,6 +2,19 @@
 @tailwind components;
 @tailwind utilities;
 
+::-webkit-scrollbar {
+  width: 11px;
+}
+::-webkit-scrollbar-track {
+  background: #0a0908;
+}
+
+::-webkit-scrollbar-thumb {
+  width: 11px;
+  background: #b8c0ff;
+  border-radius: 100vw;
+}
+
 .text-sm {
   font-size: 1rem;
 }
@@ -197,7 +210,7 @@
     font-size: 2.3rem;
   }
   .text-xl {
-    font-size: 3.5rem;
+    font-size: 3.3rem;
   }
   .text-2xl {
     font-size: 10rem;
