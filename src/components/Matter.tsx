@@ -101,8 +101,8 @@ export const Matter = memo(() => {
         fillStyle: 'transparent'
       }
     });
-    createPill('/pills/about.png', scale, window.innerHeight - 100);
-    createPill('/pills/dragMe.png', scale, window.innerHeight - 100);
+    createPill('/pills/orange/about.png', scale, window.innerHeight - 100);
+    createPill('/pills/orange/dragMe.png', scale, window.innerHeight - 100);
     Composite.add(engineRef.current.world, [ceiling, floor, left, right, mouseConstraint]);
     Render.run(render);
     Runner.run(Runner.create(), engineRef.current);

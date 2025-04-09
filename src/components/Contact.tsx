@@ -140,59 +140,61 @@ export const Contact = () => {
                   </a>
                 </div>
               </div>
-              <div style={{ width: 'clamp(225px, 30%, 33.33%)' }} className="right-contact">
+              <div style={{ width: 'clamp(250px, 30%, 33.33%)' }} className="right-contact">
                 DESIGNED & CODED BY ME
               </div>
             </div>
             <div className="flex flex-wrap w-full justify-center items-center">
-              <div style={{ width: 'clamp(225px, 30%, 33.33%)' }} className="left-contact">
+              <div style={{ width: 'clamp(225px, 30%, 50%)' }} className="left-contact">
                 SOFTWARE ENGINEER
               </div>
-              <div style={{ width: 'clamp(325px, 30%, 33.33%)' }} className="flex justify-around">
-                <div className="h-[calc(1em*1.5)] overflow-hidden">
-                  <div
-                    className="linkedin-footer flex flex-col"
-                    onMouseEnter={() => handleMouseEnter('.linkedin-footer')}
-                    onMouseLeave={() => handleMouseLeave('.linkedin-footer')}
-                  >
-                    <a href="https://www.linkedin.com/in/alanjiang24/" target="_blank">
-                      LINKEDIN
-                    </a>
-                    <a href="https://www.linkedin.com/in/alanjiang24/" target="_blank">
-                      LINKEDIN
-                    </a>
+              <div style={{ width: 'clamp(325px, 30%, 33.33%)' }} className="flex justify-center">
+                <div style={{ width: 'clamp(325px, 80%, 100%)' }} className="flex justify-around">
+                  <div className="h-[calc(1em*1.5)] overflow-hidden">
+                    <div
+                      className="linkedin-footer flex flex-col"
+                      onMouseEnter={() => handleMouseEnter('.linkedin-footer')}
+                      onMouseLeave={() => handleMouseLeave('.linkedin-footer')}
+                    >
+                      <a href="https://www.linkedin.com/in/alanjiang24/" target="_blank">
+                        LINKEDIN
+                      </a>
+                      <a href="https://www.linkedin.com/in/alanjiang24/" target="_blank">
+                        LINKEDIN
+                      </a>
+                    </div>
                   </div>
-                </div>
-                <div className="h-[calc(1em*1.5)] overflow-hidden">
-                  <div
-                    className="instagram-footer flex flex-col"
-                    onMouseEnter={() => handleMouseEnter('.instagram-footer')}
-                    onMouseLeave={() => handleMouseLeave('.instagram-footer')}
-                  >
-                    <a href="https://www.instagram.com/alanjiang24/" target="_blank">
-                      INSTAGRAM
-                    </a>
-                    <a href="https://www.instagram.com/alanjiang24/" target="_blank">
-                      INSTAGRAM
-                    </a>
+                  <div className="h-[calc(1em*1.5)] overflow-hidden">
+                    <div
+                      className="instagram-footer flex flex-col"
+                      onMouseEnter={() => handleMouseEnter('.instagram-footer')}
+                      onMouseLeave={() => handleMouseLeave('.instagram-footer')}
+                    >
+                      <a href="https://www.instagram.com/alanjiang24/" target="_blank">
+                        INSTAGRAM
+                      </a>
+                      <a href="https://www.instagram.com/alanjiang24/" target="_blank">
+                        INSTAGRAM
+                      </a>
+                    </div>
                   </div>
-                </div>
-                <div className="h-[calc(1em*1.5)] overflow-hidden">
-                  <div
-                    className="github-footer flex flex-col"
-                    onMouseEnter={() => handleMouseEnter('.github-footer')}
-                    onMouseLeave={() => handleMouseLeave('.github-footer')}
-                  >
-                    <a href="https://www.github.com/adj2424" target="_blank">
-                      GITHUB
-                    </a>
-                    <a href="https://www.github.com/adj2424" target="_blank">
-                      GITHUB
-                    </a>
+                  <div className="h-[calc(1em*1.5)] overflow-hidden">
+                    <div
+                      className="github-footer flex flex-col"
+                      onMouseEnter={() => handleMouseEnter('.github-footer')}
+                      onMouseLeave={() => handleMouseLeave('.github-footer')}
+                    >
+                      <a href="https://www.github.com/adj2424" target="_blank">
+                        GITHUB
+                      </a>
+                      <a href="https://www.github.com/adj2424" target="_blank">
+                        GITHUB
+                      </a>
+                    </div>
                   </div>
                 </div>
               </div>
-              <div style={{ width: 'clamp(225px, 30%, 33.33%)' }} className="right-contact">
+              <div style={{ width: 'clamp(225px, 30%, 50%)' }} className="right-contact">
                 © ALAN JIANG 2023
               </div>
             </div>

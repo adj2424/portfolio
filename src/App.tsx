@@ -7,6 +7,7 @@ import { Works } from './components/Works';
 import { Technologies } from './components/Technologies';
 import { Contact } from './components/Contact';
 import { ContextProvider, useMyContext } from './Context';
+import { Loading } from './components/Loading';
 
 const Page = () => {
   const pageRef = useRef<HTMLDivElement>(null);
@@ -25,6 +26,7 @@ const Page = () => {
   return (
     <div ref={pageRef} className="font-inter font-[400] bg-dark text-light">
       {!ctx.isMobile && <Cursor />}
+      <Loading />
       <Header />
       <Hero />
       <About />
