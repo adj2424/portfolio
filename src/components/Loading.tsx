@@ -60,12 +60,12 @@ export const Loading = () => {
       .to(containerRef.current, {
         yPercent: -103,
         duration: 0.7,
-        delay: -0.5
+        delay: -0.55
       });
   };
   return (
     <>
-      <div ref={containerRef} className="fixed w-full h-full text-black z-[20] bg-white overflow-hidden">
+      <div ref={containerRef} className="fixed w-full h-full text-black z-[4] bg-white overflow-hidden">
         <div className="top-0 text-right mr-[3rem] mt-[3rem] overflow-hidden">
           <div ref={nameRef} className="text-2xl leading-[0.8]">
             ALAN JIANG
