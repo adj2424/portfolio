@@ -13,7 +13,7 @@ interface ItemProps {
 const Item = ({ id, worksNumber, worksName, worksTech }: ItemProps) => {
   const container = useRef<HTMLDivElement>(null);
   const ctx = useMyContext();
-  const { setOnHover, setOnWorksHover } = ctx;
+  const { setOnHover, setOnWorksHover, isMobile } = ctx;
   const { contextSafe } = useGSAP({ scope: container });
   const worksInfo = [
     { site: 'https://nft-minter-polygon.vercel.app/', src: 'nft.png' },
@@ -27,6 +27,7 @@ const Item = ({ id, worksNumber, worksName, worksTech }: ItemProps) => {
     return rem * rootFontSize;
   };
   const handleOnMouseOnWorks = contextSafe((e: string, idx: number) => {
+    if (isMobile) return;
     const width = remToPixels(1) + 50;
     gsap.to(e, { x: -width, ease: 'power2.inOut', duration: 0.5 });
     setOnWorksHover(prev => ({ ...prev, worksImgSrc: worksInfo[idx].src }));
@@ -49,7 +50,9 @@ const Item = ({ id, worksNumber, worksName, worksTech }: ItemProps) => {
   return (
     <div
       ref={container}
-      className="grid grid-cols-[.5fr_3.5fr_2.5fr_0fr] w-[91%] h-[160px] hover:w-[85%] items-center transition-all duration-500"
+      className={`grid ${
+        isMobile ? 'grid-cols-[.5fr_3.5fr_1.5fr_0fr]' : 'grid-cols-[.5fr_3.5fr_2.5fr_0fr] hover:w-[85%]'
+      } w-[91%] h-[160px] items-center transition-all duration-500`}
       onMouseEnter={() => handleOnMouseOnWorks(`#${id}`, worksNumber - 1)}
       onMouseLeave={() => handleOnMouseLeaveWorks(`#${id}`)}
     >

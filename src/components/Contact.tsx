@@ -21,7 +21,7 @@ export const Contact = () => {
     const e = document.querySelector('.text-2xl') as HTMLElement;
     let ret = parseFloat(getComputedStyle(e).fontSize) * 0.8;
     if (ctx.isTablet) {
-      ret = parseFloat(getComputedStyle(e).fontSize) * 0.6;
+      ret = parseFloat(getComputedStyle(e).fontSize) * 0.55;
     }
     return `${ret}px`;
   };
@@ -204,3 +204,4 @@ export const Contact = () => {
     </>
   );
 };
+
