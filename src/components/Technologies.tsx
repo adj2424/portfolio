@@ -2,7 +2,6 @@ import gsap from 'gsap';
 import { useEffect, useRef, useState } from 'react';
 import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-// import { Technology } from './Technology';
 import { useMyContext } from '../Context';
 gsap.registerPlugin(ScrollTrigger);
 
@@ -119,3 +118,4 @@ export const Technologies = () => {
     </>
   );
 };
+
