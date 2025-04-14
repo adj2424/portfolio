@@ -62,7 +62,7 @@ export const Header = () => {
                   className="about-header flex flex-col"
                   onMouseEnter={() => handleMouseEnter('.about-header')}
                   onMouseLeave={() => handleMouseLeave('.about-header')}
-                  onClick={() => handleScrollTo('#about', 0.065)}
+                  onClick={() => handleScrollTo('#about', 0.06)}
                 >
                   <div>ABOUT</div>
                   <div>ABOUT</div>
