@@ -150,7 +150,7 @@ export const Matter = memo(() => {
         }, 21)
         .add(() => {
           if (!threeCalled.current) {
-            loadStaggerPills(['/pills/backend.png', '/pills/circle.png', '/pills/frontend.png'], scale);
+            loadStaggerPills(['/pills/backEnd.png', '/pills/circle.png', '/pills/frontEnd.png'], scale);
           }
           threeCalled.current = true;
         }, 28)
