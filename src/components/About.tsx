@@ -20,7 +20,6 @@ export const About = () => {
     }
   }, [ctx.isMobile]);
 
-  // https://www.youtube.com/watch?v=l0aI8Ecumy8
   useEffect(() => {
     const gsapCtx = gsap.context(() => {
       // timeline for about text and pinning
