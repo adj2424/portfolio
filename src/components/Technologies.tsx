@@ -81,7 +81,7 @@ export const Technologies = () => {
         .to({}, {}, 100);
     });
     return () => gsapCtx.revert();
-  });
+  }, []);
 
   return (
     <>
