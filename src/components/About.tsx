@@ -1,13 +1,11 @@
 import gsap from 'gsap';
-import { useEffect, useRef, useState } from 'react';
-import { useGSAP } from '@gsap/react';
+import { useEffect, useState } from 'react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Matter } from './Matter';
 import { useMyContext } from '../Context';
 gsap.registerPlugin(ScrollTrigger);
 
 export const About = () => {
-  const container = useRef(null);
   const ctx = useMyContext();
   const [showMatter, setShowMatter] = useState(true);
 
@@ -23,8 +21,8 @@ export const About = () => {
   }, [ctx.isMobile]);
 
   // https://www.youtube.com/watch?v=l0aI8Ecumy8
-  useGSAP(
-    () => {
+  useEffect(() => {
+    const gsapCtx = gsap.context(() => {
       // timeline for about text and pinning
       gsap
         .timeline({
@@ -51,13 +49,13 @@ export const About = () => {
         // to make start time a percentage out of 100 from total duration
         // start time + duration cannot be greater than 100 or it will change timeline
         .to({}, {}, 100);
-    },
-    { scope: container }
-  );
+    });
+    return () => gsapCtx.revert();
+  }, []);
 
   return (
     <>
-      <div id="about" ref={container} className="relative overflow-hidden mt-[10rem]">
+      <div id="about" className="relative overflow-hidden mt-[10rem]">
         {showMatter && <Matter />}
         <div className="slider flex w-[530vw] select-none pointer-events-none">
           <div className="about flex w-screen h-screen justify-center items-center text-4xl">ABOUT</div>
@@ -90,3 +88,4 @@ export const About = () => {
     </>
   );
 };
+

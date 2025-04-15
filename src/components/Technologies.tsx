@@ -1,8 +1,8 @@
 import gsap from 'gsap';
 import { useEffect, useRef, useState } from 'react';
-import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useMyContext } from '../Context';
+import { useGSAP } from '@gsap/react';
 gsap.registerPlugin(ScrollTrigger);
 
 const Technology = ({ name }: { name: string }) => {
@@ -50,9 +50,10 @@ const Technology = ({ name }: { name: string }) => {
 };
 
 export const Technologies = () => {
-  const container = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
   const techRef = useRef<HTMLDivElement>(null);
   const remainingRef = useRef<HTMLDivElement>(null);
+  const { contextSafe } = useGSAP({ scope: containerRef });
   const ctx = useMyContext();
 
   const getFontSize = () => {
@@ -60,8 +61,8 @@ export const Technologies = () => {
     return parseFloat(getComputedStyle(e).fontSize);
   };
 
-  useGSAP(
-    () => {
+  useEffect(() => {
+    contextSafe(() => {
       const marginY = (window.innerHeight - getFontSize()) / 2;
       gsap
         .timeline({
@@ -81,13 +82,12 @@ export const Technologies = () => {
           ctx.setForceRender(prev => prev + 1);
         }, 100)
         .to({}, {}, 100);
-    },
-    { scope: container }
-  );
+    });
+  }, []);
 
   return (
     <>
-      <div ref={container} id="technologies" className="mb-[2rem]">
+      <div id="technologies" ref={containerRef} className="mb-[2rem]">
         <div ref={techRef} className="flex w-full h-screen items-center justify-center text-4xl overflow-hidden">
           TECHNOLOGIES
         </div>

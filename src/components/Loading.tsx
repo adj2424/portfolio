@@ -14,9 +14,9 @@ export const Loading = () => {
     const rect = countDisplayRef.current!.getBoundingClientRect();
     const endPosition = rect.right;
     distanceRef.current = window.innerWidth - endPosition - rect.width;
-    requestAnimationFrame(() => {
+    setTimeout(() => {
       load();
-    });
+    }, 100);
   }, []);
 
   /**
