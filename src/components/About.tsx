@@ -22,6 +22,7 @@ export const About = () => {
     }
   }, [ctx.isMobile]);
 
+  // https://www.youtube.com/watch?v=l0aI8Ecumy8
   useGSAP(
     () => {
       // timeline for about text and pinning
