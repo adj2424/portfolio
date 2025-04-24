@@ -15,7 +15,30 @@ export const Contact = () => {
   const setOnHover = ctx.setOnHover;
   const [isInterested, setIsInterested] = useState(true);
   const [isInRange, setIsInRange] = useState(false);
-  const { contextSafe } = useGSAP({ scope: container });
+  const { contextSafe } = useGSAP(
+    () => {
+      gsap
+        .timeline({
+          scrollTrigger: {
+            trigger: container.current,
+            start: 'top top',
+            end: '150% top',
+            // markers: true,
+            pin: true,
+            scrub: 1
+          }
+        })
+        .add(() => {
+          setIsInRange(lenis.direction === 1);
+        }, 55)
+        .to(textRef.current, { fontSize: getFontSize(), duration: 65 }, 10)
+        .fromTo(textRef.current, { width: '400%', duration: 65 }, { width: '80%', duration: 65 }, 10)
+        .to(leftRef.current, { xPercent: 100, duration: 80 }, 10)
+        .to(rightRef.current, { xPercent: -100, duration: 80 }, 10)
+        .to({}, {}, 100);
+    },
+    { dependencies: [ctx.lenis, ctx.forceRender], scope: container, revertOnUpdate: true }
+  );
 
   const getFontSize = () => {
     const e = document.querySelector('.text-2xl') as HTMLElement;
@@ -73,33 +96,6 @@ export const Contact = () => {
       }
     });
   }, [isInterested, isInRange]);
-
-  // we cannot use useGSAP here because we need to re init timeline on state change useGSAP was not working
-  // follow old way before useGSAP - https://www.youtube.com/watch?v=l0aI8Ecumy8&t=606s
-  useEffect(() => {
-    const gsapCtx = gsap.context(() => {
-      gsap
-        .timeline({
-          scrollTrigger: {
-            trigger: container.current,
-            start: 'top top',
-            end: '150% top',
-            // markers: true,
-            pin: true,
-            scrub: 1
-          }
-        })
-        .add(() => {
-          setIsInRange(lenis.direction === 1);
-        }, 55)
-        .to(textRef.current, { fontSize: getFontSize(), duration: 65 }, 10)
-        .fromTo(textRef.current, { width: '400%', duration: 65 }, { width: '80%', duration: 65 }, 10)
-        .to(leftRef.current, { xPercent: 100, duration: 80 }, 10)
-        .to(rightRef.current, { xPercent: -100, duration: 80 }, 10)
-        .to({}, {}, 100);
-    });
-    return () => gsapCtx.revert();
-  }, [ctx.lenis, ctx.forceRender]);
 
   return (
     <>
@@ -204,4 +200,3 @@ export const Contact = () => {
     </>
   );
 };
-

@@ -114,8 +114,6 @@ export const Matter = memo(() => {
     // };
   }, []);
 
-  // https://www.youtube.com/watch?v=l0aI8Ecumy8
-  // cant use usaGSAP if we need to rely on dependencies
   useGSAP(
     () => {
       gsap
@@ -187,4 +185,3 @@ export const Matter = memo(() => {
     </>
   );
 });
-

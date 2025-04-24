@@ -2,6 +2,7 @@ import gsap from 'gsap';
 import { useEffect, useRef, useState } from 'react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useMyContext } from '../Context';
+import { useGSAP } from '@gsap/react';
 gsap.registerPlugin(ScrollTrigger);
 
 const Technology = ({ name }: { name: string }) => {
@@ -58,30 +59,27 @@ export const Technologies = () => {
     return parseFloat(getComputedStyle(e).fontSize);
   };
 
-  useEffect(() => {
-    const gsapCtx = gsap.context(() => {
-      const marginY = (window.innerHeight - getFontSize()) / 2;
-      gsap
-        .timeline({
-          scrollTrigger: {
-            trigger: techRef.current,
-            start: 'top top',
-            end: '130% top',
-            // markers: true,
-            pin: true,
-            scrub: 1
-          }
-        })
-        .to(techRef.current, { fontSize: `${getFontSize()}px`, duration: 40 }, 10)
-        .fromTo(remainingRef.current, { marginTop: 0, duration: 50 }, { marginTop: -marginY, duration: 50 }, 48)
-        .add(() => {
-          // update state to force rerender for contact gsap timeline to update the pin start and end
-          ctx.setForceRender(prev => prev + 1);
-        }, 100)
-        .to({}, {}, 100);
-    });
-    return () => gsapCtx.revert();
-  }, []);
+  useGSAP(() => {
+    const marginY = (window.innerHeight - getFontSize()) / 2;
+    gsap
+      .timeline({
+        scrollTrigger: {
+          trigger: techRef.current,
+          start: 'top top',
+          end: '130% top',
+          // markers: true,
+          pin: true,
+          scrub: 1
+        }
+      })
+      .to(techRef.current, { fontSize: `${getFontSize()}px`, duration: 40 }, 10)
+      .fromTo(remainingRef.current, { marginTop: 0, duration: 50 }, { marginTop: -marginY, duration: 50 }, 48)
+      .add(() => {
+        // update state to force rerender for contact gsap timeline to update the pin start and end
+        ctx.setForceRender(prev => prev + 1);
+      }, 100)
+      .to({}, {}, 100);
+  });
 
   return (
     <>
@@ -116,4 +114,3 @@ export const Technologies = () => {
     </>
   );
 };
-
