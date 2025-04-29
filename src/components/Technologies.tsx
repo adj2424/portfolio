@@ -52,6 +52,7 @@ const Technology = ({ name }: { name: string }) => {
 export const Technologies = () => {
   const techRef = useRef<HTMLDivElement>(null);
   const remainingRef = useRef<HTMLDivElement>(null);
+  const container = useRef<HTMLDivElement>(null);
   const ctx = useMyContext();
 
   const getFontSize = () => {
@@ -59,31 +60,34 @@ export const Technologies = () => {
     return parseFloat(getComputedStyle(e).fontSize);
   };
 
-  useGSAP(() => {
-    const marginY = (window.innerHeight - getFontSize()) / 2;
-    gsap
-      .timeline({
-        scrollTrigger: {
-          trigger: techRef.current,
-          start: 'top top',
-          end: '130% top',
-          // markers: true,
-          pin: true,
-          scrub: 1
-        }
-      })
-      .to(techRef.current, { fontSize: `${getFontSize()}px`, duration: 40 }, 10)
-      .fromTo(remainingRef.current, { marginTop: 0, duration: 50 }, { marginTop: -marginY, duration: 50 }, 48)
-      .add(() => {
-        // update state to force rerender for contact gsap timeline to update the pin start and end
-        ctx.setForceRender(prev => prev + 1);
-      }, 100)
-      .to({}, {}, 100);
-  });
+  useGSAP(
+    () => {
+      const marginY = (window.innerHeight - getFontSize()) / 2;
+      gsap
+        .timeline({
+          scrollTrigger: {
+            trigger: techRef.current,
+            start: 'top top',
+            end: '130% top',
+            // markers: true,
+            pin: true,
+            scrub: 1
+          }
+        })
+        .to(techRef.current, { fontSize: `${getFontSize()}px`, duration: 40 }, 10)
+        .fromTo(remainingRef.current, { marginTop: 0, duration: 50 }, { marginTop: -marginY, duration: 50 }, 48)
+        .add(() => {
+          // update state to force rerender for contact gsap timeline to update the pin start and end
+          ctx.setForceRender(prev => prev + 1);
+        }, 100)
+        .to({}, {}, 100);
+    },
+    { dependencies: [ctx.lenis], scope: container, revertOnUpdate: true }
+  );
 
   return (
     <>
-      <div id="technologies" className="mb-[2rem]">
+      <div id="technologies" ref={container} className="mb-[2rem]">
         <div ref={techRef} className="flex w-full h-screen items-center justify-center text-4xl overflow-hidden">
           TECHNOLOGIES
         </div>

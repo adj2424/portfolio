@@ -1,31 +1,23 @@
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { useGSAP } from '@gsap/react';
+import { useMyContext } from '../Context';
 
 gsap.registerPlugin();
 
 export const Loading = () => {
-  const distanceRef = useRef(0);
+  const ctx = useMyContext();
   const countDisplayRef = useRef<HTMLDivElement>(null);
   const nameRef = useRef<HTMLDivElement>(null);
   const barRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  const { contextSafe } = useGSAP(
-    () => {
-      const rect = countDisplayRef.current!.getBoundingClientRect();
-      const endPosition = rect.right;
-      distanceRef.current = window.innerWidth - endPosition - rect.width;
-      load(0);
-    },
-    { scope: containerRef }
-  );
+  const { contextSafe } = useGSAP({ scope: containerRef });
 
   /**
    * Recursive loading screen
    */
-  const load = contextSafe((count: number) => {
-    console.log('count', count);
+  const load = contextSafe((count: number, distance: number) => {
     // finished loading and play enter animation
     if (count >= 100) {
       finishAnimation();
@@ -36,14 +28,14 @@ export const Loading = () => {
     if (count > 100) count = 100;
     countDisplayRef.current!.textContent = `${count}%`;
     gsap.to(countDisplayRef.current, {
-      x: (distanceRef.current * count) / 100,
+      x: (distance * count) / 100,
       duration: 1
     });
     gsap.to(barRef.current, {
       xPercent: count,
       duration: 1
     });
-    setTimeout(() => load(count), 250);
+    setTimeout(() => load(count, distance), 250);
   });
 
   const finishAnimation = contextSafe(() => {
@@ -64,6 +56,14 @@ export const Loading = () => {
         delay: -0.55
       });
   });
+
+  useEffect(() => {
+    if (!countDisplayRef.current) return;
+    const rect = countDisplayRef.current.getBoundingClientRect();
+    const endPosition = rect.right;
+    const distance = window.innerWidth - endPosition - rect.width;
+    load(0, distance);
+  }, [ctx.lenis, load]);
 
   return (
     <>

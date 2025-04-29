@@ -112,7 +112,7 @@ export const Matter = memo(() => {
     //   Engine.clear(engineRef.current!);
     //   render.canvas.remove();
     // };
-  }, []);
+  }, [scale]);
 
   useGSAP(
     () => {

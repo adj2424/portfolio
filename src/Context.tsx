@@ -6,8 +6,6 @@ interface Context {
   isTablet: boolean;
   isMobile: boolean;
   onHover: boolean;
-  isLoaded: boolean;
-  setIsLoaded: React.Dispatch<React.SetStateAction<boolean>>;
   setOnHover: React.Dispatch<React.SetStateAction<boolean>>;
   onWorksHover: { isWorksTitleHover: boolean; worksImgSrc: string };
   setOnWorksHover: React.Dispatch<React.SetStateAction<{ isWorksTitleHover: boolean; worksImgSrc: string }>>;
@@ -30,7 +28,6 @@ export const ContextProvider = ({ children }: { children: React.ReactNode }) => 
   const [isTablet, setIsTablet] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [onHover, setOnHover] = useState(false);
-  const [isLoaded, setIsLoaded] = useState(false);
   const [onWorksHover, setOnWorksHover] = useState({ isWorksTitleHover: false, worksImgSrc: '' });
   const [forceRender, setForceRender] = useState(0);
 
@@ -70,8 +67,6 @@ export const ContextProvider = ({ children }: { children: React.ReactNode }) => 
           isMobile,
           onHover,
           setOnHover,
-          isLoaded,
-          setIsLoaded,
           onWorksHover,
           setOnWorksHover,
           forceRender,
@@ -83,4 +78,3 @@ export const ContextProvider = ({ children }: { children: React.ReactNode }) => 
     </>
   );
 };
-

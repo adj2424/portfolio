@@ -52,7 +52,7 @@ export const About = () => {
         // start time + duration cannot be greater than 100 or it will change timeline
         .to({}, {}, 100);
     },
-    { scope: containerRef }
+    { dependencies: [ctx.lenis], scope: containerRef, revertOnUpdate: true }
   );
 
   return (
