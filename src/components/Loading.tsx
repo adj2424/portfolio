@@ -7,6 +7,7 @@ gsap.registerPlugin();
 
 export const Loading = () => {
   const ctx = useMyContext();
+  const countRef = useRef(0);
   const countDisplayRef = useRef<HTMLDivElement>(null);
   const nameRef = useRef<HTMLDivElement>(null);
   const barRef = useRef<HTMLDivElement>(null);
@@ -17,25 +18,25 @@ export const Loading = () => {
   /**
    * Recursive loading screen
    */
-  const load = contextSafe((count: number, distance: number) => {
+  const load = contextSafe((distance: number) => {
     // finished loading and play enter animation
-    if (count >= 100) {
+    if (countRef.current >= 100) {
       finishAnimation();
       return;
     }
     const d = Math.random();
-    count += d > 0.7 ? Math.ceil(Math.sqrt(d) * 30) : Math.ceil(Math.sqrt(d) * 5);
-    if (count > 100) count = 100;
-    countDisplayRef.current!.textContent = `${count}%`;
+    countRef.current += d > 0.7 ? Math.ceil(Math.sqrt(d) * 30) : Math.ceil(Math.sqrt(d) * 5);
+    if (countRef.current > 100) countRef.current = 100;
+    countDisplayRef.current!.textContent = `${countRef.current}%`;
     gsap.to(countDisplayRef.current, {
-      x: (distance * count) / 100,
+      x: (distance * countRef.current) / 100,
       duration: 1
     });
     gsap.to(barRef.current, {
-      xPercent: count,
+      xPercent: countRef.current,
       duration: 1
     });
-    setTimeout(() => load(count, distance), 250);
+    setTimeout(() => load(distance), 250);
   });
 
   const finishAnimation = contextSafe(() => {
@@ -62,7 +63,7 @@ export const Loading = () => {
     const rect = countDisplayRef.current.getBoundingClientRect();
     const endPosition = rect.right;
     const distance = window.innerWidth - endPosition - rect.width;
-    load(0, distance);
+    load(distance);
   }, [ctx.lenis, load]);
 
   return (
