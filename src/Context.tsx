@@ -32,30 +32,32 @@ export const ContextProvider = ({ children }: { children: React.ReactNode }) => 
   const [forceRender, setForceRender] = useState(0);
 
   useEffect(() => {
-    const handleResize = () => {
-      setIsTablet(window.innerWidth < 800);
-      setIsMobile(window.innerWidth < 550);
-    };
+    document.fonts.ready.then(() => {
+      const handleResize = () => {
+        setIsTablet(window.innerWidth < 800);
+        setIsMobile(window.innerWidth < 550);
+      };
 
-    const lenis = new Lenis({
-      duration: 1.2,
-      easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // https://www.desmos.com/calculator/brs54l4xou
-      touchMultiplier: 2,
-      infinite: false
-    });
-    const raf = (time: number) => {
-      lenis.raf(time);
+      const lenis = new Lenis({
+        duration: 1.2,
+        easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // https://www.desmos.com/calculator/brs54l4xou
+        touchMultiplier: 2,
+        infinite: false
+      });
+      const raf = (time: number) => {
+        lenis.raf(time);
+        requestAnimationFrame(raf);
+      };
       requestAnimationFrame(raf);
-    };
-    requestAnimationFrame(raf);
-    setLenis(lenis);
-    handleResize();
+      setLenis(lenis);
+      handleResize();
 
-    window.addEventListener('resize', handleResize);
-    return () => {
-      lenis.destroy();
-      window.removeEventListener('resize', handleResize);
-    };
+      window.addEventListener('resize', handleResize);
+      return () => {
+        lenis.destroy();
+        window.removeEventListener('resize', handleResize);
+      };
+    });
   }, []);
 
   return (
@@ -78,3 +80,4 @@ export const ContextProvider = ({ children }: { children: React.ReactNode }) => 
     </>
   );
 };
+
