@@ -9,18 +9,11 @@ gsap.registerPlugin(ScrollTrigger);
 export const About = () => {
   const ctx = useMyContext();
   const containerRef = useRef<HTMLDivElement>(null);
-  const [showMatter, setShowMatter] = useState(true);
 
   const getFontSize = () => {
     const e = document.querySelector('.text-2xl') as HTMLElement;
     return getComputedStyle(e).fontSize;
   };
-
-  useEffect(() => {
-    if (ctx.isMobile) {
-      setShowMatter(false);
-    }
-  }, [ctx.isMobile]);
 
   // https://www.youtube.com/watch?v=l0aI8Ecumy8
   useGSAP(
@@ -58,7 +51,7 @@ export const About = () => {
   return (
     <>
       <div id="about" ref={containerRef} className="relative overflow-hidden mt-[10rem]">
-        {showMatter && <Matter />}
+        <Matter />
         <div className="slider flex w-[530vw] select-none pointer-events-none">
           <div className="about flex w-screen h-screen justify-center items-center text-4xl">ABOUT</div>
           <div className="relative flex items-center w-[330vw] text-lg leading-tight justify-between pr-[50vw]">
