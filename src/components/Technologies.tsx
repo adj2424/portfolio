@@ -62,6 +62,7 @@ export const Technologies = () => {
 
   useGSAP(
     () => {
+      if (!ctx.lenis) return;
       const marginY = (window.innerHeight - getFontSize()) / 2;
       gsap
         .timeline({

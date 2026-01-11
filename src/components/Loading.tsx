@@ -12,6 +12,7 @@ export const Loading = () => {
   const nameRef = useRef<HTMLDivElement>(null);
   const barRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+  const timeoutIdRef = useRef<number | null>(null);
 
   const { contextSafe } = useGSAP({ scope: containerRef });
 
@@ -19,6 +20,8 @@ export const Loading = () => {
    * Recursive loading screen
    */
   const load = contextSafe((distance: number) => {
+    if (!countDisplayRef.current) return;
+
     // finished loading and play enter animation
     if (countRef.current >= 100) {
       finishAnimation();
@@ -27,7 +30,7 @@ export const Loading = () => {
     const d = Math.random();
     countRef.current += d > 0.7 ? Math.ceil(Math.sqrt(d) * 30) : Math.ceil(Math.sqrt(d) * 5);
     if (countRef.current > 100) countRef.current = 100;
-    countDisplayRef.current!.textContent = `${countRef.current}%`;
+    countDisplayRef.current.textContent = `${countRef.current}%`;
     gsap.to(countDisplayRef.current, {
       x: (distance * countRef.current) / 100,
       duration: 1
@@ -36,7 +39,7 @@ export const Loading = () => {
       xPercent: countRef.current,
       duration: 1
     });
-    setTimeout(() => load(distance), 250);
+    timeoutIdRef.current = setTimeout(() => load(distance), 250);
   });
 
   const finishAnimation = contextSafe(() => {
@@ -59,13 +62,20 @@ export const Loading = () => {
   });
 
   useEffect(() => {
-    if (!countDisplayRef.current) return;
-    setTimeout(() => {
-      const rect = countDisplayRef.current!.getBoundingClientRect();
+    const e = countDisplayRef.current;
+    if (!e) return;
+    timeoutIdRef.current = setTimeout(() => {
+      const rect = e.getBoundingClientRect();
       const endPosition = rect.right;
       const distance = window.innerWidth - endPosition - rect.width;
       load(distance);
     }, 0);
+
+    return () => {
+      if (timeoutIdRef.current) {
+        clearTimeout(timeoutIdRef.current);
+      }
+    };
   }, [ctx.lenis, load]);
 
   return (

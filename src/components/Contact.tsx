@@ -15,8 +15,10 @@ export const Contact = () => {
   const setOnHover = ctx.setOnHover;
   const [isInterested, setIsInterested] = useState(true);
   const [isInRange, setIsInRange] = useState(false);
+
   const { contextSafe } = useGSAP(
     () => {
+      if (!ctx.lenis) return;
       gsap
         .timeline({
           scrollTrigger: {

@@ -5,18 +5,20 @@ import { MyContext } from './Context';
 export const ContextProvider = ({ children }: { children: React.ReactNode }) => {
   const [lenis, setLenis] = useState<Lenis | null>(null);
   const [isTablet, setIsTablet] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
+  const [isMobile, setIsMobile] = useState(true);
   const [onHover, setOnHover] = useState(false);
   const [onWorksHover, setOnWorksHover] = useState({ isWorksTitleHover: false, worksImgSrc: '' });
   const [forceRender, setForceRender] = useState(0);
 
   useEffect(() => {
-    document.fonts.ready.then(() => {
+    const initializeApp = async () => {
+      await document.fonts.ready;
       const handleResize = () => {
         setIsTablet(window.innerWidth < 800);
         setIsMobile(window.innerWidth < 550);
-        console.log('resized', window.innerWidth, isMobile);
       };
+
+      handleResize();
 
       const lenis = new Lenis({
         duration: 1.2,
@@ -30,14 +32,21 @@ export const ContextProvider = ({ children }: { children: React.ReactNode }) => 
       };
       requestAnimationFrame(raf);
       setLenis(lenis);
-      handleResize();
 
       window.addEventListener('resize', handleResize);
       return () => {
         lenis.destroy();
         window.removeEventListener('resize', handleResize);
       };
-    });
+    };
+
+    const cleanup = initializeApp();
+
+    return () => {
+      cleanup.then(fn => {
+        fn();
+      });
+    };
   }, []);
 
   return (

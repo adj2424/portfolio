@@ -18,6 +18,7 @@ export const About = () => {
   // https://www.youtube.com/watch?v=l0aI8Ecumy8
   useGSAP(
     () => {
+      if (!ctx.lenis) return;
       // timeline for about text and pinning
       gsap
         .timeline({
