@@ -73,7 +73,7 @@ export const Loading = () => {
         clearTimeout(timeoutIdRef.current);
       }
     };
-  }, [ctx.lenis, load]);
+  }, [ctx.lenis]);
 
   return (
     <>

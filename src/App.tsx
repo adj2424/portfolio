@@ -15,12 +15,8 @@ const Page = () => {
   const ctx = useMyContext();
 
   useEffect(() => {
-    if (ctx.onHover) {
-      pageRef.current!.style.cursor = 'pointer';
-    }
-    //
-    else {
-      pageRef.current!.style.cursor = 'default';
+    if (pageRef.current) {
+      pageRef.current.style.cursor = ctx.onHover ? 'pointer' : 'default';
     }
   }, [ctx.onHover]);
 

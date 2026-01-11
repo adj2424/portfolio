@@ -5,13 +5,18 @@ import { useGSAP } from '@gsap/react';
 export const Header = () => {
   const container = useRef<HTMLDivElement>(null);
   const ctx = useMyContext();
-  const lenis = ctx.lenis!;
   const setOnHover = ctx.setOnHover;
   const { contextSafe } = useGSAP({ scope: container });
 
   const handleScrollTo = (cssSelector: string, percentOffset: number) => {
+    const lenis = ctx.lenis;
+    if (!lenis) return;
+
+    const element = document.querySelector(cssSelector);
+    if (!element) return;
+
     const offset = percentOffset * lenis.limit;
-    const distanceFromSelector = Math.abs(document.querySelector(cssSelector)!.getBoundingClientRect().top);
+    const distanceFromSelector = Math.abs(element.getBoundingClientRect().top);
     const selectorPercent = distanceFromSelector / lenis.limit;
     const duration = 4 * Math.sqrt(selectorPercent);
     lenis.scrollTo(cssSelector, {
@@ -33,6 +38,8 @@ export const Header = () => {
 
   useEffect(() => {
     const headerRow = document.querySelector('.header-row') as HTMLElement;
+    if (!headerRow) return;
+
     if (ctx.isTablet) {
       headerRow.style.justifyContent = 'center';
     } else {

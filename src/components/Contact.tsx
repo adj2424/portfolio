@@ -11,14 +11,14 @@ export const Contact = () => {
   const leftRef = useRef<HTMLDivElement>(null);
   const rightRef = useRef<HTMLDivElement>(null);
   const ctx = useMyContext();
-  const lenis = ctx.lenis!;
   const setOnHover = ctx.setOnHover;
   const [isInterested, setIsInterested] = useState(true);
   const [isInRange, setIsInRange] = useState(false);
 
   const { contextSafe } = useGSAP(
     () => {
-      if (!ctx.lenis) return;
+      const lenis = ctx.lenis;
+      if (!lenis) return;
       gsap
         .timeline({
           scrollTrigger: {
@@ -31,7 +31,9 @@ export const Contact = () => {
           }
         })
         .add(() => {
-          setIsInRange(lenis.direction === 1);
+          if (lenis) {
+            setIsInRange(lenis.direction === 1);
+          }
         }, 55)
         .to(textRef.current, { fontSize: getFontSize(), duration: 65 }, 10)
         .fromTo(textRef.current, { width: '400%', duration: 65 }, { width: '80%', duration: 65 }, 10)
@@ -63,20 +65,20 @@ export const Contact = () => {
 
   useEffect(() => {
     if (ctx.isTablet) {
-      document.querySelectorAll('.left-contact').forEach((e: Element) => {
-        (e as HTMLElement).style.textAlign = 'center';
+      document.querySelectorAll<HTMLElement>('.left-contact').forEach(e => {
+        e.style.textAlign = 'center';
       });
-      document.querySelectorAll('.right-contact').forEach((e: Element) => {
-        (e as HTMLElement).style.textAlign = 'center';
+      document.querySelectorAll<HTMLElement>('.right-contact').forEach(e => {
+        e.style.textAlign = 'center';
       });
     }
     //
     else {
-      document.querySelectorAll('.left-contact').forEach((e: Element) => {
-        (e as HTMLElement).style.textAlign = 'left';
+      document.querySelectorAll<HTMLElement>('.left-contact').forEach(e => {
+        e.style.textAlign = 'left';
       });
-      document.querySelectorAll('.right-contact').forEach((e: Element) => {
-        (e as HTMLElement).style.textAlign = 'right';
+      document.querySelectorAll<HTMLElement>('.right-contact').forEach(e => {
+        e.style.textAlign = 'right';
       });
     }
   }, [ctx.isTablet]);
@@ -130,10 +132,20 @@ export const Contact = () => {
                   onMouseEnter={() => handleMouseEnter('.email-footer')}
                   onMouseLeave={() => handleMouseLeave('.email-footer')}
                 >
-                  <a href="mailto:adj2424@gmail.com" target="_blank">
+                  <a
+                    href="mailto:adj2424@gmail.com"
+                    target="_blank"
+                    aria-label="Send email to adj2424@gmail.com"
+                    rel="noopener noreferrer"
+                  >
                     ADJ2424@GMAIL.COM
                   </a>
-                  <a href="mailto:adj2424@gmail.com" target="_blank">
+                  <a
+                    href="mailto:adj2424@gmail.com"
+                    target="_blank"
+                    aria-label="Send email to adj2424@gmail.com"
+                    rel="noopener noreferrer"
+                  >
                     ADJ2424@GMAIL.COM
                   </a>
                 </div>
@@ -154,10 +166,10 @@ export const Contact = () => {
                       onMouseEnter={() => handleMouseEnter('.linkedin-footer')}
                       onMouseLeave={() => handleMouseLeave('.linkedin-footer')}
                     >
-                      <a href="https://www.linkedin.com/in/alanjiang24/" target="_blank">
+                      <a href="https://www.linkedin.com/in/alanjiang24/" target="_blank" rel="noopener noreferrer">
                         LINKEDIN
                       </a>
-                      <a href="https://www.linkedin.com/in/alanjiang24/" target="_blank">
+                      <a href="https://www.linkedin.com/in/alanjiang24/" target="_blank" rel="noopener noreferrer">
                         LINKEDIN
                       </a>
                     </div>
@@ -168,10 +180,10 @@ export const Contact = () => {
                       onMouseEnter={() => handleMouseEnter('.instagram-footer')}
                       onMouseLeave={() => handleMouseLeave('.instagram-footer')}
                     >
-                      <a href="https://www.instagram.com/alanjiang24/" target="_blank">
+                      <a href="https://www.instagram.com/alanjiang24/" target="_blank" rel="noopener noreferrer">
                         INSTAGRAM
                       </a>
-                      <a href="https://www.instagram.com/alanjiang24/" target="_blank">
+                      <a href="https://www.instagram.com/alanjiang24/" target="_blank" rel="noopener noreferrer">
                         INSTAGRAM
                       </a>
                     </div>
@@ -182,10 +194,10 @@ export const Contact = () => {
                       onMouseEnter={() => handleMouseEnter('.github-footer')}
                       onMouseLeave={() => handleMouseLeave('.github-footer')}
                     >
-                      <a href="https://www.github.com/adj2424" target="_blank">
+                      <a href="https://www.github.com/adj2424" target="_blank" rel="noopener noreferrer">
                         GITHUB
                       </a>
-                      <a href="https://www.github.com/adj2424" target="_blank">
+                      <a href="https://www.github.com/adj2424" target="_blank" rel="noopener noreferrer">
                         GITHUB
                       </a>
                     </div>
