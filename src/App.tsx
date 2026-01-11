@@ -6,7 +6,8 @@ import { About } from './components/About';
 import { Works } from './components/Works';
 import { Technologies } from './components/Technologies';
 import { Contact } from './components/Contact';
-import { ContextProvider, useMyContext } from './Context';
+import { ContextProvider } from './ContextProvider';
+import { useMyContext } from './useMyContext';
 import { Loading } from './components/Loading';
 
 const Page = () => {
@@ -49,4 +50,3 @@ function App() {
 }
 
 export default App;
-

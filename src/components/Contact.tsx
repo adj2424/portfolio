@@ -1,7 +1,7 @@
 import gsap from 'gsap';
 import { TextPlugin } from 'gsap/all';
 import { useEffect, useRef, useState } from 'react';
-import { useMyContext } from '../Context';
+import { useMyContext } from '../useMyContext';
 import { useGSAP } from '@gsap/react';
 gsap.registerPlugin(TextPlugin);
 

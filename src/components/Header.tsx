@@ -1,5 +1,5 @@
 import gsap from 'gsap';
-import { useMyContext } from '../Context';
+import { useMyContext } from '../useMyContext';
 import { useEffect, useRef } from 'react';
 import { useGSAP } from '@gsap/react';
 export const Header = () => {
@@ -108,4 +108,3 @@ export const Header = () => {
     </>
   );
 };
-

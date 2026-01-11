@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { useGSAP } from '@gsap/react';
-import { useMyContext } from '../Context';
+import { useMyContext } from '../useMyContext';
 
 gsap.registerPlugin();
 
@@ -60,10 +60,12 @@ export const Loading = () => {
 
   useEffect(() => {
     if (!countDisplayRef.current) return;
-    const rect = countDisplayRef.current.getBoundingClientRect();
-    const endPosition = rect.right;
-    const distance = window.innerWidth - endPosition - rect.width;
-    load(distance);
+    setTimeout(() => {
+      const rect = countDisplayRef.current!.getBoundingClientRect();
+      const endPosition = rect.right;
+      const distance = window.innerWidth - endPosition - rect.width;
+      load(distance);
+    }, 0);
   }, [ctx.lenis, load]);
 
   return (

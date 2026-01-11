@@ -1,8 +1,8 @@
 import gsap from 'gsap';
-import { useEffect, useState, useRef } from 'react';
+import { useRef } from 'react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Matter } from './Matter';
-import { useMyContext } from '../Context';
+import { useMyContext } from '../useMyContext';
 import { useGSAP } from '@gsap/react';
 gsap.registerPlugin(ScrollTrigger);
 

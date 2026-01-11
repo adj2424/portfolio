@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { useMyContext } from '../Context';
+import { useMyContext } from '../useMyContext';
 
 export const Cursor = () => {
   const scale = useRef(1);
@@ -105,4 +105,3 @@ export const Cursor = () => {
     </>
   );
 };
-

@@ -1,5 +1,5 @@
 import gsap from 'gsap';
-import { useMyContext } from '../Context';
+import { useMyContext } from '../useMyContext';
 import { useRef } from 'react';
 import { useGSAP } from '@gsap/react';
 
@@ -139,4 +139,3 @@ export const Works = () => {
     </>
   );
 };
-
