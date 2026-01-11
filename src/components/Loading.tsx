@@ -62,14 +62,11 @@ export const Loading = () => {
   });
 
   useEffect(() => {
-    const e = countDisplayRef.current;
-    if (!e) return;
-    timeoutIdRef.current = setTimeout(() => {
-      const rect = e.getBoundingClientRect();
-      const endPosition = rect.right;
-      const distance = window.innerWidth - endPosition - rect.width;
-      load(distance);
-    }, 0);
+    if (!countDisplayRef.current) return;
+    const rect = countDisplayRef.current.getBoundingClientRect();
+    const endPosition = rect.right;
+    const distance = window.innerWidth - endPosition - rect.width;
+    load(distance);
 
     return () => {
       if (timeoutIdRef.current) {
