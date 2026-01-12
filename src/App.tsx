@@ -23,7 +23,7 @@ const Page = () => {
   return (
     <div ref={pageRef} className="font-inter font-[400] bg-dark text-light">
       {!ctx.isMobile && <Cursor />}
-      {!ctx.isMobile && <Loading />}
+      {/* {!ctx.isMobile && <Loading />} */}
       <Header />
       <Hero />
       <About />

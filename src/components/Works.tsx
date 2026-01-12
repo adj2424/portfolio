@@ -1,6 +1,6 @@
 import gsap from 'gsap';
 import { useMyContext } from '../useMyContext';
-import { useRef } from 'react';
+import { memo, useRef } from 'react';
 import { useGSAP } from '@gsap/react';
 
 interface ItemProps {
@@ -90,9 +90,9 @@ const Item = ({ id, worksNumber, worksName, worksTech }: ItemProps) => {
   );
 };
 
-export const Works = () => {
-  const ctx = useMyContext();
-  const { isMobile } = ctx;
+export const Works = memo(() => {
+  console.log('Works rendered');
+  const { isMobile } = useMyContext();
   return (
     <>
       <div id="works" className="flex flex-col items-center w-full text-light">
@@ -138,4 +138,4 @@ export const Works = () => {
       </div>
     </>
   );
-};
+});

@@ -1,15 +1,14 @@
 import gsap from 'gsap';
 import { useMyContext } from '../useMyContext';
-import { useEffect, useRef } from 'react';
+import { memo, useEffect, useRef } from 'react';
 import { useGSAP } from '@gsap/react';
-export const Header = () => {
+export const Header = memo(() => {
+  console.log('Header rendered');
   const container = useRef<HTMLDivElement>(null);
-  const ctx = useMyContext();
-  const setOnHover = ctx.setOnHover;
+  const { lenis, setOnHover, isTablet } = useMyContext();
   const { contextSafe } = useGSAP({ scope: container });
 
   const handleScrollTo = (cssSelector: string, percentOffset: number) => {
-    const lenis = ctx.lenis;
     if (!lenis) return;
 
     const element = document.querySelector(cssSelector);
@@ -40,12 +39,12 @@ export const Header = () => {
     const headerRow = document.querySelector('.header-row') as HTMLElement;
     if (!headerRow) return;
 
-    if (ctx.isTablet) {
+    if (isTablet) {
       headerRow.style.justifyContent = 'center';
     } else {
       headerRow.style.justifyContent = 'space-between';
     }
-  }, [ctx]);
+  }, [lenis]);
 
   return (
     <>
@@ -62,7 +61,7 @@ export const Header = () => {
               <div>ALAN JIANG</div>
             </div>
           </div>
-          {!ctx.isTablet && (
+          {!isTablet && (
             <div className="flex">
               <div className="h-[calc(1em*1.5)] mr-[3rem] overflow-hidden">
                 <div
@@ -114,4 +113,4 @@ export const Header = () => {
       </div>
     </>
   );
-};
+});

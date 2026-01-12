@@ -1,13 +1,14 @@
 import gsap from 'gsap';
-import { useRef } from 'react';
+import { useRef, memo } from 'react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Matter } from './Matter';
 import { useMyContext } from '../useMyContext';
 import { useGSAP } from '@gsap/react';
 gsap.registerPlugin(ScrollTrigger);
 
-export const About = () => {
-  const ctx = useMyContext();
+export const About = memo(() => {
+  console.log('About rendered');
+  const { lenis } = useMyContext();
   const containerRef = useRef<HTMLDivElement>(null);
 
   const getFontSize = () => {
@@ -18,7 +19,7 @@ export const About = () => {
   // https://www.youtube.com/watch?v=l0aI8Ecumy8
   useGSAP(
     () => {
-      if (!ctx.lenis) return;
+      if (!lenis) return;
       // timeline for about text and pinning
       gsap
         .timeline({
@@ -46,7 +47,7 @@ export const About = () => {
         // start time + duration cannot be greater than 100 or it will change timeline
         .to({}, {}, 100);
     },
-    { dependencies: [ctx.lenis], scope: containerRef, revertOnUpdate: true }
+    { dependencies: [lenis], scope: containerRef, revertOnUpdate: true }
   );
 
   return (
@@ -83,4 +84,4 @@ export const About = () => {
       </div>
     </>
   );
-};
+});

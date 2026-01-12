@@ -1,11 +1,11 @@
 import gsap from 'gsap';
-import { useEffect, useRef, useState } from 'react';
+import { memo, useEffect, useRef, useState } from 'react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useMyContext } from '../useMyContext';
 import { useGSAP } from '@gsap/react';
 gsap.registerPlugin(ScrollTrigger);
 
-const Technology = ({ name }: { name: string }) => {
+const Technology = memo(({ name }: { name: string }) => {
   const [hover, setHover] = useState(false);
   const techRef = useRef<HTMLDivElement>(null);
   const rowRef = useRef<HTMLDivElement>(null);
@@ -47,9 +47,10 @@ const Technology = ({ name }: { name: string }) => {
       </div>
     </>
   );
-};
+});
 
-export const Technologies = () => {
+export const Technologies = memo(() => {
+  console.log('Technologies rendered');
   const techRef = useRef<HTMLDivElement>(null);
   const remainingRef = useRef<HTMLDivElement>(null);
   const container = useRef<HTMLDivElement>(null);
@@ -70,17 +71,19 @@ export const Technologies = () => {
             trigger: techRef.current,
             start: 'top top',
             end: '130% top',
-            // markers: true,
+            markers: true,
             pin: true,
             scrub: 1
           }
         })
         .to(techRef.current, { fontSize: `${getFontSize()}px`, duration: 40 }, 10)
-        .fromTo(remainingRef.current, { marginTop: 0, duration: 50 }, { marginTop: -marginY, duration: 50 }, 48)
         .add(() => {
           // update state to force rerender for contact gsap timeline to update the pin start and end
           ctx.setForceRender(prev => prev + 1);
-        }, 100)
+          console.log('forcing');
+        }, 70)
+        .fromTo(remainingRef.current, { marginTop: 0, duration: 50 }, { marginTop: -marginY, duration: 50 }, 48)
+
         .to({}, {}, 100);
     },
     { dependencies: [ctx.lenis], scope: container, revertOnUpdate: true }
@@ -118,4 +121,4 @@ export const Technologies = () => {
       </div>
     </>
   );
-};
+});

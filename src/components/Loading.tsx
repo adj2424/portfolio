@@ -1,19 +1,18 @@
-import { useEffect, useRef } from 'react';
+import { memo, useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { useMyContext } from '../useMyContext';
 
 gsap.registerPlugin();
 
-export const Loading = () => {
-  const ctx = useMyContext();
+export const Loading = memo(() => {
   const countRef = useRef(0);
   const countDisplayRef = useRef<HTMLDivElement>(null);
   const nameRef = useRef<HTMLDivElement>(null);
   const barRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const timeoutIdRef = useRef<number | null>(null);
-
+  const { lenis } = useMyContext();
   const { contextSafe } = useGSAP({ scope: containerRef });
 
   /**
@@ -73,7 +72,7 @@ export const Loading = () => {
         clearTimeout(timeoutIdRef.current);
       }
     };
-  }, [ctx.lenis]);
+  }, [lenis]);
 
   return (
     <>
@@ -90,4 +89,4 @@ export const Loading = () => {
       </div>
     </>
   );
-};
+});

@@ -1,23 +1,22 @@
 import gsap from 'gsap';
 import { TextPlugin } from 'gsap/all';
-import { useEffect, useRef, useState } from 'react';
+import { memo, useEffect, useRef, useState } from 'react';
 import { useMyContext } from '../useMyContext';
 import { useGSAP } from '@gsap/react';
 gsap.registerPlugin(TextPlugin);
 
-export const Contact = () => {
+export const Contact = memo(() => {
+  console.log('Contact rendered');
   const container = useRef<HTMLDivElement>(null);
   const textRef = useRef<HTMLDivElement>(null);
   const leftRef = useRef<HTMLDivElement>(null);
   const rightRef = useRef<HTMLDivElement>(null);
-  const ctx = useMyContext();
-  const setOnHover = ctx.setOnHover;
+  const { lenis, setOnHover, forceRender, isTablet } = useMyContext();
   const [isInterested, setIsInterested] = useState(true);
   const [isInRange, setIsInRange] = useState(false);
 
   const { contextSafe } = useGSAP(
     () => {
-      const lenis = ctx.lenis;
       if (!lenis) return;
       gsap
         .timeline({
@@ -25,7 +24,7 @@ export const Contact = () => {
             trigger: container.current,
             start: 'top top',
             end: '150% top',
-            // markers: true,
+            markers: true,
             pin: true,
             scrub: 1
           }
@@ -41,13 +40,13 @@ export const Contact = () => {
         .to(rightRef.current, { xPercent: -100, duration: 80 }, 10)
         .to({}, {}, 100);
     },
-    { dependencies: [ctx.lenis, ctx.forceRender], scope: container, revertOnUpdate: true }
+    { dependencies: [lenis, forceRender], scope: container, revertOnUpdate: true }
   );
 
   const getFontSize = () => {
     const e = document.querySelector('.text-2xl') as HTMLElement;
     let ret = parseFloat(getComputedStyle(e).fontSize) * 0.8;
-    if (ctx.isTablet) {
+    if (isTablet) {
       ret = parseFloat(getComputedStyle(e).fontSize) * 0.55;
     }
     return `${ret}px`;
@@ -64,7 +63,7 @@ export const Contact = () => {
   });
 
   useEffect(() => {
-    if (ctx.isTablet) {
+    if (isTablet) {
       document.querySelectorAll<HTMLElement>('.left-contact').forEach(e => {
         e.style.textAlign = 'center';
       });
@@ -81,7 +80,7 @@ export const Contact = () => {
         e.style.textAlign = 'right';
       });
     }
-  }, [ctx.isTablet]);
+  }, [isTablet]);
 
   useEffect(() => {
     if (!isInRange) {
@@ -213,4 +212,4 @@ export const Contact = () => {
       </div>
     </>
   );
-};
+});

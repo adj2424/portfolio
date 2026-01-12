@@ -1,14 +1,14 @@
-import { useEffect, useRef, useState } from 'react';
+import { memo, useEffect, useRef, useState } from 'react';
 import { useMyContext } from '../useMyContext';
 
-export const Cursor = () => {
+export const Cursor = memo(() => {
+  console.log('Cursor rendered');
   const scale = useRef(1);
   const cursorRef = useRef<HTMLDivElement>(null);
   const outerCircleRef = useRef<HTMLDivElement>(null);
   const innerCircleRef = useRef<HTMLDivElement>(null);
   const imageRef = useRef<HTMLImageElement>(null);
-  const ctx = useMyContext();
-  const { onHover, onWorksHover } = ctx;
+  const { onHover, onWorksHover } = useMyContext();
   const [isMouseDown, setIsMouseDown] = useState(false);
 
   useEffect(() => {
@@ -104,4 +104,4 @@ export const Cursor = () => {
       </div>
     </>
   );
-};
+});
