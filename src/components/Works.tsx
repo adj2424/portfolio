@@ -91,7 +91,7 @@ const Item = ({ id, worksNumber, worksName, worksTech }: ItemProps) => {
 };
 
 export const Works = memo(() => {
-  console.log('Works rendered');
+  //console.log('Works rendered');
   const { isMobile } = useMyContext();
   return (
     <>

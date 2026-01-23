@@ -7,7 +7,7 @@ import { useGSAP } from '@gsap/react';
 gsap.registerPlugin(ScrollTrigger);
 
 export const About = memo(() => {
-  console.log('About rendered');
+  //console.log('About rendered');
   const { lenis } = useMyContext();
   const containerRef = useRef<HTMLDivElement>(null);
 

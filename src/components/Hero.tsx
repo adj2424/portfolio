@@ -6,7 +6,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 gsap.registerPlugin(ScrollTrigger);
 
 export const Hero = memo(() => {
-  console.log('Hero rendered');
+  //console.log('Hero rendered');
   const container = useRef<HTMLDivElement>(null);
   const items = [useRef(null), useRef(null)] as React.RefObject<HTMLDivElement>[];
 

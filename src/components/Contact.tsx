@@ -6,7 +6,7 @@ import { useGSAP } from '@gsap/react';
 gsap.registerPlugin(TextPlugin);
 
 export const Contact = memo(() => {
-  console.log('Contact rendered');
+  //console.log('Contact rendered');
   const container = useRef<HTMLDivElement>(null);
   const textRef = useRef<HTMLDivElement>(null);
   const leftRef = useRef<HTMLDivElement>(null);
@@ -24,7 +24,7 @@ export const Contact = memo(() => {
             trigger: container.current,
             start: 'top top',
             end: '150% top',
-            markers: true,
+            //markers: true,
             pin: true,
             scrub: 1
           }

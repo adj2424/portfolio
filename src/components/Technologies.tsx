@@ -50,7 +50,7 @@ const Technology = memo(({ name }: { name: string }) => {
 });
 
 export const Technologies = memo(() => {
-  console.log('Technologies rendered');
+  //console.log('Technologies rendered');
   const techRef = useRef<HTMLDivElement>(null);
   const remainingRef = useRef<HTMLDivElement>(null);
   const container = useRef<HTMLDivElement>(null);
@@ -71,7 +71,7 @@ export const Technologies = memo(() => {
             trigger: techRef.current,
             start: 'top top',
             end: '130% top',
-            markers: true,
+            // markers: true,
             pin: true,
             scrub: 1
           }
@@ -80,10 +80,8 @@ export const Technologies = memo(() => {
         .add(() => {
           // update state to force rerender for contact gsap timeline to update the pin start and end
           ctx.setForceRender(prev => prev + 1);
-          console.log('forcing');
         }, 70)
         .fromTo(remainingRef.current, { marginTop: 0, duration: 50 }, { marginTop: -marginY, duration: 50 }, 48)
-
         .to({}, {}, 100);
     },
     { dependencies: [ctx.lenis], scope: container, revertOnUpdate: true }

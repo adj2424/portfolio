@@ -3,7 +3,7 @@ import { useMyContext } from '../useMyContext';
 import { memo, useEffect, useRef } from 'react';
 import { useGSAP } from '@gsap/react';
 export const Header = memo(() => {
-  console.log('Header rendered');
+  //console.log('Header rendered');
   const container = useRef<HTMLDivElement>(null);
   const { lenis, setOnHover, isTablet } = useMyContext();
   const { contextSafe } = useGSAP({ scope: container });

@@ -2,7 +2,7 @@ import { memo, useEffect, useRef, useState } from 'react';
 import { useMyContext } from '../useMyContext';
 
 export const Cursor = memo(() => {
-  console.log('Cursor rendered');
+  //console.log('Cursor rendered');
   const scale = useRef(1);
   const cursorRef = useRef<HTMLDivElement>(null);
   const outerCircleRef = useRef<HTMLDivElement>(null);
