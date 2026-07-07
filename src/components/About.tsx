@@ -8,8 +8,15 @@ gsap.registerPlugin(ScrollTrigger);
 
 export const About = memo(() => {
   //console.log('About rendered');
-  const { lenis } = useMyContext();
+  const { lenis, isMobile } = useMyContext();
   const containerRef = useRef<HTMLDivElement>(null);
+  const birthDate = new Date(2000, 9, 24);
+  const today = new Date();
+  let age = today.getFullYear() - birthDate.getFullYear();
+  const hasBirthdayPassed =
+    today.getMonth() > birthDate.getMonth() ||
+    (today.getMonth() === birthDate.getMonth() && today.getDate() >= birthDate.getDate());
+  if (!hasBirthdayPassed) age--;
 
   const getFontSize = () => {
     const e = document.querySelector('.text-2xl') as HTMLElement;
@@ -53,14 +60,14 @@ export const About = memo(() => {
   return (
     <>
       <div id="about" ref={containerRef} className="relative overflow-hidden mt-[10rem]">
-        <Matter />
+        {!isMobile && <Matter />}
         <div className="slider flex w-[530vw] select-none pointer-events-none">
           <div className="about flex w-screen h-screen justify-center items-center text-4xl">ABOUT</div>
           <div className="relative flex items-center w-[330vw] text-lg leading-tight justify-between pr-[50vw]">
             <div className="flex w-[70vw] items-center">
               <div className="mr-[5vw]">01/</div>
               <div>
-                I'M ALAN JIANG, A 24 YEAR OLD FULL STACK DEVELOPER WHO GRADUATED FROM VIRGINIA TECH. I LOVE SOLVING
+                I'M ALAN JIANG, A {age} YEAR OLD FULL STACK DEVELOPER WHO GRADUATED FROM VIRGINIA TECH. I LOVE SOLVING
                 PROBLEMS AND BUILDING NEW THINGS.
               </div>
             </div>
@@ -85,3 +92,4 @@ export const About = memo(() => {
     </>
   );
 });
+
