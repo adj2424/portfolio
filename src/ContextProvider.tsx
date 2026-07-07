@@ -1,6 +1,10 @@
 import Lenis from 'lenis';
 import { useEffect, useState } from 'react';
 import { MyContext } from './Context';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 export const ContextProvider = ({ children }: { children: React.ReactNode }) => {
   const [lenis, setLenis] = useState<Lenis | null>(null);
@@ -8,17 +12,22 @@ export const ContextProvider = ({ children }: { children: React.ReactNode }) => 
   const [isMobile, setIsMobile] = useState(true);
   const [onHover, setOnHover] = useState(false);
   const [onWorksHover, setOnWorksHover] = useState({ isWorksTitleHover: false, worksImgSrc: '' });
-  const [forceRender, setForceRender] = useState(0);
+
 
   useEffect(() => {
     let lenisInstance: Lenis | null = null;
-    let rafId: number | null = null;
+    let tickerCallback: ((time: number) => void) | null = null;
     let isDestroyed = false;
 
     const handleResize = () => {
-      setIsTablet(window.innerWidth < 800);
-      setIsMobile(window.innerWidth < 550);
+      const width = window.innerWidth;
+      const isMobileUA = /Android|webOS|iPhone|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+      setIsTablet(width < 800);
+      setIsMobile(width < 550 || isMobileUA);
     };
+
+    // Run immediately on mount to establish correct initial state
+    handleResize();
 
     const initializeApp = async () => {
       await document.fonts.ready;
@@ -33,13 +42,18 @@ export const ContextProvider = ({ children }: { children: React.ReactNode }) => 
         infinite: false
       });
 
-      const raf = (time: number) => {
+      // Synchronize Lenis with GSAP ScrollTrigger updates
+      lenisInstance.on('scroll', ScrollTrigger.update);
+
+      // Connect Lenis to the GSAP ticker
+      tickerCallback = (time: number) => {
         if (lenisInstance) {
-          lenisInstance.raf(time);
+          lenisInstance.raf(time * 1000); // Convert seconds to milliseconds
         }
-        rafId = requestAnimationFrame(raf);
       };
-      rafId = requestAnimationFrame(raf);
+      gsap.ticker.add(tickerCallback);
+      gsap.ticker.lagSmoothing(0);
+
       setLenis(lenisInstance);
     };
 
@@ -49,8 +63,8 @@ export const ContextProvider = ({ children }: { children: React.ReactNode }) => 
     return () => {
       isDestroyed = true;
       window.removeEventListener('resize', handleResize);
-      if (rafId !== null) {
-        cancelAnimationFrame(rafId);
+      if (tickerCallback) {
+        gsap.ticker.remove(tickerCallback);
       }
       if (lenisInstance) {
         lenisInstance.destroy();
@@ -69,8 +83,8 @@ export const ContextProvider = ({ children }: { children: React.ReactNode }) => 
           setOnHover,
           onWorksHover,
           setOnWorksHover,
-          forceRender,
-          setForceRender
+
+
         }}
       >
         {children}

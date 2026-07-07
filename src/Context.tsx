@@ -9,8 +9,8 @@ export interface Context {
   setOnHover: React.Dispatch<React.SetStateAction<boolean>>;
   onWorksHover: { isWorksTitleHover: boolean; worksImgSrc: string };
   setOnWorksHover: React.Dispatch<React.SetStateAction<{ isWorksTitleHover: boolean; worksImgSrc: string }>>;
-  forceRender: number;
-  setForceRender: React.Dispatch<React.SetStateAction<number>>;
+
+
 }
 
 export const MyContext = createContext<Context | null>(null);

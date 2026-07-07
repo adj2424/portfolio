@@ -59,24 +59,21 @@ export const Technologies = memo(() => {
   useGSAP(
     () => {
       if (!ctx.lenis) return;
-      const marginY = (window.innerHeight - getFontSize()) / 2;
+      const reducedFontSize = getFontSize();
+      const marginY = (window.innerHeight - reducedFontSize) / 2;
       gsap
         .timeline({
           scrollTrigger: {
             trigger: techRef.current,
             start: 'top top',
-            end: '130% top',
-            // markers: true,
+            end: '120% top',
+            markers: true,
             pin: true,
             scrub: 1
           }
         })
-        .to(techRef.current, { fontSize: `${getFontSize()}px`, duration: 40 }, 10)
-        .add(() => {
-          // update state to force rerender for contact gsap timeline to update the pin start and end
-          ctx.setForceRender(prev => prev + 1);
-        }, 70)
-        .fromTo(remainingRef.current, { marginTop: 0, duration: 50 }, { marginTop: -marginY, duration: 50 }, 48)
+        .to(techRef.current, { fontSize: `${reducedFontSize}px`, duration: 40 }, 10)
+        .fromTo(remainingRef.current, { y: 0, duration: 50 }, { y: -marginY, duration: 50 }, 48)
         .to({}, {}, 100);
     },
     { dependencies: [ctx.lenis], scope: container, revertOnUpdate: true }
@@ -115,3 +112,4 @@ export const Technologies = memo(() => {
     </>
   );
 });
+
