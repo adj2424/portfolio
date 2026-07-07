@@ -8,7 +8,6 @@ gsap.registerPlugin(ScrollTrigger);
 const Technology = memo(({ name }: { name: string }) => {
   const [hover, setHover] = useState(false);
   const techRef = useRef<HTMLDivElement>(null);
-  const rowRef = useRef<HTMLDivElement>(null);
   const ctx = useMyContext();
 
   useEffect(() => {
@@ -19,16 +18,6 @@ const Technology = memo(({ name }: { name: string }) => {
     }
   }, [hover]);
 
-  useEffect(() => {
-    if (ctx.isTablet) {
-      rowRef.current!.style.justifyContent = 'center';
-      rowRef.current!.style.marginTop = '3px';
-    } else {
-      rowRef.current!.style.justifyContent = 'space-between';
-      rowRef.current!.style.marginTop = '0px';
-    }
-  }, [ctx]);
-
   return (
     <>
       <div
@@ -38,7 +27,13 @@ const Technology = memo(({ name }: { name: string }) => {
       >
         <div ref={techRef} className="flex flex-col items-center">
           <div>{name}</div>
-          <div ref={rowRef} className="row-tech flex w-full bg-accent">
+          <div
+            className="row-tech flex w-full bg-accent"
+            style={{
+              justifyContent: ctx.isTablet ? 'center' : 'space-between',
+              marginTop: ctx.isTablet ? '3px' : '0px'
+            }}
+          >
             {!ctx.isTablet && <div className="text-dark ml-[0.5rem]">SKILLS</div>}
             <div className="text-dark">{name}</div>
             {!ctx.isTablet && <div className="text-dark mr-[0.5rem]">SKILLS</div>}

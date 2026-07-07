@@ -52,35 +52,15 @@ export const Contact = memo(() => {
     return `${ret}px`;
   };
 
-  const handleMouseEnter = contextSafe((e: string) => {
-    gsap.to(e, { yPercent: -50, ease: 'power3.inOut', duration: 0.6 });
+  const handleMouseEnter = contextSafe((e: React.MouseEvent<HTMLElement>) => {
+    gsap.to(e.currentTarget, { yPercent: -50, ease: 'power3.inOut', duration: 0.6 });
     setOnHover(true);
   });
 
-  const handleMouseLeave = contextSafe((e: string) => {
+  const handleMouseLeave = contextSafe((e: React.MouseEvent<HTMLElement>) => {
     setOnHover(false);
-    gsap.to(e, { yPercent: 0, ease: 'power3.inOut', duration: 0.6 });
+    gsap.to(e.currentTarget, { yPercent: 0, ease: 'power3.inOut', duration: 0.6 });
   });
-
-  useEffect(() => {
-    if (isTablet) {
-      document.querySelectorAll<HTMLElement>('.left-contact').forEach(e => {
-        e.style.textAlign = 'center';
-      });
-      document.querySelectorAll<HTMLElement>('.right-contact').forEach(e => {
-        e.style.textAlign = 'center';
-      });
-    }
-    //
-    else {
-      document.querySelectorAll<HTMLElement>('.left-contact').forEach(e => {
-        e.style.textAlign = 'left';
-      });
-      document.querySelectorAll<HTMLElement>('.right-contact').forEach(e => {
-        e.style.textAlign = 'right';
-      });
-    }
-  }, [isTablet]);
 
   useEffect(() => {
     if (!isInRange) {
@@ -119,7 +99,7 @@ export const Contact = memo(() => {
           <div className="absolute flex flex-col bottom-[24px] w-full text-md">
             <div className="flex flex-wrap w-full justify-center items-center">
               {/* 30.66% is from 33% * 92% because we match header which is 92% and then divide by 3 for each column */}
-              <div style={{ width: 'clamp(225px, 30%, 33.33%)' }} className="left-contact">
+              <div style={{ width: 'clamp(225px, 30%, 33.33%)' }} className={`left-contact ${isTablet ? 'text-center' : 'text-left'}`}>
                 ALAN JIANG
               </div>
               <div
@@ -128,8 +108,8 @@ export const Contact = memo(() => {
               >
                 <div
                   className="email-footer flex flex-col"
-                  onMouseEnter={() => handleMouseEnter('.email-footer')}
-                  onMouseLeave={() => handleMouseLeave('.email-footer')}
+                  onMouseEnter={handleMouseEnter}
+                  onMouseLeave={handleMouseLeave}
                 >
                   <a
                     href="mailto:adj2424@gmail.com"
@@ -149,12 +129,12 @@ export const Contact = memo(() => {
                   </a>
                 </div>
               </div>
-              <div style={{ width: 'clamp(250px, 30%, 33.33%)' }} className="right-contact">
+              <div style={{ width: 'clamp(250px, 30%, 33.33%)' }} className={`right-contact ${isTablet ? 'text-center' : 'text-right'}`}>
                 DESIGNED & CODED BY ME
               </div>
             </div>
             <div className="flex flex-wrap w-full justify-center items-center">
-              <div style={{ width: 'clamp(225px, 30%, 50%)' }} className="left-contact">
+              <div style={{ width: 'clamp(225px, 30%, 50%)' }} className={`left-contact ${isTablet ? 'text-center' : 'text-left'}`}>
                 SOFTWARE ENGINEER
               </div>
               <div style={{ width: 'clamp(325px, 30%, 33.33%)' }} className="flex justify-center">
@@ -162,8 +142,8 @@ export const Contact = memo(() => {
                   <div className="h-[calc(1em*1.5)] overflow-hidden">
                     <div
                       className="linkedin-footer flex flex-col"
-                      onMouseEnter={() => handleMouseEnter('.linkedin-footer')}
-                      onMouseLeave={() => handleMouseLeave('.linkedin-footer')}
+                      onMouseEnter={handleMouseEnter}
+                      onMouseLeave={handleMouseLeave}
                     >
                       <a href="https://www.linkedin.com/in/alanjiang24/" target="_blank" rel="noopener noreferrer">
                         LINKEDIN
@@ -176,8 +156,8 @@ export const Contact = memo(() => {
                   <div className="h-[calc(1em*1.5)] overflow-hidden">
                     <div
                       className="instagram-footer flex flex-col"
-                      onMouseEnter={() => handleMouseEnter('.instagram-footer')}
-                      onMouseLeave={() => handleMouseLeave('.instagram-footer')}
+                      onMouseEnter={handleMouseEnter}
+                      onMouseLeave={handleMouseLeave}
                     >
                       <a href="https://www.instagram.com/alanjiang24/" target="_blank" rel="noopener noreferrer">
                         INSTAGRAM
@@ -190,8 +170,8 @@ export const Contact = memo(() => {
                   <div className="h-[calc(1em*1.5)] overflow-hidden">
                     <div
                       className="github-footer flex flex-col"
-                      onMouseEnter={() => handleMouseEnter('.github-footer')}
-                      onMouseLeave={() => handleMouseLeave('.github-footer')}
+                      onMouseEnter={handleMouseEnter}
+                      onMouseLeave={handleMouseLeave}
                     >
                       <a href="https://www.github.com/adj2424" target="_blank" rel="noopener noreferrer">
                         GITHUB
@@ -203,7 +183,7 @@ export const Contact = memo(() => {
                   </div>
                 </div>
               </div>
-              <div style={{ width: 'clamp(225px, 30%, 50%)' }} className="right-contact">
+              <div style={{ width: 'clamp(225px, 30%, 50%)' }} className={`right-contact ${isTablet ? 'text-center' : 'text-right'}`}>
                 © ALAN JIANG 2023
               </div>
             </div>

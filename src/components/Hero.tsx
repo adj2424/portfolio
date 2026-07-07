@@ -8,7 +8,9 @@ gsap.registerPlugin(ScrollTrigger);
 export const Hero = memo(() => {
   //console.log('Hero rendered');
   const container = useRef<HTMLDivElement>(null);
-  const items = [useRef(null), useRef(null)] as React.RefObject<HTMLDivElement>[];
+  const item1 = useRef<HTMLDivElement>(null);
+  const item2 = useRef<HTMLDivElement>(null);
+  const items = [item1, item2];
 
   useGSAP(
     () => {

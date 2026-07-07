@@ -1,7 +1,6 @@
 import { memo, useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { useGSAP } from '@gsap/react';
-import { useMyContext } from '../useMyContext';
 
 gsap.registerPlugin();
 
@@ -12,34 +11,7 @@ export const Loading = memo(() => {
   const barRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const timeoutIdRef = useRef<number | null>(null);
-  const { lenis } = useMyContext();
   const { contextSafe } = useGSAP({ scope: containerRef });
-
-  /**
-   * Recursive loading screen
-   */
-  const load = contextSafe((distance: number) => {
-    if (!countDisplayRef.current) return;
-
-    // finished loading and play enter animation
-    if (countRef.current >= 100) {
-      finishAnimation();
-      return;
-    }
-    const d = Math.random();
-    countRef.current += d > 0.7 ? Math.ceil(Math.sqrt(d) * 30) : Math.ceil(Math.sqrt(d) * 5);
-    if (countRef.current > 100) countRef.current = 100;
-    countDisplayRef.current.textContent = `${countRef.current}%`;
-    gsap.to(countDisplayRef.current, {
-      x: (distance * countRef.current) / 100,
-      duration: 1
-    });
-    gsap.to(barRef.current, {
-      xPercent: countRef.current,
-      duration: 1
-    });
-    timeoutIdRef.current = setTimeout(() => load(distance), 250);
-  });
 
   const finishAnimation = contextSafe(() => {
     gsap
@@ -49,7 +21,7 @@ export const Loading = memo(() => {
         duration: 0.55,
         delay: 1
       })
-      .to(barRef.current!.style, {
+      .to(barRef.current, {
         height: '90vh',
         duration: 0.8
       })
@@ -65,14 +37,38 @@ export const Loading = memo(() => {
     const rect = countDisplayRef.current.getBoundingClientRect();
     const endPosition = rect.right;
     const distance = window.innerWidth - endPosition - rect.width;
-    load(distance);
+
+    const load = () => {
+      if (!countDisplayRef.current) return;
+
+      // finished loading and play enter animation
+      if (countRef.current >= 100) {
+        finishAnimation();
+        return;
+      }
+      const d = Math.random();
+      countRef.current += d > 0.7 ? Math.ceil(Math.sqrt(d) * 30) : Math.ceil(Math.sqrt(d) * 5);
+      if (countRef.current > 100) countRef.current = 100;
+      countDisplayRef.current.textContent = `${countRef.current}%`;
+      gsap.to(countDisplayRef.current, {
+        x: (distance * countRef.current) / 100,
+        duration: 1
+      });
+      gsap.to(barRef.current, {
+        xPercent: countRef.current,
+        duration: 1
+      });
+      timeoutIdRef.current = setTimeout(load, 250);
+    };
+
+    load();
 
     return () => {
       if (timeoutIdRef.current) {
         clearTimeout(timeoutIdRef.current);
       }
     };
-  }, [lenis]);
+  }, [finishAnimation]);
 
   return (
     <>

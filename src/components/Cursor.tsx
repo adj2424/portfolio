@@ -22,8 +22,9 @@ export const Cursor = memo(() => {
     image.style.top = width / 2 + 'px';
     image.style.left = width / 2 + 'px';
     const handleMouseMove = (e: MouseEvent) => {
-      cursor.style.top = e.clientY - width / 2 + 'px';
-      cursor.style.left = e.clientX - width / 2 + 'px';
+      const x = e.clientX - width / 2;
+      const y = e.clientY - width / 2;
+      cursor.style.transform = `translate3d(${x}px, ${y}px, 0)`;
     };
     const handleMouseDown = () => {
       setIsMouseDown(true);
@@ -91,7 +92,7 @@ export const Cursor = memo(() => {
 
   return (
     <>
-      <div ref={cursorRef} className="fixed pointer-events-none z-[5] transition-transform duration-500 ease-in-out">
+      <div ref={cursorRef} className="fixed pointer-events-none z-[5]">
         <div
           ref={outerCircleRef}
           className="absolute flex items-center justify-center w-[50px] h-[50px] border-[2px] border-accent rounded-full transition-all duration-500 ease-in-out z-[1]"

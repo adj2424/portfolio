@@ -23,9 +23,14 @@ export const Matter = memo(() => {
   ];
 
   const createPill = async (url: string, scale: number, signal?: AbortSignal, y?: number) => {
+    if (signal?.aborted) return;
     const img = new Image();
     img.src = url;
-    await img.decode();
+    try {
+      await img.decode();
+    } catch {
+      return;
+    }
 
     if (!signal || signal?.aborted || !engineRef.current) return;
 
@@ -47,6 +52,7 @@ export const Matter = memo(() => {
   const loadStaggerPills = async (urls: string[], scale: number, signal?: AbortSignal) => {
     urls.forEach((e, i) => {
       setTimeout(() => {
+        if (signal?.aborted) return;
         createPill(e, scale, signal, undefined);
       }, i * 1000);
     });
@@ -68,6 +74,8 @@ export const Matter = memo(() => {
         // showDebug: true
       }
     });
+
+    const runner = Runner.create();
 
     const mouseConstraint = MouseConstraint.create(engineRef.current, {
       mouse: Mouse.create(render.canvas),
@@ -110,10 +118,11 @@ export const Matter = memo(() => {
     createPill('/pills/orange/dragMe.png', scale, abortControllerRef.current.signal, window.innerHeight - 100);
     Composite.add(engineRef.current.world, [ceiling, floor, left, right, mouseConstraint]);
     Render.run(render);
-    Runner.run(Runner.create(), engineRef.current);
+    Runner.run(runner, engineRef.current);
 
     return () => {
       abortControllerRef.current!.abort();
+      Runner.stop(runner);
       Render.stop(render);
       Engine.clear(engineRef.current!);
     };

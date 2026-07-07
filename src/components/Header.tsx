@@ -1,6 +1,6 @@
 import gsap from 'gsap';
 import { useMyContext } from '../useMyContext';
-import { memo, useEffect, useRef } from 'react';
+import { memo, useRef } from 'react';
 import { useGSAP } from '@gsap/react';
 export const Header = memo(() => {
   //console.log('Header rendered');
@@ -25,36 +25,25 @@ export const Header = memo(() => {
     });
   };
 
-  const handleMouseEnter = contextSafe((e: string) => {
-    gsap.to(e, { yPercent: -50, ease: 'power3.inOut', duration: 0.6 });
+  const handleMouseEnter = contextSafe((e: React.MouseEvent<HTMLElement>) => {
+    gsap.to(e.currentTarget, { yPercent: -50, ease: 'power3.inOut', duration: 0.6 });
     setOnHover(true);
   });
 
-  const handleMouseLeave = contextSafe((e: string) => {
+  const handleMouseLeave = contextSafe((e: React.MouseEvent<HTMLElement>) => {
     setOnHover(false);
-    gsap.to(e, { yPercent: 0, ease: 'power3.inOut', duration: 0.6 });
+    gsap.to(e.currentTarget, { yPercent: 0, ease: 'power3.inOut', duration: 0.6 });
   });
-
-  useEffect(() => {
-    const headerRow = document.querySelector('.header-row') as HTMLElement;
-    if (!headerRow) return;
-
-    if (isTablet) {
-      headerRow.style.justifyContent = 'center';
-    } else {
-      headerRow.style.justifyContent = 'space-between';
-    }
-  }, [lenis]);
 
   return (
     <>
       <div ref={container} className="fixed flex w-full justify-center text-md z-[3] mt-[24px] mix-blend-difference">
-        <div className="header-row flex w-[92%] justify-between align-baseline user-select-none select-none">
+        <div className={`header-row flex w-[92%] align-baseline user-select-none select-none ${isTablet ? 'justify-center' : 'justify-between'}`}>
           <div className="h-[calc(1em*1.5)] overflow-hidden">
             <div
               className="hero-header flex flex-col"
-              onMouseEnter={() => handleMouseEnter('.hero-header')}
-              onMouseLeave={() => handleMouseLeave('.hero-header')}
+              onMouseEnter={handleMouseEnter}
+              onMouseLeave={handleMouseLeave}
               onClick={() => handleScrollTo('#hero', 0)}
             >
               <div>ALAN JIANG</div>
@@ -66,8 +55,8 @@ export const Header = memo(() => {
               <div className="h-[calc(1em*1.5)] mr-[3rem] overflow-hidden">
                 <div
                   className="about-header flex flex-col"
-                  onMouseEnter={() => handleMouseEnter('.about-header')}
-                  onMouseLeave={() => handleMouseLeave('.about-header')}
+                  onMouseEnter={handleMouseEnter}
+                  onMouseLeave={handleMouseLeave}
                   onClick={() => handleScrollTo('#about', 0.06)}
                 >
                   <div>ABOUT</div>
@@ -77,8 +66,8 @@ export const Header = memo(() => {
               <div className="h-[calc(1em*1.5)] mr-[3rem] overflow-hidden">
                 <div
                   className="works-header flex flex-col"
-                  onMouseEnter={() => handleMouseEnter('.works-header')}
-                  onMouseLeave={() => handleMouseLeave('.works-header')}
+                  onMouseEnter={handleMouseEnter}
+                  onMouseLeave={handleMouseLeave}
                   onClick={() => handleScrollTo('#works', -0.075)}
                 >
                   <div>WORKS</div>
@@ -88,8 +77,8 @@ export const Header = memo(() => {
               <div className="h-[calc(1em*1.5)] mr-[3rem] overflow-hidden">
                 <div
                   className="technologies-header flex flex-col"
-                  onMouseEnter={() => handleMouseEnter('.technologies-header')}
-                  onMouseLeave={() => handleMouseLeave('.technologies-header')}
+                  onMouseEnter={handleMouseEnter}
+                  onMouseLeave={handleMouseLeave}
                   onClick={() => handleScrollTo('#technologies', 0.055)}
                 >
                   <div>TECHNOLOGIES</div>
@@ -99,8 +88,8 @@ export const Header = memo(() => {
               <div className="h-[calc(1em*1.5)] overflow-hidden">
                 <div
                   className="contact-header flex flex-col"
-                  onMouseEnter={() => handleMouseEnter('.contact-header')}
-                  onMouseLeave={() => handleMouseLeave('.contact-header')}
+                  onMouseEnter={handleMouseEnter}
+                  onMouseLeave={handleMouseLeave}
                   onClick={() => handleScrollTo('#contact', 0.09)}
                 >
                   <div>CONTACT</div>

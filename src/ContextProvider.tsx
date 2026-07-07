@@ -11,41 +11,50 @@ export const ContextProvider = ({ children }: { children: React.ReactNode }) => 
   const [forceRender, setForceRender] = useState(0);
 
   useEffect(() => {
+    let lenisInstance: Lenis | null = null;
+    let rafId: number | null = null;
+    let isDestroyed = false;
+
+    const handleResize = () => {
+      setIsTablet(window.innerWidth < 800);
+      setIsMobile(window.innerWidth < 550);
+    };
+
     const initializeApp = async () => {
       await document.fonts.ready;
-      const handleResize = () => {
-        setIsTablet(window.innerWidth < 800);
-        setIsMobile(window.innerWidth < 550);
-      };
+      if (isDestroyed) return;
 
       handleResize();
 
-      const lenis = new Lenis({
+      lenisInstance = new Lenis({
         duration: 1.2,
-        easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // https://www.desmos.com/calculator/brs54l4xou
+        easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
         touchMultiplier: 2,
         infinite: false
       });
-      const raf = (time: number) => {
-        lenis.raf(time);
-        requestAnimationFrame(raf);
-      };
-      requestAnimationFrame(raf);
-      setLenis(lenis);
 
-      window.addEventListener('resize', handleResize);
-      return () => {
-        lenis.destroy();
-        window.removeEventListener('resize', handleResize);
+      const raf = (time: number) => {
+        if (lenisInstance) {
+          lenisInstance.raf(time);
+        }
+        rafId = requestAnimationFrame(raf);
       };
+      rafId = requestAnimationFrame(raf);
+      setLenis(lenisInstance);
     };
 
-    const cleanup = initializeApp();
+    initializeApp();
+    window.addEventListener('resize', handleResize);
 
     return () => {
-      cleanup.then(fn => {
-        fn();
-      });
+      isDestroyed = true;
+      window.removeEventListener('resize', handleResize);
+      if (rafId !== null) {
+        cancelAnimationFrame(rafId);
+      }
+      if (lenisInstance) {
+        lenisInstance.destroy();
+      }
     };
   }, []);
 
@@ -69,3 +78,4 @@ export const ContextProvider = ({ children }: { children: React.ReactNode }) => 
     </>
   );
 };
+

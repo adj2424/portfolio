@@ -10,22 +10,25 @@ interface ItemProps {
   worksTech: string[];
 }
 
+const worksInfo = [
+  { site: 'https://nft-minter-polygon.vercel.app/', src: 'nft.png' },
+  { site: 'https://algosus.vercel.app/', src: 'algosus.png' },
+  { site: 'https://music-profile-three.vercel.app/', src: 'music.png' },
+  { site: 'https://github.com/adj2424/video-chat-website', src: 'powow.png' },
+  { site: 'https://nyla-thiccums.vercel.app/', src: 'nyla.png' }
+];
+
+const remToPixels = (rem: number) => {
+  const rootFontSize = parseFloat(getComputedStyle(document.documentElement).fontSize);
+  return rem * rootFontSize;
+};
+
 const Item = ({ id, worksNumber, worksName, worksTech }: ItemProps) => {
   const container = useRef<HTMLDivElement>(null);
   const ctx = useMyContext();
   const { setOnHover, setOnWorksHover, isMobile } = ctx;
   const { contextSafe } = useGSAP({ scope: container });
-  const worksInfo = [
-    { site: 'https://nft-minter-polygon.vercel.app/', src: 'nft.png' },
-    { site: 'https://algosus.vercel.app/', src: 'algosus.png' },
-    { site: 'https://music-profile-three.vercel.app/', src: 'music.png' },
-    { site: 'https://github.com/adj2424/video-chat-website', src: 'powow.png' },
-    { site: 'https://nyla-thiccums.vercel.app/', src: 'nyla.png' }
-  ];
-  const remToPixels = (rem: number) => {
-    const rootFontSize = parseFloat(getComputedStyle(document.documentElement).fontSize);
-    return rem * rootFontSize;
-  };
+
   const handleOnMouseOnWorks = contextSafe((e: string, idx: number) => {
     if (isMobile) return;
     const width = remToPixels(1) + 50;
