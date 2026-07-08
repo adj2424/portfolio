@@ -3,6 +3,7 @@ import { Cursor } from './components/Cursor';
 import { Header } from './components/Header';
 import { Hero } from './components/Hero';
 import { About } from './components/About';
+import { AboutMobile } from './components/AboutMobile';
 import { Works } from './components/Works';
 import { Technologies } from './components/Technologies';
 import { Contact } from './components/Contact';
@@ -27,6 +28,7 @@ const Page = () => {
       <Header />
       <Hero />
       <About />
+      {/* <AboutMobile /> */}
       <Works />
       <Technologies />
       <Contact />
