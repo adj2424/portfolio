@@ -137,8 +137,9 @@ export const Works = memo(() => {
           worksName="NYLA"
           worksTech={['React Three Fiber', 'Tailwind CSS', 'GSAP', 'TypeScript']}
         />
-        <div className="w-[91%] h-[2px] bg-light opacity-25 mb-[3rem]" />
+        <div className="w-[91%] h-[2px] bg-light opacity-25" />
       </div>
     </>
   );
 });
+

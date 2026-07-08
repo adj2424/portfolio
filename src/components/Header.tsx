@@ -38,7 +38,9 @@ export const Header = memo(() => {
   return (
     <>
       <div ref={container} className="fixed flex w-full justify-center text-md z-[3] mt-[24px] mix-blend-difference">
-        <div className={`header-row flex w-[92%] align-baseline user-select-none select-none ${isTablet ? 'justify-center' : 'justify-between'}`}>
+        <div
+          className={`header-row flex w-[92%] align-baseline user-select-none select-none ${isTablet ? 'justify-center' : 'justify-between'}`}
+        >
           <div className="h-[calc(1em*1.5)] overflow-hidden">
             <div
               className="hero-header flex flex-col"
@@ -79,7 +81,7 @@ export const Header = memo(() => {
                   className="technologies-header flex flex-col"
                   onMouseEnter={handleMouseEnter}
                   onMouseLeave={handleMouseLeave}
-                  onClick={() => handleScrollTo('#technologies', 0.055)}
+                  onClick={() => handleScrollTo('#technologies', 0.048)}
                 >
                   <div>TECHNOLOGIES</div>
                   <div>TECHNOLOGIES</div>
@@ -103,3 +105,4 @@ export const Header = memo(() => {
     </>
   );
 });
+

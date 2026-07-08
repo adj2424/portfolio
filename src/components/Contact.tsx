@@ -3,6 +3,7 @@ import { TextPlugin } from 'gsap/all';
 import { memo, useEffect, useRef, useState } from 'react';
 import { useMyContext } from '../useMyContext';
 import { useGSAP } from '@gsap/react';
+import { getFontSize } from '../utils/fontSize';
 gsap.registerPlugin(TextPlugin);
 
 export const Contact = memo(() => {
@@ -18,6 +19,7 @@ export const Contact = memo(() => {
   const { contextSafe } = useGSAP(
     () => {
       if (!lenis) return;
+      const txt2xl = getFontSize('.text-2xl');
       gsap
         .timeline({
           scrollTrigger: {
@@ -34,23 +36,14 @@ export const Contact = memo(() => {
             setIsInRange(lenis.direction === 1);
           }
         }, 55)
-        .to(textRef.current, { fontSize: getFontSize(), duration: 65 }, 10)
-        .fromTo(textRef.current, { width: '400%', duration: 65 }, { width: '80%', duration: 65 }, 10)
+        .to(textRef.current, { fontSize: txt2xl, duration: 65 }, 10)
+        .fromTo(textRef.current, { width: '400%', duration: 65 }, { width: '91%', duration: 65 }, 10)
         .to(leftRef.current, { xPercent: 100, duration: 80 }, 10)
         .to(rightRef.current, { xPercent: -100, duration: 80 }, 10)
         .to({}, {}, 100);
     },
     { dependencies: [lenis], scope: container, revertOnUpdate: true }
   );
-
-  const getFontSize = () => {
-    const e = document.querySelector('.text-2xl') as HTMLElement;
-    let ret = parseFloat(getComputedStyle(e).fontSize) * 0.8;
-    if (isTablet) {
-      ret = parseFloat(getComputedStyle(e).fontSize) * 0.55;
-    }
-    return `${ret}px`;
-  };
 
   const handleMouseEnter = contextSafe((e: React.MouseEvent<HTMLElement>) => {
     gsap.to(e.currentTarget, { yPercent: -50, ease: 'power3.inOut', duration: 0.6 });
@@ -85,10 +78,10 @@ export const Contact = memo(() => {
       <div id="contact" ref={container} className="overflow-hidden">
         <div ref={leftRef} className="absolute left-[-51%] h-screen w-[51%] bg-light"></div>
         <div ref={rightRef} className="absolute right-[-51%] h-screen w-[51%] bg-light"></div>
-        <div className="flex h-screen items-center justify-center mix-blend-difference text-4xl">
+        <div className="flex h-screen w-screen items-center justify-center mix-blend-difference text-4xl">
           <div
             ref={textRef}
-            className="w-[400%] leading-none text-center mix-blend-difference"
+            className="leading-none text-center mix-blend-difference"
             onMouseLeave={() => setIsInterested(true)}
             onMouseEnter={() => setIsInterested(false)}
           >

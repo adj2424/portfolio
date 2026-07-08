@@ -3,6 +3,7 @@ import { memo, useEffect, useRef, useState } from 'react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useMyContext } from '../useMyContext';
 import { useGSAP } from '@gsap/react';
+import { getFontSize } from '../utils/fontSize';
 gsap.registerPlugin(ScrollTrigger);
 
 const Technology = memo(({ name }: { name: string }) => {
@@ -51,16 +52,11 @@ export const Technologies = memo(() => {
   const container = useRef<HTMLDivElement>(null);
   const ctx = useMyContext();
 
-  const getFontSize = () => {
-    const e = document.querySelector('.text-xl') as HTMLElement;
-    return parseFloat(getComputedStyle(e).fontSize);
-  };
-
   useGSAP(
     () => {
       if (!ctx.lenis) return;
-      const reducedFontSize = getFontSize();
-      const marginY = (window.innerHeight - reducedFontSize) / 2;
+      const txtxl = getFontSize('.text-xl');
+      const marginY = (window.innerHeight - txtxl) / 2;
       gsap
         .timeline({
           scrollTrigger: {
@@ -72,8 +68,8 @@ export const Technologies = memo(() => {
             scrub: 1
           }
         })
-        .to(techRef.current, { fontSize: `${reducedFontSize}px`, duration: 40 }, 10)
-        .fromTo(remainingRef.current, { y: 0, duration: 50 }, { y: -marginY, duration: 50 }, 48)
+        .to(techRef.current, { fontSize: `${txtxl}px`, duration: 55 }, 10)
+        .fromTo(remainingRef.current, { y: 0, duration: 50 }, { y: -marginY, duration: 40 }, 50)
         .to({}, {}, 100);
     },
     { dependencies: [ctx.lenis], scope: container, revertOnUpdate: true }
@@ -81,7 +77,7 @@ export const Technologies = memo(() => {
 
   return (
     <>
-      <div id="technologies" ref={container} className="mb-[2rem]">
+      <div id="technologies" ref={container} className="mt-[18rem]">
         <div ref={techRef} className="flex w-full h-screen items-center justify-center text-4xl overflow-hidden">
           TECHNOLOGIES
         </div>

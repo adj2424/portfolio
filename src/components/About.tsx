@@ -5,6 +5,7 @@ import { Matter } from './Matter';
 import { useMyContext } from '../useMyContext';
 import { useGSAP } from '@gsap/react';
 gsap.registerPlugin(ScrollTrigger);
+import { getFontSize } from '../utils/fontSize';
 
 export const About = memo(() => {
   //console.log('About rendered');
@@ -18,15 +19,12 @@ export const About = memo(() => {
     (today.getMonth() === birthDate.getMonth() && today.getDate() >= birthDate.getDate());
   if (!hasBirthdayPassed) age--;
 
-  const getFontSize = () => {
-    const e = document.querySelector('.text-2xl') as HTMLElement;
-    return getComputedStyle(e).fontSize;
-  };
-
   // https://www.youtube.com/watch?v=l0aI8Ecumy8
   useGSAP(
     () => {
       if (!lenis) return;
+      const txt2xl = getFontSize('.text-2xl');
+
       // timeline for about text and pinning
       gsap
         .timeline({
@@ -47,9 +45,9 @@ export const About = memo(() => {
         // 	},
         // 	0 // start time
         // )
-        .to('.about', { fontSize: getFontSize(), duration: 9 }, 4)
+        .to('.about', { fontSize: txt2xl, duration: 9 }, 4)
         .to('.slider', { xPercent: (-(100 + 330) / 530) * 100, duration: 74 }, 14) // xPercent is -(w-screen + slide width)/total width * 100
-        .to('.works', { fontSize: getFontSize(), duration: 9 }, 88)
+        .to('.works', { fontSize: txt2xl, duration: 9 }, 88)
         // to make start time a percentage out of 100 from total duration
         // start time + duration cannot be greater than 100 or it will change timeline
         .to({}, {}, 100);
@@ -59,7 +57,7 @@ export const About = memo(() => {
 
   return (
     <>
-      <div id="about" ref={containerRef} className="relative overflow-hidden mt-[10rem]">
+      <div id="about" ref={containerRef} className="relative overflow-hidden mt-[18rem]">
         {!isMobile && <Matter />}
         <div className="slider flex w-[530vw] select-none pointer-events-none">
           <div className="about flex w-screen h-screen justify-center items-center text-4xl">ABOUT</div>

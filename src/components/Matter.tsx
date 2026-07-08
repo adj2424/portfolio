@@ -35,7 +35,7 @@ export const Matter = memo(() => {
     if (!signal || signal?.aborted || !engineRef.current) return;
 
     const pill = Bodies.rectangle(Math.random() * window.innerWidth, y ?? -200, img.width * scale, img.height * scale, {
-      restitution: 0.8,
+      restitution: 0.95,
       angle: (Math.random() - 0.5) * Math.PI * 0.5,
       chamfer: { radius: (img.height / 2) * 0.9 * scale },
       render: {
@@ -135,13 +135,13 @@ export const Matter = memo(() => {
           scrollTrigger: {
             trigger: container.current,
             start: 'top top',
-            end: '505% top',
-            // markers: true,
+            end: '750% top',
+            markers: true,
             pin: true,
             scrub: 1
           }
         })
-        .to(canvasRef.current, { yPercent: -50, duration: 6 }, 2)
+        // .to(canvasRef.current, { yPercent: -50, duration: 6 }, 2)
         .add(() => {
           if (!aboutCalled.current) {
             loadStaggerPills(
@@ -212,8 +212,8 @@ export const Matter = memo(() => {
           }
           sixCalled.current = true;
         }, 41)
-        .to(canvasRef.current, { yPercent: 10, duration: 10 }, 88.5)
-        .to(canvasRef.current, { yPercent: 70, duration: 1 }, 99)
+        // .to(canvasRef.current, { yPercent: 10, duration: 10 }, 88.5)
+        // .to(canvasRef.current, { yPercent: 70, duration: 1 }, 99)
         .to({}, {}, 100);
     },
     { scope: container }
@@ -222,8 +222,9 @@ export const Matter = memo(() => {
   return (
     <>
       <div ref={container} className="absolute z-[1]">
-        <canvas ref={canvasRef} className="w-full h-screen mt-[50vh]"></canvas>
+        <canvas ref={canvasRef} className="w-full h-screen "></canvas>
       </div>
     </>
   );
 });
+
