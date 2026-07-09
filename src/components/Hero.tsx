@@ -15,7 +15,7 @@ export const Hero = memo(() => {
   useGSAP(
     () => {
       const nameWidth = items[0].current!.clientWidth;
-      items.forEach((e: React.RefObject<HTMLDivElement>) => {
+      items.forEach(e => {
         gsap.fromTo(e.current, { x: 0 }, { x: -nameWidth, duration: 30, repeat: -1, ease: 'none' });
       });
     },
@@ -60,3 +60,4 @@ export const Hero = memo(() => {
     </>
   );
 });
+
