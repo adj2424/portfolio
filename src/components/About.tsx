@@ -1,23 +1,16 @@
 import gsap from 'gsap';
 import { useRef, memo } from 'react';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Matter } from './Matter';
 import { useMyContext } from '../useMyContext';
+import { getFontSize, getAge } from '../utils';
 import { useGSAP } from '@gsap/react';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 gsap.registerPlugin(ScrollTrigger);
-import { getFontSize } from '../utils/fontSize';
 
 export const About = memo(() => {
   //console.log('About rendered');
   const { lenis, isMobile } = useMyContext();
   const containerRef = useRef<HTMLDivElement>(null);
-  const birthDate = new Date(2000, 9, 24);
-  const today = new Date();
-  let age = today.getFullYear() - birthDate.getFullYear();
-  const hasBirthdayPassed =
-    today.getMonth() > birthDate.getMonth() ||
-    (today.getMonth() === birthDate.getMonth() && today.getDate() >= birthDate.getDate());
-  if (!hasBirthdayPassed) age--;
 
   // https://www.youtube.com/watch?v=l0aI8Ecumy8
   useGSAP(
@@ -65,8 +58,8 @@ export const About = memo(() => {
             <div className="flex w-[70vw] items-center">
               <div className="mr-[5vw]">01/</div>
               <div>
-                I'M ALAN JIANG, A {age} YEAR OLD FULL STACK DEVELOPER WHO GRADUATED FROM VIRGINIA TECH. I LOVE SOLVING
-                PROBLEMS AND BUILDING NEW THINGS.
+                I'M ALAN JIANG, A {getAge()} YEAR OLD FULL STACK DEVELOPER WHO GRADUATED FROM VIRGINIA TECH. I LOVE
+                SOLVING PROBLEMS AND BUILDING NEW THINGS.
               </div>
             </div>
             <div className="flex w-[70vw] items-center">

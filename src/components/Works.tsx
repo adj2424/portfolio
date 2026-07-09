@@ -1,6 +1,7 @@
 import gsap from 'gsap';
-import { useMyContext } from '../useMyContext';
 import { memo, useRef } from 'react';
+import { useMyContext } from '../useMyContext';
+import { getFontSize } from '../utils';
 import { useGSAP } from '@gsap/react';
 
 interface ItemProps {
@@ -25,8 +26,7 @@ const remToPixels = (rem: number) => {
 
 const Item = ({ id, worksNumber, worksName, worksTech }: ItemProps) => {
   const container = useRef<HTMLDivElement>(null);
-  const ctx = useMyContext();
-  const { setOnHover, setOnWorksHover, isMobile } = ctx;
+  const { setOnHover, setOnWorksHover, isMobile } = useMyContext();
   const { contextSafe } = useGSAP({ scope: container });
 
   const handleOnMouseOnWorks = contextSafe((e: string, idx: number) => {
@@ -95,9 +95,38 @@ const Item = ({ id, worksNumber, worksName, worksTech }: ItemProps) => {
 
 export const Works = memo(() => {
   //console.log('Works rendered');
-  const { isMobile } = useMyContext();
+  const { lenis, isMobile } = useMyContext();
+  const worksMobileRef = useRef<HTMLDivElement>(null);
+
+  useGSAP(
+    () => {
+      if (!lenis || !worksMobileRef.current || !isMobile) return;
+      const txt2xl = getFontSize('.text-2xl');
+
+      gsap
+        .timeline({
+          scrollTrigger: {
+            trigger: worksMobileRef.current,
+            start: 'top top',
+            end: '100% top',
+            markers: true,
+            pin: true,
+            scrub: 1
+          }
+        })
+        .to('.test', { fontSize: txt2xl, duration: 60 }, 20)
+        .to({}, {}, 100);
+    },
+    { dependencies: [lenis], scope: worksMobileRef, revertOnUpdate: true }
+  );
+
   return (
     <>
+      {isMobile && (
+        <div id="works-mobile" ref={worksMobileRef} className="relative overflow-hidden">
+          <div className="test relative flex w-screen h-screen justify-center items-center text-4xl">WORKS</div>
+        </div>
+      )}
       <div id="works" className="flex flex-col items-center w-full text-light">
         <div className="w-[91%] h-[2px] bg-light opacity-25" />
         <Item id="nft-id" worksNumber={1} worksName="NFT MINTER" worksTech={['Web3', 'Blockchain', 'Solidity']} />

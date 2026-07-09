@@ -1,15 +1,15 @@
 import gsap from 'gsap';
 import { memo, useEffect, useRef, useState } from 'react';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useMyContext } from '../useMyContext';
+import { getFontSize } from '../utils';
 import { useGSAP } from '@gsap/react';
-import { getFontSize } from '../utils/fontSize';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 gsap.registerPlugin(ScrollTrigger);
 
 const Technology = memo(({ name }: { name: string }) => {
   const [hover, setHover] = useState(false);
   const techRef = useRef<HTMLDivElement>(null);
-  const ctx = useMyContext();
+  const { isTablet } = useMyContext();
 
   useEffect(() => {
     if (hover) {
@@ -31,13 +31,13 @@ const Technology = memo(({ name }: { name: string }) => {
           <div
             className="row-tech flex w-full bg-accent"
             style={{
-              justifyContent: ctx.isTablet ? 'center' : 'space-between',
-              marginTop: ctx.isTablet ? '3px' : '0px'
+              justifyContent: isTablet ? 'center' : 'space-between',
+              marginTop: isTablet ? '3px' : '0px'
             }}
           >
-            {!ctx.isTablet && <div className="text-dark ml-[0.5rem]">SKILLS</div>}
+            {!isTablet && <div className="text-dark ml-[0.5rem]">SKILLS</div>}
             <div className="text-dark">{name}</div>
-            {!ctx.isTablet && <div className="text-dark mr-[0.5rem]">SKILLS</div>}
+            {!isTablet && <div className="text-dark mr-[0.5rem]">SKILLS</div>}
           </div>
         </div>
       </div>
@@ -63,7 +63,7 @@ export const Technologies = memo(() => {
             trigger: techRef.current,
             start: 'top top',
             end: '120% top',
-            markers: true,
+            // markers: true,
             pin: true,
             scrub: 1
           }

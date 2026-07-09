@@ -2,8 +2,8 @@ import gsap from 'gsap';
 import { TextPlugin } from 'gsap/all';
 import { memo, useEffect, useRef, useState } from 'react';
 import { useMyContext } from '../useMyContext';
+import { getFontSize } from '../utils';
 import { useGSAP } from '@gsap/react';
-import { getFontSize } from '../utils/fontSize';
 gsap.registerPlugin(TextPlugin);
 
 export const Contact = memo(() => {
@@ -12,21 +12,21 @@ export const Contact = memo(() => {
   const textRef = useRef<HTMLDivElement>(null);
   const leftRef = useRef<HTMLDivElement>(null);
   const rightRef = useRef<HTMLDivElement>(null);
-  const { lenis, setOnHover, isTablet } = useMyContext();
+  const { lenis, setOnHover, isTablet, isMobile } = useMyContext();
   const [isInterested, setIsInterested] = useState(true);
   const [isInRange, setIsInRange] = useState(false);
 
   const { contextSafe } = useGSAP(
     () => {
       if (!lenis) return;
-      const txt2xl = getFontSize('.text-2xl');
+      const txt2xl = getFontSize('.text-2xl') * (isMobile ? 0.5 : 0.9);
       gsap
         .timeline({
           scrollTrigger: {
             trigger: container.current,
             start: 'top top',
             end: '150% top',
-            markers: true,
+            // markers: true,
             pin: true,
             scrub: 1
           }
@@ -36,7 +36,7 @@ export const Contact = memo(() => {
             setIsInRange(lenis.direction === 1);
           }
         }, 55)
-        .to(textRef.current, { fontSize: txt2xl * 0.8, duration: 65 }, 10)
+        .to(textRef.current, { fontSize: txt2xl, duration: 65 }, 10)
         //  .fromTo(textRef.current, { width: '400%', duration: 65 }, { width: '91%', duration: 65 }, 10)
         .to(leftRef.current, { xPercent: 100, duration: 80 }, 10)
         .to(rightRef.current, { xPercent: -100, duration: 80 }, 10)
@@ -75,7 +75,7 @@ export const Contact = memo(() => {
 
   return (
     <>
-      <div id="contact" ref={container} className="overflow-hidden">
+      <div id="contact" ref={container} className="relative overflow-hidden">
         <div ref={leftRef} className="absolute left-[-51%] h-screen w-[51%] bg-light"></div>
         <div ref={rightRef} className="absolute right-[-51%] h-screen w-[51%] bg-light"></div>
         <div className="flex w-full h-screen items-center justify-center mix-blend-difference text-4xl overflow-hidden">
