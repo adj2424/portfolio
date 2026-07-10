@@ -23,13 +23,18 @@ export const AboutMobile = memo(() => {
   let split = SplitText.create(aboutDescRef.current, { type: 'lines', mask: 'lines' });
 
   const changeDescAnimation = (text: string) => {
+    if (aboutDescRef.current?.textContent === text || !lenis) return;
+    const direction = lenis.direction || 1; // 1 for down, -1 for up
+    const yPercentOut = direction === 1 ? -85 : 85;
+    const yPercentIn = direction === 1 ? 85 : -85;
+
     gsap
       .timeline()
       .to(split.lines, {
-        yPercent: -85,
-        duration: 0.5,
+        yPercent: yPercentOut,
+        duration: 0.4,
         ease: 'power3.inOut',
-        stagger: 0.07
+        stagger: 0.06
       })
       .add(() => {
         split.revert();
@@ -38,13 +43,13 @@ export const AboutMobile = memo(() => {
         gsap.fromTo(
           split.lines,
           {
-            yPercent: 85
+            yPercent: yPercentIn
           },
           {
             yPercent: 0,
-            duration: 0.5,
+            duration: 0.4,
             ease: 'power3.inOut',
-            stagger: 0.07
+            stagger: 0.06
           }
         );
       });
@@ -61,7 +66,7 @@ export const AboutMobile = memo(() => {
             trigger: aboutRef.current,
             start: 'top top',
             end: '100% top',
-            markers: true,
+            // markers: true,
             pin: true,
             scrub: 1
           }
@@ -74,14 +79,26 @@ export const AboutMobile = memo(() => {
           scrollTrigger: {
             trigger: aboutDescContainerRef.current,
             start: 'top top',
-            end: '100% top',
-            markers: true,
+            end: '300% top',
+            // markers: true,
             pin: true,
             scrub: 1
           }
         })
-        .add(() => changeDescAnimation(descriptions[1]), 20)
-        .to({}, {}, 100);
+        .add(() => changeDescAnimation(descriptions[0]), 0)
+        .fromTo(blankRef.current, { yPercent: 0 }, { yPercent: -100, duration: 10 }, 10)
+        .add(() => {
+          const direction = lenis.direction || 1;
+          const newText = direction === 1 ? descriptions[1] : descriptions[0];
+          changeDescAnimation(newText);
+        }, 25)
+        .fromTo(blankRef.current, { yPercent: -100 }, { yPercent: -200, duration: 10 }, 40)
+        .add(() => {
+          const direction = lenis.direction || 1;
+          const newText = direction === 1 ? descriptions[2] : descriptions[1];
+          changeDescAnimation(newText);
+        }, 55)
+        .to({}, {}, 80);
     },
     { dependencies: [lenis], scope: containerRef, revertOnUpdate: true }
   );

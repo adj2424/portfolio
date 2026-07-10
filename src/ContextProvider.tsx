@@ -13,7 +13,6 @@ export const ContextProvider = ({ children }: { children: React.ReactNode }) => 
   const [onHover, setOnHover] = useState(false);
   const [onWorksHover, setOnWorksHover] = useState({ isWorksTitleHover: false, worksImgSrc: '' });
 
-
   useEffect(() => {
     let lenisInstance: Lenis | null = null;
     let tickerCallback: ((time: number) => void) | null = null;
@@ -82,9 +81,7 @@ export const ContextProvider = ({ children }: { children: React.ReactNode }) => 
           onHover,
           setOnHover,
           onWorksHover,
-          setOnWorksHover,
-
-
+          setOnWorksHover
         }}
       >
         {children}

@@ -109,7 +109,7 @@ export const Works = memo(() => {
             trigger: worksMobileRef.current,
             start: 'top top',
             end: '100% top',
-            markers: true,
+            // markers: true,
             pin: true,
             scrub: 1
           }

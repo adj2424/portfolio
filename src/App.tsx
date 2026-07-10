@@ -27,7 +27,7 @@ const Page = () => {
       {!ctx.isMobile && <Loading /> && true}
       <Header />
       <Hero />
-      {!ctx.isMobile ? <About /> : <AboutMobile />}
+      {ctx.isMobile ? <AboutMobile /> : <About />}
       <Works />
       <Technologies />
       <Contact />
