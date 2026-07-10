@@ -1,7 +1,7 @@
 import gsap from 'gsap';
 import { memo, useRef } from 'react';
-import { useMyContext } from '../useMyContext';
-import { getFontSize } from '../utils';
+import { useMyContext } from '@/useMyContext';
+import { getFontSize } from '@/utils';
 import { useGSAP } from '@gsap/react';
 
 interface ItemProps {

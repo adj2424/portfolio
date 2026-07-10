@@ -1,5 +1,5 @@
 import { memo, useEffect, useRef, useState } from 'react';
-import { useMyContext } from '../useMyContext';
+import { useMyContext } from '@/useMyContext';
 
 export const Cursor = memo(() => {
   //console.log('Cursor rendered');

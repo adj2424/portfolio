@@ -66,13 +66,12 @@ public/               # Static assets (contains pill sprites under /pills/)
 - **Exports:** Prefer named exports (`export const Component = ...`) rather than default exports for better IDE tooling, import refactoring, and auto-completion.
 - **File Organization:** One component per file. For styling, use Tailwind CSS utility classes directly.
 - **Linting & Formatting:** Governed by `eslint.config.js`. Do not disable lint rules or use `@ts-ignore` / `any` unless absolutely unavoidable.
-- **Path Aliases (Vite/TS):** Currently, the project uses relative paths (e.g., `../useMyContext`). However, configuring path aliases (e.g. `@/*` pointing to `src/*`) in `vite.config.ts` and `tsconfig.app.json` is the preferred standard. Refactor imports to use path aliases if configuring them.
+- **Path Aliases (Vite/TS):** The project uses the `@/` path alias to map to the `src/` directory (e.g., `import { ... } from '@/components/...'`). **Always use this alias** for all imports originating within `src/` to ensure clean, maintainable, and robust paths. Do not use relative paths (e.g., `../..`) unless importing files outside of `src/`.
 
 ### 2. GSAP Conventions
 
-- **Centralized Plugin Registration (Best Practice):**
-  - _Standard:_ Register GSAP plugins (like `ScrollTrigger`, `TextPlugin`) once, centrally (e.g. in `src/main.tsx` or a single GSAP setup module) rather than per-component. This prevents console warnings, avoids redundant registrations, and ensures clean resource allocation.
-  - _Current State:_ The legacy code registers plugins at the top of individual component files. When introducing new components or refactoring old ones, transition to centralized registration.
+- **Centralized Plugin Registration:**
+  - _Standard:_ All GSAP plugins (like `ScrollTrigger`, `TextPlugin`, `SplitText`) are registered centrally in `src/gsap-setup.ts`, which is imported in `src/main.tsx`. Do NOT register plugins in individual component files.
 - **React Lifecycle Integration:**
   - Always use the `useGSAP()` hook from `@gsap/react` instead of raw `useEffect` for all GSAP code in components; it automatically handles context scoping, cleanup, and prevents memory/animation leaks.
   - Always pass a `scope` (ref to container element) in the `useGSAP` config to ensure selectors are scoped locally and do not leak to/interfere with other components.
@@ -114,8 +113,11 @@ public/               # Static assets (contains pill sprites under /pills/)
 
 - **Design Tokens:**
   - Custom design tokens (colors, spacing, typography, fonts) must be declared in `tailwind.config.js`. Do not use arbitrary values like `w-[330px]` or `bg-[#f8f8ff]` if they correspond to system design tokens (like `bg-light`).
-- **Semantic Classes:**
-  - Apply standard utility classes directly to elements in JSX. Only use `@apply` in `index.css` for highly repetitive, non-trivial base styles.
+  - **Always prefer `rem` or relative units** for all spacing, padding, margin, and typography. Avoid fixed pixel values (e.g., `px`) to ensure dynamic, responsive formatting.
+- **Inline Styling Preference:**
+  - Always apply Tailwind utility classes directly to elements in JSX.
+  - Avoid creating or modifying CSS files (`index.css`) for component-specific styling.
+  - Only use `@apply` in `index.css` for absolute base/global styles, never for component-level styling.
   - Prioritize responsive layouts via Tailwind's standard modifiers (`sm:`, `md:`, `lg:`).
 
 ---

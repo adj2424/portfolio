@@ -1,8 +1,8 @@
 import gsap from 'gsap';
 import { TextPlugin } from 'gsap/all';
 import { memo, useEffect, useRef, useState } from 'react';
-import { useMyContext } from '../useMyContext';
-import { getFontSize } from '../utils';
+import { useMyContext } from '@/useMyContext';
+import { getFontSize } from '@/utils';
 import { useGSAP } from '@gsap/react';
 gsap.registerPlugin(TextPlugin);
 

@@ -1,5 +1,5 @@
 import gsap from 'gsap';
-import { useMyContext } from '../useMyContext';
+import { useMyContext } from '@/useMyContext';
 import { memo, useRef } from 'react';
 import { useGSAP } from '@gsap/react';
 export const Header = memo(() => {

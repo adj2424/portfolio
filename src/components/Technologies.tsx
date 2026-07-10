@@ -1,7 +1,7 @@
 import gsap from 'gsap';
 import { memo, useEffect, useRef, useState } from 'react';
-import { useMyContext } from '../useMyContext';
-import { getFontSize } from '../utils';
+import { useMyContext } from '@/useMyContext';
+import { getFontSize } from '@/utils';
 import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 gsap.registerPlugin(ScrollTrigger);
