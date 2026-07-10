@@ -6,8 +6,8 @@ import { Engine, Render, Runner, Bodies, MouseConstraint, Mouse, Composite } fro
 export const Matter = memo(() => {
   const container = useRef(null);
   const canvasRef = useRef(null);
-  const engineRef = useRef<Engine>();
-  const abortControllerRef = useRef<AbortController | undefined>();
+  const engineRef = useRef<Engine | null>(null);
+  const abortControllerRef = useRef<AbortController | null>(null);
   const bigNumber = 10000;
   const thickness = 500;
   const scale = 0.000223214 * window.innerWidth + 0.4215;
