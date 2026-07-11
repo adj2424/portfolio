@@ -32,7 +32,7 @@ export const AboutMobile = memo(() => {
       .timeline()
       .to(split.lines, {
         yPercent: yPercentOut,
-        duration: 0.4,
+        duration: 0.3,
         ease: 'power3.inOut',
         stagger: 0.05
       })
@@ -47,7 +47,7 @@ export const AboutMobile = memo(() => {
           },
           {
             yPercent: 0,
-            duration: 0.4,
+            duration: 0.3,
             ease: 'power3.inOut',
             stagger: 0.05
           }
@@ -79,7 +79,7 @@ export const AboutMobile = memo(() => {
           scrollTrigger: {
             trigger: aboutDescContainerRef.current,
             start: 'top top',
-            end: '600% top',
+            end: '800% top',
             // markers: true,
             pin: true,
             scrub: 1
@@ -92,13 +92,13 @@ export const AboutMobile = memo(() => {
           const newText = direction === 1 ? descriptions[1] : descriptions[0];
           changeDescAnimation(newText);
         }, 25)
-        .fromTo(blankRef.current, { yPercent: -100 }, { yPercent: -200, duration: 10 }, 40)
+        .fromTo(blankRef.current, { yPercent: -100 }, { yPercent: -200, duration: 10 }, 45)
         .add(() => {
           const direction = lenis.direction || 1;
           const newText = direction === 1 ? descriptions[2] : descriptions[1];
           changeDescAnimation(newText);
-        }, 55)
-        .to({}, {}, 100);
+        }, 60)
+        .to({}, {}, 90);
     },
     { dependencies: [lenis], scope: containerRef, revertOnUpdate: true }
   );
