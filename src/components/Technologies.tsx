@@ -7,6 +7,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 gsap.registerPlugin(ScrollTrigger);
 
 const Technology = memo(({ name }: { name: string }) => {
+  const { isMobile } = useMyContext();
   const [hover, setHover] = useState(false);
   const techRef = useRef<HTMLDivElement>(null);
 
@@ -27,10 +28,16 @@ const Technology = memo(({ name }: { name: string }) => {
       >
         <div ref={techRef} className="flex flex-col items-center">
           <div>{name}</div>
-          <div className="row-tech flex w-full bg-accent justify-between">
-            <div className="text-dark ml-[0.5rem]">SKILLS</div>
+          <div
+            className="row-tech flex w-full bg-accent"
+            style={{
+              justifyContent: isMobile ? 'center' : 'space-between',
+              marginTop: isMobile ? '3px' : '0px'
+            }}
+          >
+            {!isMobile && <div className="text-dark ml-[0.5rem]">SKILLS</div>}
             <div className="text-dark">{name}</div>
-            <div className="text-dark mr-[0.5rem]">SKILLS</div>
+            {!isMobile && <div className="text-dark mr-[0.5rem]">SKILLS</div>}
           </div>
         </div>
       </div>
