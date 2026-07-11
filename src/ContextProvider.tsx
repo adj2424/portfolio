@@ -36,10 +36,10 @@ export const ContextProvider = ({ children }: { children: React.ReactNode }) => 
         smoothWheel: true,
         lerp: 0.08,
         wheelMultiplier: 1,
-        syncTouch: true,
-        syncTouchLerp: 0.1,
-        touchMultiplier: 1,
-        touchInertiaExponent: 1.8
+        syncTouch: false
+        // syncTouchLerp: 0.1,
+        // touchMultiplier: 1,
+        // touchInertiaExponent: 1.8
       });
 
       // Synchronize Lenis with GSAP ScrollTrigger updates
