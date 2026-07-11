@@ -35,7 +35,7 @@ Always run type-check (`npx tsc --noEmit`) + lint (`npm run lint`) before consid
 
 ## Project Structure
 
-```
+```text
 src/
   components/         # Reusable UI components
     About.tsx         # About section containing the Matter canvas and horizontal scrolling
@@ -98,6 +98,7 @@ public/               # Static assets (contains pill sprites under /pills/)
   - Instead of running a separate `requestAnimationFrame` loop, use GSAP's ticker to drive Lenis updates.
   - Add `lenis.on('scroll', ScrollTrigger.update)` to update GSAP ScrollTrigger whenever Lenis scrolls.
   - Connect Lenis to the GSAP ticker:
+
     ```javascript
     gsap.ticker.add(time => {
       lenis.raf(time * 1000); // Convert seconds to milliseconds
@@ -105,6 +106,7 @@ public/               # Static assets (contains pill sprites under /pills/)
     // Disable GSAP lag smoothing to keep scrolling perfectly responsive
     gsap.ticker.lagSmoothing(0);
     ```
+
 - **Lifecycle & Lifecycle Cleanups:**
   - Initialize Lenis once globally in the layout provider (`src/ContextProvider.tsx`) rather than per-page.
   - Always call `lenis.destroy()` on unmount to prevent duplicate scroll listeners and memory leaks.

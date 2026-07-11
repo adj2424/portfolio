@@ -79,7 +79,7 @@ export const AboutMobile = memo(() => {
           scrollTrigger: {
             trigger: aboutDescContainerRef.current,
             start: 'top top',
-            end: '300% top',
+            end: '500% top',
             // markers: true,
             pin: true,
             scrub: 1
