@@ -79,7 +79,7 @@ export const AboutMobile = memo(() => {
           scrollTrigger: {
             trigger: aboutDescContainerRef.current,
             start: 'top top',
-            end: '500% top',
+            end: '600% top',
             // markers: true,
             pin: true,
             scrub: 1
@@ -98,7 +98,7 @@ export const AboutMobile = memo(() => {
           const newText = direction === 1 ? descriptions[2] : descriptions[1];
           changeDescAnimation(newText);
         }, 55)
-        .to({}, {}, 80);
+        .to({}, {}, 100);
     },
     { dependencies: [lenis], scope: containerRef, revertOnUpdate: true }
   );
