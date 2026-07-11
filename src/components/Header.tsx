@@ -5,7 +5,7 @@ import { useGSAP } from '@gsap/react';
 export const Header = memo(() => {
   //console.log('Header rendered');
   const container = useRef<HTMLDivElement>(null);
-  const { lenis, setOnHover, isTablet } = useMyContext();
+  const { lenis, setOnHover, isMobile } = useMyContext();
   const { contextSafe } = useGSAP({ scope: container });
 
   const handleScrollTo = (cssSelector: string, percentOffset: number) => {
@@ -39,7 +39,7 @@ export const Header = memo(() => {
     <>
       <div ref={container} className="fixed flex w-full justify-center text-md z-[3] mt-[24px] mix-blend-difference">
         <div
-          className={`header-row flex w-[92%] align-baseline user-select-none select-none ${isTablet ? 'justify-center' : 'justify-between'}`}
+          className={`header-row flex w-[92%] align-baseline user-select-none select-none ${isMobile ? 'justify-center' : 'justify-between'}`}
         >
           <div className="h-[calc(1em*1.5)] overflow-hidden">
             <div
@@ -52,7 +52,7 @@ export const Header = memo(() => {
               <div>ALAN JIANG</div>
             </div>
           </div>
-          {!isTablet && (
+          {!isMobile && (
             <div className="flex">
               <div className="h-[calc(1em*1.5)] mr-[3rem] overflow-hidden">
                 <div

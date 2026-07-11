@@ -12,7 +12,7 @@ export const Contact = memo(() => {
   const textRef = useRef<HTMLDivElement>(null);
   const leftRef = useRef<HTMLDivElement>(null);
   const rightRef = useRef<HTMLDivElement>(null);
-  const { lenis, setOnHover, isTablet, isMobile } = useMyContext();
+  const { lenis, setOnHover, isMobile } = useMyContext();
   const [isInterested, setIsInterested] = useState(true);
   const [isInRange, setIsInRange] = useState(false);
 
@@ -92,10 +92,7 @@ export const Contact = memo(() => {
           <div className="absolute flex flex-col bottom-[24px] w-full text-md">
             <div className="flex flex-wrap w-full justify-center items-center">
               {/* 30.66% is from 33% * 92% because we match header which is 92% and then divide by 3 for each column */}
-              <div
-                style={{ width: 'clamp(225px, 30%, 33.33%)' }}
-                className={`left-contact ${isTablet ? 'text-center' : 'text-left'}`}
-              >
+              <div style={{ width: 'clamp(225px, 30%, 33.33%)' }} className="left-contact text-left">
                 ALAN JIANG
               </div>
               <div
@@ -125,18 +122,12 @@ export const Contact = memo(() => {
                   </a>
                 </div>
               </div>
-              <div
-                style={{ width: 'clamp(250px, 30%, 33.33%)' }}
-                className={`right-contact ${isTablet ? 'text-center' : 'text-right'}`}
-              >
+              <div style={{ width: 'clamp(250px, 30%, 33.33%)' }} className="right-contact text-right">
                 DESIGNED & CODED BY ME
               </div>
             </div>
             <div className="flex flex-wrap w-full justify-center items-center">
-              <div
-                style={{ width: 'clamp(225px, 30%, 50%)' }}
-                className={`left-contact ${isTablet ? 'text-center' : 'text-left'}`}
-              >
+              <div style={{ width: 'clamp(225px, 30%, 50%)' }} className="left-contact text-left">
                 SOFTWARE ENGINEER
               </div>
               <div style={{ width: 'clamp(325px, 30%, 33.33%)' }} className="flex justify-center">
@@ -185,10 +176,7 @@ export const Contact = memo(() => {
                   </div>
                 </div>
               </div>
-              <div
-                style={{ width: 'clamp(225px, 30%, 50%)' }}
-                className={`right-contact ${isTablet ? 'text-center' : 'text-right'}`}
-              >
+              <div style={{ width: 'clamp(225px, 30%, 50%)' }} className="right-contact text-right">
                 © ALAN JIANG 2023
               </div>
             </div>

@@ -3,7 +3,6 @@ import { createContext } from 'react';
 
 export interface Context {
   lenis: Lenis | null;
-  isTablet: boolean;
   isMobile: boolean;
   onHover: boolean;
   setOnHover: React.Dispatch<React.SetStateAction<boolean>>;

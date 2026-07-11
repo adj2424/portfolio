@@ -9,7 +9,6 @@ gsap.registerPlugin(ScrollTrigger);
 const Technology = memo(({ name }: { name: string }) => {
   const [hover, setHover] = useState(false);
   const techRef = useRef<HTMLDivElement>(null);
-  const { isTablet } = useMyContext();
 
   useEffect(() => {
     if (hover) {
@@ -28,16 +27,10 @@ const Technology = memo(({ name }: { name: string }) => {
       >
         <div ref={techRef} className="flex flex-col items-center">
           <div>{name}</div>
-          <div
-            className="row-tech flex w-full bg-accent"
-            style={{
-              justifyContent: isTablet ? 'center' : 'space-between',
-              marginTop: isTablet ? '3px' : '0px'
-            }}
-          >
-            {!isTablet && <div className="text-dark ml-[0.5rem]">SKILLS</div>}
+          <div className="row-tech flex w-full bg-accent justify-between">
+            <div className="text-dark ml-[0.5rem]">SKILLS</div>
             <div className="text-dark">{name}</div>
-            {!isTablet && <div className="text-dark mr-[0.5rem]">SKILLS</div>}
+            <div className="text-dark mr-[0.5rem]">SKILLS</div>
           </div>
         </div>
       </div>
@@ -98,8 +91,8 @@ export const Technologies = memo(() => {
           <Technology name="SOLIDITY" />
           <Technology name="HARDHAT" />
           <Technology name="NOSQL" />
-          <Technology name={ctx.isTablet ? 'AWS' : 'AMAZON WEB SERVICES'} />
-          <Technology name={ctx.isTablet ? 'GCP' : 'GOOGLE CLOUD PLATFORM'} />
+          <Technology name={ctx.isMobile ? 'AWS' : 'AMAZON WEB SERVICES'} />
+          <Technology name={ctx.isMobile ? 'GCP' : 'GOOGLE CLOUD PLATFORM'} />
           <Technology name="TERRAFORM" />
           <Technology name="DOCKER" />
           <Technology name="GIT" />

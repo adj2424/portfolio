@@ -8,7 +8,6 @@ gsap.registerPlugin(ScrollTrigger);
 
 export const ContextProvider = ({ children }: { children: React.ReactNode }) => {
   const [lenis, setLenis] = useState<Lenis | null>(null);
-  const [isTablet, setIsTablet] = useState(false);
   const [isMobile, setIsMobile] = useState(true);
   const [onHover, setOnHover] = useState(false);
   const [onWorksHover, setOnWorksHover] = useState({ isWorksTitleHover: false, worksImgSrc: '' });
@@ -21,7 +20,6 @@ export const ContextProvider = ({ children }: { children: React.ReactNode }) => 
     const handleResize = () => {
       const width = window.innerWidth;
       const isMobileUA = /Android|webOS|iPhone|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-      setIsTablet(width < 800);
       setIsMobile(width < 550 || isMobileUA);
     };
 
@@ -76,7 +74,6 @@ export const ContextProvider = ({ children }: { children: React.ReactNode }) => 
       <MyContext.Provider
         value={{
           lenis,
-          isTablet,
           isMobile,
           onHover,
           setOnHover,
