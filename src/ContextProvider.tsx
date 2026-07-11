@@ -33,10 +33,13 @@ export const ContextProvider = ({ children }: { children: React.ReactNode }) => 
       handleResize();
 
       lenisInstance = new Lenis({
-        duration: 1.2,
-        easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-        touchMultiplier: 2,
-        infinite: false
+        smoothWheel: true,
+        lerp: 0.08,
+        wheelMultiplier: 1,
+        syncTouch: true,
+        syncTouchLerp: 0.1,
+        touchMultiplier: 1,
+        touchInertiaExponent: 1.8
       });
 
       // Synchronize Lenis with GSAP ScrollTrigger updates
