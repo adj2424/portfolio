@@ -34,7 +34,7 @@ export const AboutMobile = memo(() => {
         yPercent: yPercentOut,
         duration: 0.4,
         ease: 'power3.inOut',
-        stagger: 0.06
+        stagger: 0.05
       })
       .add(() => {
         split.revert();
@@ -49,7 +49,7 @@ export const AboutMobile = memo(() => {
             yPercent: 0,
             duration: 0.4,
             ease: 'power3.inOut',
-            stagger: 0.06
+            stagger: 0.05
           }
         );
       });
