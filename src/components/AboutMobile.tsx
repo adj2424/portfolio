@@ -1,120 +1,84 @@
 import gsap from 'gsap';
 import { useRef, memo } from 'react';
 import { useMyContext } from '@/useMyContext';
-import { getFontSize, getAge } from '@/utils';
+import { getAge } from '@/utils';
 import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { SplitText } from 'gsap/SplitText';
-gsap.registerPlugin(ScrollTrigger, SplitText);
+gsap.registerPlugin(ScrollTrigger);
 
 export const AboutMobile = memo(() => {
   const { lenis } = useMyContext();
   const containerRef = useRef<HTMLDivElement>(null);
-  const aboutRef = useRef<HTMLDivElement>(null);
-  const aboutDescContainerRef = useRef<HTMLDivElement>(null);
-  const aboutDescRef = useRef<HTMLDivElement>(null);
-  const blankRef = useRef<HTMLDivElement>(null);
+  const slide1Ref = useRef<HTMLDivElement>(null);
+  const slide2Ref = useRef<HTMLDivElement>(null);
+  const slide3Ref = useRef<HTMLDivElement>(null);
+  const HIDDEN_CLIP = 'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)';
+  const REVEALED_CLIP = 'polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)';
   const descriptions = [
     `I'M ALAN JIANG, A ${getAge()} YEAR OLD FULL STACK DEVELOPER WHO GRADUATED FROM VIRGINIA TECH. I LOVE SOLVING PROBLEMS AND BUILDING NEW THINGS.`,
     'FROM CREATING DYNAMIC WEB EXPERIENCES TO DEVELOPING CLOUD NATIVE MICROSERVICES, I AIM TO PROVIDE MY SERVICES TO ANY DISCIPLINE.',
     'I HAVE EXPANDED MY TECHNICAL EXPERTISE WITH MY YEARS OF EXPERIENCE WORKING WITH SAS, PERATON, CAPTECH, LPL FINANCIAL, CAPITAL ONE, AND MORE.'
   ];
 
-  let split = SplitText.create(aboutDescRef.current, { type: 'lines', mask: 'lines' });
-
-  const changeDescAnimation = (text: string) => {
-    if (aboutDescRef.current?.textContent === text || !lenis) return;
-    const direction = lenis.direction || 1; // 1 for down, -1 for up
-    const yPercentOut = direction === 1 ? -85 : 85;
-    const yPercentIn = direction === 1 ? 85 : -85;
-
-    gsap
-      .timeline()
-      .to(split.lines, {
-        yPercent: yPercentOut,
-        duration: 0.3,
-        ease: 'power3.inOut',
-        stagger: 0.05
-      })
-      .add(() => {
-        split.revert();
-        aboutDescRef.current!.textContent = text;
-        split = SplitText.create(aboutDescRef.current, { type: 'lines', mask: 'lines' });
-        gsap.fromTo(
-          split.lines,
-          {
-            yPercent: yPercentIn
-          },
-          {
-            yPercent: 0,
-            duration: 0.3,
-            ease: 'power3.inOut',
-            stagger: 0.05
-          }
-        );
-      });
-  };
-
   useGSAP(
     () => {
       if (!lenis) return;
-      const txt2xl = getFontSize('.text-2xl');
 
       gsap
         .timeline({
           scrollTrigger: {
-            trigger: aboutRef.current,
+            trigger: containerRef.current,
             start: 'top top',
-            end: '100% top',
-            // markers: true,
+            end: '300% top',
+            scrub: 1,
             pin: true,
-            scrub: 1
+            anticipatePin: 1
           }
         })
-        .to('.about', { fontSize: txt2xl, duration: 60 }, 20)
-        .to({}, {}, 100);
-
-      gsap
-        .timeline({
-          scrollTrigger: {
-            trigger: aboutDescContainerRef.current,
-            start: 'top top',
-            end: '800% top',
-            // markers: true,
-            pin: true,
-            scrub: 1
-          }
-        })
-        .add(() => changeDescAnimation(descriptions[0]), 0)
-        .fromTo(blankRef.current, { yPercent: 0 }, { yPercent: -100, duration: 10 }, 10)
-        .add(() => {
-          const direction = lenis.direction || 1;
-          const newText = direction === 1 ? descriptions[1] : descriptions[0];
-          changeDescAnimation(newText);
-        }, 25)
-        .fromTo(blankRef.current, { yPercent: -100 }, { yPercent: -200, duration: 10 }, 45)
-        .add(() => {
-          const direction = lenis.direction || 1;
-          const newText = direction === 1 ? descriptions[2] : descriptions[1];
-          changeDescAnimation(newText);
-        }, 60)
-        .to({}, {}, 90);
+        .to(
+          slide1Ref.current,
+          {
+            clipPath: REVEALED_CLIP,
+            duration: 30
+          },
+          15
+        )
+        .to(
+          slide2Ref.current,
+          {
+            clipPath: REVEALED_CLIP,
+            duration: 30
+          },
+          60
+        )
+        .to({}, {}, 110);
     },
     { dependencies: [lenis], scope: containerRef, revertOnUpdate: true }
   );
 
   return (
-    <div ref={containerRef} className="relative overflow-hidden">
-      <div ref={aboutRef} className="about flex w-screen h-screen justify-center items-center text-4xl">
-        ABOUT
+    <div ref={containerRef} className="relative w-full h-screen overflow-hidden bg-dark">
+      <div
+        ref={slide1Ref}
+        className="absolute flex w-full h-full justify-center items-center text-center z-[3] bg-dark"
+        style={{ clipPath: HIDDEN_CLIP }}
+      >
+        <div className="w-[80%] text-xl">{descriptions[0]}</div>
       </div>
-      <div ref={aboutDescContainerRef} className="flex w-screen h-screen justify-center items-center">
-        <div ref={blankRef} className="absolute bottom-[-100%] h-screen w-screen bg-light"></div>
-        <div ref={aboutDescRef} className="w-[80%] text-center text-xl mix-blend-difference">
-          {descriptions[0]}
-        </div>
+      <div
+        ref={slide2Ref}
+        className="absolute flex w-full h-full justify-center items-center text-center z-[2] bg-light"
+        style={{ clipPath: HIDDEN_CLIP }}
+      >
+        <div className="w-[80%] text-xl text-dark">{descriptions[1]}</div>
+      </div>
+      <div
+        ref={slide3Ref}
+        className="absolute flex w-full h-full justify-center items-center text-center z-[1] bg-dark"
+        style={{ clipPath: HIDDEN_CLIP }}
+      >
+        <div className="w-[80%] text-xl">{descriptions[2]}</div>
       </div>
     </div>
   );
 });
-

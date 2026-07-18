@@ -138,7 +138,8 @@ export const Matter = memo(() => {
             end: '750% top',
             // markers: true,
             pin: true,
-            scrub: 1
+            scrub: 1,
+            anticipatePin: 1
           }
         })
         // .to(canvasRef.current, { yPercent: -50, duration: 6 }, 2)
@@ -227,4 +228,3 @@ export const Matter = memo(() => {
     </>
   );
 });
-

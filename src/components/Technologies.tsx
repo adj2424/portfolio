@@ -65,7 +65,8 @@ export const Technologies = memo(() => {
             end: '120% top',
             // markers: true,
             pin: true,
-            scrub: 1
+            scrub: 1,
+            anticipatePin: 1
           }
         })
         .to(techRef.current, { fontSize: `${txtxl}px`, duration: 55 }, 10)
@@ -108,4 +109,3 @@ export const Technologies = memo(() => {
     </>
   );
 });
-

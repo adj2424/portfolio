@@ -111,7 +111,8 @@ export const Works = memo(() => {
             end: '100% top',
             // markers: true,
             pin: true,
-            scrub: 1
+            scrub: 1,
+            anticipatePin: 1
           }
         })
         .to('.test', { fontSize: txt2xl, duration: 60 }, 20)
@@ -171,4 +172,3 @@ export const Works = memo(() => {
     </>
   );
 });
-

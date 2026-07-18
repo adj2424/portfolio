@@ -28,7 +28,8 @@ export const Contact = memo(() => {
             end: '150% top',
             // markers: true,
             pin: true,
-            scrub: 1
+            scrub: 1,
+            anticipatePin: 1
           }
         })
         .add(() => {
@@ -198,4 +199,3 @@ export const Contact = memo(() => {
     </>
   );
 });
-

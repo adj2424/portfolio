@@ -27,7 +27,8 @@ export const About = memo(() => {
             end: '750% top',
             // markers: true,
             pin: true,
-            scrub: 1
+            scrub: 1,
+            anticipatePin: 1
           }
         })
         // .to(
@@ -83,4 +84,3 @@ export const About = memo(() => {
     </>
   );
 });
-
